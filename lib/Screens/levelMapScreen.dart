@@ -10,6 +10,8 @@ class LevelMapScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final stars = context.watch<GameCubit>().state.theGame.stars;
+
     return Scaffold(
       body: Stack(
         children: [
@@ -18,6 +20,24 @@ class LevelMapScreen extends StatelessWidget {
             child: Image.asset(AppImages.mapPage, fit: BoxFit.cover),
           ),
           ...levelStages.map((stage) => StageButton(stage: stage)),
+          Positioned(
+            top: 150.h,
+            right: 650.w,
+            child: Image.asset(
+              stars >= 30 ? AppImages.track1 : AppImages.track_1dark,
+              width: 650.w,
+              height: 200.h,
+            ),
+          ),
+          Positioned(
+            top: 180.h,
+            right: 425.w,
+            child: Image.asset(
+              stars >= 60 ? AppImages.track2 : AppImages.track_2dark,
+              width: 500.w,
+              height: 1300.h,
+            ),
+          ),
         ],
       ),
     );

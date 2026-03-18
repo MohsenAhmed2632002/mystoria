@@ -19,11 +19,11 @@ class GameModel {
 
   factory GameModel.initial() {
     return GameModel(
-      stars: 51,
-      helps: 3,
-      attempts: 3,
+      stars: 0,
+      helps: 0,
+      attempts: 0,
       correctAnswerCounter: 0,
-      timeLeft: 45,
+      timeLeft: 30,
       currentPuzzle: 0,
       currentLevel: 0,
     );

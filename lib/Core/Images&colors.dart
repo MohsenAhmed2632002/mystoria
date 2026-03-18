@@ -121,9 +121,11 @@ class AppImages {
 
   static const String temple5 = "${imagepath}image_8.png";
 
-  static const String mapad5 = "${imagepath}mapad5.png";
+  static const String track_1dark = "${imagepath}track_1_dark.png";
+  static const String track1 = "${imagepath}track1.png";
 
-  static const String mapad4 = "${imagepath}mapad4.png";
+  static const String track_2dark = "${imagepath}track_2_dark.png";
+  static const String track2 = "${imagepath}track2.png";
 
   static const String mapad3 = "${imagepath}mapad3.png";
 
