@@ -14,6 +14,7 @@ class AppImages {
   static const String splash = "${imagepath}splash_screen.png";
 
   static const String instructions = "${imagepath}instructions.png";
+  static const String instructions2 = "${imagepath}instructions2.png";
 
   static const String loginscreen = "${imagepath}login_screen.png";
   static const String mapPage = "${imagepath}map.png";

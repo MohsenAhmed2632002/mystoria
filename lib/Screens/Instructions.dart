@@ -37,7 +37,7 @@ class InstructionsTwo extends StatelessWidget {
         children: [
           // 🎨 الخلفية
           SizedBox.expand(
-            child: Image.asset(AppImages.instructions, fit: BoxFit.fill),
+            child: Image.asset(AppImages.instructions2, fit: BoxFit.fill),
           ),
           LeftButtonTwo(),
         ],

@@ -22,122 +22,122 @@ class _GestState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: true,
       extendBodyBehindAppBar: true,
       body: Stack(
+        alignment: Alignment.center,
         children: [
           // 🎨 الخلفية
           SizedBox.expand(
             child: Image.asset(AppImages.loginscreen, fit: BoxFit.fill),
           ),
           // 🧩 المحتوى
-          Positioned(
-            right: MediaQuery.sizeOf(context).height * 0.5,
-            child: SingleChildScrollView(
-              child: Container(
-                height: MediaQuery.sizeOf(context).height,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      'تسجيل الدخول',
-                      style: getBoldItalicTextStyle(
-                        context: context,
-                        fontSize: 40,
-                        color: Colors.brown,
-                      ),
+          SingleChildScrollView(
+            child: Container(
+              // color: Colors.yellow,
+              height: MediaQuery.sizeOf(context).height,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    'تسجيل الدخول',
+                    style: getBoldItalicTextStyle(
+                      context: context,
+                      fontSize: 40,
+                      color: Colors.brown,
                     ),
-                    SizedBox(height: 20.h),
-                    // الاسم
-                    Container(
-                      width: MediaQuery.sizeOf(context).width * 0.5,
+                  ),
+                  SizedBox(height: 20.h),
+                  // الاسم
+                  Container(
+                    width: MediaQuery.sizeOf(context).width * 0.5,
 
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
 
-                        children: [
-                          SizedBox(
-                            width: 650.w,
-                            // height: 100.h,
-                            child: TextField(
-                              controller: _nameController,
-                              decoration: const InputDecoration(
-                                border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.all(
-                                    Radius.circular(25),
-                                  ),
-                                  borderSide: BorderSide(
-                                    color: Colors.black,
-                                    width: 1,
-                                    style: BorderStyle.solid,
-                                  ),
+                      children: [
+                        SizedBox(
+                          width: 650.w,
+                          // height: 100.h,
+                          child: TextField(
+                            controller: _nameController,
+                            decoration: const InputDecoration(
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(25),
                                 ),
-                                hintText: 'ادخل اسمك',
-                                filled: true,
-                                fillColor: Colors.white,
+                                borderSide: BorderSide(
+                                  color: Colors.black,
+                                  width: 1,
+                                  style: BorderStyle.solid,
+                                ),
                               ),
+                              hintText: 'ادخل اسمك',
+                              filled: true,
+                              fillColor: Colors.white,
                             ),
                           ),
-                          Text(
-                            ':الاسم',
-                            style: getArabTextStyle18(
-                              fontSize: 50.sp,
-                              context: context,
-                              color: AppColors.mainColor,
-                            ),
+                        ),
+                        Text(
+                          ':الاسم',
+                          style: getArabTextStyle18(
+                            fontSize: 50.sp,
+                            context: context,
+                            color: AppColors.mainColor,
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
-                    SizedBox(height: 40.h),
-                    // اختيار الشخصية
-                    Container(
-                      // color: Colors.amber,
-                      width: MediaQuery.sizeOf(context).width * 0.5,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          _avatar('character_boy'),
-                          // const SizedBox(width: 20),
-                          _avatar('character_girl'),
-                          Text(
-                            ':النوع',
-                            style: getArabTextStyle18(
-                              fontSize: 50.sp,
-                              context: context,
-                              color: AppColors.mainColor,
-                            ),
+                  ),
+                  SizedBox(height: 40.h),
+                  // اختيار الشخصية
+                  Container(
+                    // color: Colors.amber,
+                    width: MediaQuery.sizeOf(context).width * 0.5,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        _avatar('girl'),
+                        // const SizedBox(width: 20),
+                        _avatar('boy'),
+                        Text(
+                          ':النوع',
+                          style: getArabTextStyle18(
+                            fontSize: 50.sp,
+                            context: context,
+                            color: AppColors.mainColor,
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
-                    SizedBox(height: 20.h),
-                    GameButton(
-                      text: 'تم',
-                      onPressed: () {
-                        if (_nameController.text.isEmpty) return;
-                        context.read<PlayerCubit>().setPlayer(
-                          PlayerModel(
-                            name: _nameController.text,
-                            avatar: selectedAvatar,
-                          ),
-                        );
-                        // PlayerStorage.setPlayer(
-                        //   PlayerModel(
-                        //     name: _nameController.text,
-                        //     avatar: selectedAvatar,
-                        //   ),
-                        // );
+                  ),
+                  SizedBox(height: 20.h),
+                  GameButton(
+                    text: 'تسجيل الدخول',
+                    onPressed: () {
+                      if (_nameController.text.isEmpty) return;
+                      context.read<PlayerCubit>().setPlayer(
+                        PlayerModel(
+                          name: _nameController.text,
+                          avatar: selectedAvatar,
+                        ),
+                      );
+                      // PlayerStorage.setPlayer(
+                      //   PlayerModel(
+                      //     name: _nameController.text,
+                      //     avatar: selectedAvatar,
+                      //   ),
+                      // );
 
-                        Navigator.pushReplacementNamed(
-                          context,
-                          Routes.homeScreen,
-                        );
-                      },
-                      fromWidth: 500,
-                      fromHeight: 150,
-                    ),
-                  ],
-                ),
+                      Navigator.pushReplacementNamed(
+                        context,
+                        Routes.homeScreen,
+                      );
+                    },
+                    fromWidth: 500,
+                    fromHeight: 150,
+                  ),
+                ],
               ),
             ),
           ),
