@@ -1,0 +1,84 @@
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:myhabits/Core/Routes.dart';
+import 'package:myhabits/Core/constants.dart';
+import 'package:myhabits/Core/Images&colors.dart';
+
+class HomeScreen extends StatelessWidget {
+  const HomeScreen({super.key});
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      extendBodyBehindAppBar: true,
+      body: Stack(
+        children: [
+          // 🎨 الخلفية
+          SizedBox.expand(
+            child: Image.asset(AppImages.homeScreen, fit: BoxFit.fill),
+          ),
+          ThereButtons(),
+          DevAndSettingIcon(),
+        ],
+      ),
+    );
+  }
+}
+
+class ThereButtons extends StatelessWidget {
+  const ThereButtons({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Positioned(
+      right: MediaQuery.sizeOf(context).height * 0.25,
+      top: MediaQuery.sizeOf(context).width * 0.15,
+
+      child: Column(
+        children: [
+          GameButton(
+            text: 'ابدأ اللعبة',
+            onPressed: () {
+              Navigator.pushNamed(context, Routes.levelMapScreen);
+            },
+            fromWidth: 500,
+            fromHeight: 200,
+          ),
+          GameButton(
+            fromWidth: 500,
+            fromHeight: 200,
+            text: 'التعليمات',
+            onPressed: () {
+              Navigator.pushNamed(context, Routes.instructions2);
+            },
+          ),
+          GameButton(
+            fromWidth: 500,
+            fromHeight: 200,
+            text: 'خروج',
+            onPressed: () {
+              showDialog(
+                context: context,
+                builder: (_) => AlertDialog(
+                  title: const Text('تأكيد الخروج'),
+                  content: const Text('هل تريد الخروج من اللعبة؟'),
+                  actions: [
+                    TextButton(
+                      onPressed: () => Navigator.pop(context),
+                      child: const Text('لا'),
+                    ),
+                    TextButton(
+                      onPressed: () {
+                        SystemNavigator.pop();
+                      },
+                      child: const Text('نعم'),
+                    ),
+                  ],
+                ),
+              );
+            },
+          ),
+        ],
+      ),
+    );
+  }
+}
