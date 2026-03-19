@@ -73,7 +73,7 @@ class _LevelTwoPuzzeleSixViewState extends State<LevelTwoPuzzeleSix> {
             ),
           ),
           // 🎨 الأيقونات العلوية
-          SettingTryAndClueContainer(hint: "تذكر : كل حضاره ليها بدايه واضحه"),
+          CharacterAndClueContainer(hint: "تذكر : كل حضاره ليها بدايه واضحه"),
 
           CharacterContainer(), // 🎨 الأيقونات العلوية
           Positioned(
@@ -104,7 +104,7 @@ class _LevelTwoPuzzeleSixViewState extends State<LevelTwoPuzzeleSix> {
               ),
             ),
           ), // 🎨 الأيقونات العلوية
-          StarAndTimeContainer(),
+          TryAndTimeContainer(),
 
           // ),
         ],

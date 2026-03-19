@@ -132,9 +132,9 @@ class _LevelThreePuzzeleThreeState extends State<LevelThreePuzzeleThree>
                   },
                 ),
               ),
-              SettingTryAndClueContainer(hint: widget.question.hint),
+              CharacterAndClueContainer(hint: widget.question.hint),
               QustionContainer(color: widget.question.color),
-              StarAndTimeContainer(),
+              TryAndTimeContainer(),
             ],
           ),
         );

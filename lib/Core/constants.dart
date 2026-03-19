@@ -41,14 +41,14 @@ class GameScreen extends StatelessWidget {
           // 🎨 الجسم
           Positioned(right: mediaQueryRight, top: mediaQueryTop, child: child),
           // 🎨 الأيقونات العلوية
-          SettingTryAndClueContainer(hint: hint),
+          CharacterAndClueContainer(hint: hint),
 
-          CharacterContainer(
-            frombottom: characterFromBottom,
-          ), // 🎨 الأيقونات العلوية
+          // CharacterContainer(
+          //   frombottom: characterFromBottom,
+          // ), // 🎨 الأيقونات العلوية
           QustionContainer(color: color),
           // 🎨 الأيقونات العلوية
-          StarAndTimeContainer(),
+          TryAndTimeContainer(),
 
           // ),
         ],
@@ -233,58 +233,45 @@ class GameButtonThree extends StatelessWidget {
   }
 }
 
-class StarAndTimeContainer extends StatelessWidget {
-  const StarAndTimeContainer({super.key});
+class TryAndTimeContainer extends StatelessWidget {
+  const TryAndTimeContainer({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Positioned(
-      right: 10,
-      top: 10,
+      right: 20.w,
+      top: 20.h,
       child: BlocBuilder<GameCubit, GameState>(
         builder: (context, state) {
           if (state is GamePlaying) {
             return Container(
               // color: Colors.teal,
-              width: MediaQuery.sizeOf(context).width * 0.1,
-              height: MediaQuery.sizeOf(context).height * 0.25,
-              child: Column(
+              width: MediaQuery.sizeOf(context).width * 0.2,
+              height: 120.h,
+              child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Image.asset(
-                        'assets/images/star2.png',
-                        height: 110.h,
-                        width: 110.w,
-                      ),
+                  Image.asset(AppImages.tryPic, width: 110.w, height: 110.h),
 
-                      Text(
-                        '${state.theGame.stars}',
-                        style: getArabLightTextStyle(
-                          context: context,
-                          color: AppColors.mainColor,
-                        ),
-                      ),
-                    ],
+                  Text(
+                    '${state.theGame.attempts}',
+                    style: getArabLightTextStyle(
+                      context: context,
+                      fontSize: 30.sp,
+                      color: AppColors.mainColor,
+                    ),
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Image.asset(
-                        'assets/images/time2.png',
-                        height: 110.h,
-                        width: 110.w,
-                      ),
-                      Text(
-                        '${state.theGame.timeLeft}',
-                        style: getArabLightTextStyle(
-                          context: context,
-                          color: AppColors.mainColor,
-                        ),
-                      ),
-                    ],
+                  Image.asset(
+                    'assets/images/time2.png',
+                    height: 110.h,
+                    width: 110.w,
+                  ),
+                  Text(
+                    '${state.theGame.timeLeft}',
+                    style: getArabLightTextStyle(
+                      context: context,
+                      color: AppColors.mainColor,
+                    ),
                   ),
                 ],
               ),
@@ -310,8 +297,9 @@ class QustionContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Positioned(
-      right: MediaQuery.sizeOf(context).height * 0.3,
-      top: 10,
+      right: 400.w,
+      //  MediaQuery.sizeOf(context).height * 0.3,
+      top: 20.h,
       child: Container(
         // margin: const EdgeInsets.all(220),
         decoration: BoxDecoration(
@@ -358,35 +346,42 @@ class QustionContainer extends StatelessWidget {
   }
 }
 
-class SettingTryAndClueContainer extends StatelessWidget {
-  const SettingTryAndClueContainer({super.key, required this.hint});
+class CharacterAndClueContainer extends StatelessWidget {
+  const CharacterAndClueContainer({super.key, required this.hint});
   final String hint;
   @override
   Widget build(BuildContext context) {
     return Positioned(
-      top: 10,
-      left: 20,
+      top: 20.h,
+      left: 20.w,
       child: BlocBuilder<GameCubit, GameState>(
         builder: (context, state) {
           if (state is GamePlaying) {
             return Container(
               // color: Colors.teal,
-              width: MediaQuery.sizeOf(context).width * 0.25,
+              width: MediaQuery.sizeOf(context).width * 0.175,
               height: MediaQuery.sizeOf(context).height * 0.1,
-
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   GestureDetector(
                     onTap: () {
-                      Navigator.pushNamed(context, Routes.settingScreen);
+                      Navigator.pushNamed(context, Routes.avatarScreen);
                     },
-                    child: Image.asset(
-                      AppImages.setting,
-                      width: 110.w,
-                      height: 110.h,
+                    child: BlocBuilder<PlayerCubit, PlayerModel?>(
+                      builder: (context, player) {
+                        if (player == null) {
+                          return const SizedBox(); // أو Loader
+                        }
+                        return Image.asset(
+                          'assets/images/avatar_${player.avatar}.png',
+                          height: 150.h,
+                          width: 150.w,
+                        );
+                      },
                     ),
                   ),
+                  //clue
                   GestureDetector(
                     onTap: () {
                       final myHelps = BlocProvider.of<GameCubit>(
@@ -404,8 +399,8 @@ class SettingTryAndClueContainer extends StatelessWidget {
                     },
                     child: Image.asset(
                       AppImages.clue,
-                      width: 110.w,
-                      height: 110.h,
+                      width: 150.w,
+                      height: 150.h,
                     ),
                   ),
 
@@ -417,17 +412,7 @@ class SettingTryAndClueContainer extends StatelessWidget {
                       fontSize: 30.sp,
                     ),
                   ),
-
-                  Image.asset(AppImages.tryPic, width: 110.w, height: 110.h),
-
-                  Text(
-                    '${state.theGame.attempts}',
-                    style: getArabLightTextStyle(
-                      context: context,
-                      fontSize: 30.sp,
-                      color: AppColors.mainColor,
-                    ),
-                  ),
+                  //tryPic
                 ],
               ),
             );
@@ -551,6 +536,7 @@ class SettingTryAndClueContainer extends StatelessWidget {
   }
 }
 
+// ignore: must_be_immutable
 class CharacterContainer extends StatelessWidget {
   CharacterContainer({super.key, this.frombottom});
   double? frombottom;

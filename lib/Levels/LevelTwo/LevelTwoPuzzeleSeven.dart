@@ -19,7 +19,7 @@ class LevelTwoPuzzeleBoat extends StatefulWidget {
 }
 
 class _LevelTwoPuzzeleBoatState extends State<LevelTwoPuzzeleBoat>
-     with SingleTickerProviderStateMixin, RestartableAnimations {
+    with SingleTickerProviderStateMixin, RestartableAnimations {
   late AnimationController boatController;
 
   final List<String> correctOrder = [
@@ -45,11 +45,9 @@ class _LevelTwoPuzzeleBoatState extends State<LevelTwoPuzzeleBoat>
     boatController = AnimationController(
       vsync: this,
       duration: const Duration(seconds: 2),
-  
     );
     registerController(boatController);
   }
-
 
   // @override
   // void dispose() {
@@ -71,7 +69,6 @@ class _LevelTwoPuzzeleBoatState extends State<LevelTwoPuzzeleBoat>
       SoundManager.instance.waterAndBird();
 
       await boatController.forward().then((value) => onCorrect(context));
-
     } else {
       // SoundManager.instance.wrong();
       //
@@ -176,7 +173,7 @@ class _LevelTwoPuzzeleBoatState extends State<LevelTwoPuzzeleBoat>
             ),
           ),
           // 🎨 الأيقونات العلوية
-          SettingTryAndClueContainer(hint: "تذكر : كل حضاره ليها بدايه واضحه"),
+          CharacterAndClueContainer(hint: "تذكر : كل حضاره ليها بدايه واضحه"),
 
           Positioned(
             bottom: 200.h,
@@ -202,7 +199,7 @@ class _LevelTwoPuzzeleBoatState extends State<LevelTwoPuzzeleBoat>
           QustionContainer(
             color: widget.question.color,
           ), // 🎨 الأيقونات العلوية
-          StarAndTimeContainer(),
+          TryAndTimeContainer(),
 
           // ),
         ],

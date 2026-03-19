@@ -104,9 +104,9 @@ class _LevelThreeLibraryPuzzleState extends State<LevelThreeLibraryPuzzle> {
             ),
           ),
 
-          SettingTryAndClueContainer(hint: widget.question.hint),
+          CharacterAndClueContainer(hint: widget.question.hint),
           QustionContainer(color: widget.question.color),
-          StarAndTimeContainer(),
+          TryAndTimeContainer(),
         ],
       ),
     );

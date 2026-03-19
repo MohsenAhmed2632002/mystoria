@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:myhabits/Core/Images&colors.dart';
 import 'package:myhabits/Levels/LevelOne/LevelOne.dart';
 import 'package:myhabits/Levels/LevelThree/LevelThree.dart';
@@ -14,8 +15,8 @@ final List<StageModel> levelStages = [
     image: AppImages.mapad1,
     //        space from left, space from top
     position: const Offset(50, 50),
-    imageWidth: 225,
-    imageHeight: 225,
+    imageWidth: 500.w,
+    imageHeight: 500.h,
     levelScreen: const LevelOne(),
   ),
   StageModel(
@@ -23,8 +24,8 @@ final List<StageModel> levelStages = [
     requiredStars: 30,
     image: AppImages.mapad2,
     position: const Offset(1100, 50),
-    imageWidth: 225,
-    imageHeight: 225,
+    imageWidth: 500.w,
+    imageHeight: 500.h,
     levelScreen: const LevelTwo(),
   ),
   StageModel(
@@ -33,8 +34,8 @@ final List<StageModel> levelStages = [
     requiredStars: 60,
     image: AppImages.mapad3,
     position: const Offset(450, 500),
-    imageWidth: 225,
-    imageHeight: 225,
+    imageWidth: 500.w,
+    imageHeight: 500.h,
   ),
 ];
 

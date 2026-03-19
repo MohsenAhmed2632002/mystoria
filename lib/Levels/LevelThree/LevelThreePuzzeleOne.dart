@@ -166,9 +166,9 @@ class _LevelThreePuzzeleOneViewState extends State<LevelThreePuzzeleOne>
             ),
           ),
 
-          SettingTryAndClueContainer(hint: widget.question.hint),
+          CharacterAndClueContainer(hint: widget.question.hint),
           QustionContainer(color: widget.question.color),
-          StarAndTimeContainer(),
+          TryAndTimeContainer(),
         ],
       ),
     );

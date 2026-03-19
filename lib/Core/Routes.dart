@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:myhabits/Levels/LevelOne/LevelOne.dart';
+import 'package:myhabits/Screens/AvatarScreen.dart';
 import 'package:myhabits/Screens/DevelopersScreen.dart';
 import 'package:myhabits/Screens/HomeScreen.dart';
 import 'package:myhabits/Screens/Instructions.dart';
@@ -17,7 +18,7 @@ class Routes {
   static const String settingScreen = "/SettingScreen";
   static const String levelMapScreen = "/LevelMapScreen";
   static const String developersScreen = "/DevelopersScreen ";
-  // static const String GraduationProjectRoute = "/GraduationProjectPage";
+  static const String avatarScreen = "/avatarScreen";
   // static const String InformationAboutRoute = "/InformationAboutpage";
   // static const String HowToGetRoute = "/HowToGetRoutepage";
   // static const String decisionsRoute = "/decisionspage";
@@ -48,12 +49,8 @@ class RoutesGenerator {
         return MaterialPageRoute(builder: (context) => SettingScreen());
       case Routes.levelMapScreen:
         return MaterialPageRoute(builder: (context) => LevelMapScreen());
-      //
-      //
-      //  case Routes.puzzleOrder:
-      // return MaterialPageRoute(
-      //   builder: (context) => PuzzleOrder(),
-      // );
+      case Routes.avatarScreen:
+        return MaterialPageRoute(builder: (context) => AvatarScreen());
       //
       //
       //    case Routes.puzzleOrder:
