@@ -267,16 +267,15 @@ class AppImages {
   static const String door1Q4LOpen = "${imagepath}open_door1Q4.png";
   static const String door2Q4LOpen = "${imagepath}open_door2Q4.png";
   static const String door3Q4LOpen = "${imagepath}open_door3Q4.png";
-  static const String openTohotmos =
-      "${imagepath}open_tohotmos.png";
-       //   static const String mona = "${imagepath}mona.png";
+  static const String openTohotmos = "${imagepath}open_tohotmos.png";
+  //   static const String mona = "${imagepath}mona.png";
   static const String openRamses = "${imagepath}open_ramses.png";
   static const String openAhmoos = "${imagepath}open_ahmoos.png";
   static const String tohotmos = "${imagepath}tohotmos.png";
   static const String ramses = "${imagepath}ramses.png";
   static const String ahmoos = "${imagepath}ahmoos.png";
   static const String coffin1 = "${imagepath}coffin1.png";
-  static const String coffin2 = "${imagepath}coffin2.png"; 
+  static const String coffin2 = "${imagepath}coffin2.png";
   //   static const String mona = "${imagepath}mona.png";
   static const String coffin3 = "${imagepath}coffin3.png";
   static const String quiz3_6 = "${imagepath}quiz3_6.png";
@@ -310,10 +309,9 @@ class AppImages {
   static const String levels = "${imagepath}levels.png";
   static const String star = "${imagepath}star.png";
   static const String award = "${imagepath}Award.png";
-
-
-  //   static const String sondos = "${imagepath}sondos.png";
-  //   static const String zainab = "${imagepath}zainab.png";
+  static const String staravatar = "${imagepath}staravatar.png";
+  
+    static const String background_Awards = "${imagepath}background_Awards.png";
   //   static const String rawan = "${imagepath}rawan.png"; //   static const String mona = "${imagepath}mona.png";
   //   static const String manar = "${imagepath}manar.png";
   //   static const String farid = "${imagepath}farid.png";
