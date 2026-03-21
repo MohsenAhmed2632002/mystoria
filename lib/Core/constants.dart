@@ -93,7 +93,7 @@ class GameButton extends StatelessWidget {
             // ✏️ النص
             Text(
               text,
-              style: getArabLightTextStyle(
+              style: getRegulerTextStyle(
                 context: context,
                 color: AppColors.mainColor,
               ),
@@ -141,7 +141,7 @@ class GameButtonLight extends StatelessWidget {
             // ✏️ النص
             Text(
               text,
-              style: getArabLightTextStyle(
+              style: getRegulerTextStyle(
                 context: context,
                 color: AppColors.backgroundColor,
               ),
@@ -187,7 +187,7 @@ class GameButtonTwo extends StatelessWidget {
         child: Center(
           child: Text(
             text,
-            style: getArabLightTextStyle(
+            style: getRegulerTextStyle(
               fontSize: fontSize.sp,
               context: context,
               color: AppColors.backgroundColor,
@@ -255,7 +255,7 @@ class TryAndTimeContainer extends StatelessWidget {
 
                   Text(
                     '${state.theGame.attempts}',
-                    style: getArabLightTextStyle(
+                    style: getRegulerTextStyle(
                       context: context,
                       fontSize: 30.sp,
                       color: AppColors.mainColor,
@@ -268,7 +268,7 @@ class TryAndTimeContainer extends StatelessWidget {
                   ),
                   Text(
                     '${state.theGame.timeLeft}',
-                    style: getArabLightTextStyle(
+                    style: getRegulerTextStyle(
                       context: context,
                       color: AppColors.mainColor,
                     ),
@@ -316,18 +316,14 @@ class QustionContainer extends StatelessWidget {
                 child: Text(
                   textAlign: TextAlign.end,
                   BlocProvider.of<GameCubit>(context).currentQuestion.question,
-                  style: getBoldItalicTextStyle(
+                  style: getBoldTextStyle(
                     context: context,
                     fontSize: 35.sp,
 
                     color: Colors.white,
                   ),
 
-                  // TextStyle(
-                  //   fontSize: 40.sp,
-                  //   fontWeight: FontWeight.bold,
-                  //   color: Colors.white,
-                  // ),
+                
                 ),
               );
             } else {
@@ -406,7 +402,7 @@ class CharacterAndClueContainer extends StatelessWidget {
 
                   Text(
                     '${state.theGame.helps}',
-                    style: getArabLightTextStyle(
+                    style: getRegulerTextStyle(
                       context: context,
                       color: AppColors.mainColor,
                       fontSize: 30.sp,
@@ -451,7 +447,7 @@ class CharacterAndClueContainer extends StatelessWidget {
               children: [
                 Text(
                   "دليل من التاريخ",
-                  style: getArabLightTextStyle(
+                  style: getRegulerTextStyle(
                     context: context,
                     color: AppColors.mainColor,
                     fontSize: 96.sp,
@@ -459,7 +455,7 @@ class CharacterAndClueContainer extends StatelessWidget {
                 ),
                 Text(
                   "$hint",
-                  style: getArabLightTextStyle(
+                  style: getRegulerTextStyle(
                     context: context,
                     color: Colors.black,
                     fontSize: 50.sp,
@@ -523,7 +519,7 @@ class CharacterAndClueContainer extends StatelessWidget {
           child: Center(
             child: Text(
               "للاسف لا يوجد ملاحظات لديك",
-              style: getArabLightTextStyle(
+              style: getRegulerTextStyle(
                 context: context,
                 color: Colors.black,
                 fontSize: 40.sp,
@@ -783,7 +779,7 @@ class AnswerResultDialog extends StatelessWidget {
           children: [
             Text(
               isCorrect ? 'تمت انجاز المهمة بنجاح' : '❌إجابة خاطئة ',
-              style: getArabLightTextStyle(
+              style: getRegulerTextStyle(
                 context: context,
                 fontSize: 80.sp,
                 color: AppColors.accentColor,
@@ -795,7 +791,7 @@ class AnswerResultDialog extends StatelessWidget {
               children: [
                 Text(
                   "$timeLeft ث ",
-                  style: getArabLightTextStyle(
+                  style: getRegulerTextStyle(
                     context: context,
                     fontSize: 50.sp,
                     color: AppColors.accentColor,
@@ -804,7 +800,7 @@ class AnswerResultDialog extends StatelessWidget {
 
                 Text(
                   ":الوقت المستغرق ",
-                  style: getArabLightTextStyle(
+                  style: getRegulerTextStyle(
                     context: context,
                     fontSize: 50.sp,
                     color: AppColors.accentColor,
@@ -817,7 +813,7 @@ class AnswerResultDialog extends StatelessWidget {
               children: [
                 Text(
                   "$helps ",
-                  style: getArabLightTextStyle(
+                  style: getRegulerTextStyle(
                     context: context,
                     fontSize: 50.sp,
                     color: AppColors.accentColor,
@@ -826,7 +822,7 @@ class AnswerResultDialog extends StatelessWidget {
 
                 Text(
                   " :عدد المحاولات ",
-                  style: getArabLightTextStyle(
+                  style: getRegulerTextStyle(
                     context: context,
                     fontSize: 50.sp,
                     color: AppColors.accentColor,
@@ -841,7 +837,7 @@ class AnswerResultDialog extends StatelessWidget {
 
                 Text(
                   ":النجوم",
-                  style: getArabLightTextStyle(
+                  style: getRegulerTextStyle(
                     context: context,
                     fontSize: 50.sp,
                     color: AppColors.accentColor,

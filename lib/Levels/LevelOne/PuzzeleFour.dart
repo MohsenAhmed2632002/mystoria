@@ -19,7 +19,7 @@ class ChoiceWidget extends StatelessWidget {
         child: Center(
           child: Text(
             widget.question.options[0],
-            style: getArabLightTextStyle12(
+            style: getRegulerTextStyle(
               context: context,
               color: AppColors.mainColor,
               // fontSize: 30,

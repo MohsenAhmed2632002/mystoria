@@ -79,7 +79,7 @@ class _TheDoorQuestionState extends State<TheDoorQuestion> {
                             _numberField(_controllers[index]),
                             Text(
                               widget.question.options[index],
-                              style: getArabLightTextStyle(
+                              style: getRegulerTextStyle(
                                 context: context,
                                 fontSize: 30.sp,
                                 color: Colors.white,

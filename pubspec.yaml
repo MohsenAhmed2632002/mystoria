@@ -70,16 +70,14 @@ flutter:
   # list giving the asset and other descriptors for the font. For
   # example:
   fonts:
-    - family: Amiri
+    - family: Scheherazade_New
       fonts:
-        - asset: assets/Font/Amiri/Amiri-Regular.ttf
-          weight: 500
-        - asset: assets/Font/Amiri/Amiri-Italic.ttf
-          weight: 500
-        - asset: assets/Font/Amiri/Amiri-Bold.ttf
+        - asset: assets/Font/Scheherazade_New/ScheherazadeNew-Bold.ttf
           weight: 700
-        - asset: assets/Font/Amiri/Amiri-boldItalic.ttf
-          weight: 700
+        - asset: assets/Font/Scheherazade_New/ScheherazadeNew-Medium.ttf
+          weight: 600
+        - asset: assets/Font/Scheherazade_New/ScheherazadeNew-Regular.ttf
+          weight: 500
   # fonts:
   #   - family: GentiumPlus
   #     fonts:

@@ -55,7 +55,7 @@ class BodyOfDevScreen extends StatelessWidget {
           Text(
             textAlign: TextAlign.center,
             "هذه اللعبة جزء من مشروع التخرج لسنه 2026/2025 \n لطلاب جامعة عين شمس كلية التربية النوعية قسم تكنولوجيا شعبة معلم حاسب",
-            style: getArabTextStyle18(
+            style: getBoldTextStyle(
               fontSize: 50.sp,
               context: context,
               color: AppColors.mainColor,
@@ -65,7 +65,7 @@ class BodyOfDevScreen extends StatelessWidget {
           Text(
             textAlign: TextAlign.center,
             ":عمل الطلاب",
-            style: getBoldItalicTextStyle(
+            style: getBoldTextStyle(
               context: context,
               fontSize: 45.sp,
               color: Colors.black,
@@ -84,7 +84,7 @@ class BodyOfDevScreen extends StatelessWidget {
                     Text(
                       textAlign: TextAlign.center,
                       "يوسف عماد جعروج",
-                      style: getArabTextStyle18(
+                      style: getMediumTextStyle(
                         fontSize: 40.sp,
                         context: context,
                         // color: AppColors.mainColor,
@@ -93,7 +93,7 @@ class BodyOfDevScreen extends StatelessWidget {
                     Text(
                       textAlign: TextAlign.center,
                       "يوسف محمد ناصر ",
-                      style: getArabTextStyle18(
+                      style: getMediumTextStyle(
                         fontSize: 40.sp,
                         context: context,
                         // color: AppColors.mainColor,
@@ -102,7 +102,7 @@ class BodyOfDevScreen extends StatelessWidget {
                     Text(
                       textAlign: TextAlign.center,
                       "مؤمن عصام حسن",
-                      style: getArabTextStyle18(
+                      style: getMediumTextStyle(
                         fontSize: 40.sp,
                         context: context,
                         // color: AppColors.mainColor,
@@ -111,7 +111,7 @@ class BodyOfDevScreen extends StatelessWidget {
                     Text(
                       textAlign: TextAlign.center,
                       "محمد حسن السيد",
-                      style: getArabTextStyle18(
+                      style: getMediumTextStyle(
                         fontSize: 40.sp,
                         context: context,
                         // color: AppColors.mainColor,
@@ -124,7 +124,7 @@ class BodyOfDevScreen extends StatelessWidget {
                     Text(
                       // textAlign: TextAlign.center,
                       "وصال محمد علي -",
-                      style: getArabTextStyle18(
+                      style: getMediumTextStyle(
                         fontSize: 40.sp,
                         context: context,
                         // color: AppColors.mainColor,
@@ -133,7 +133,7 @@ class BodyOfDevScreen extends StatelessWidget {
                     Text(
                       // textAlign: TextAlign.center,
                       "هاجر جارحي حلمي -",
-                      style: getArabTextStyle18(
+                      style: getMediumTextStyle(
                         fontSize: 40.sp,
                         context: context,
                         // color: AppColors.mainColor,
@@ -142,7 +142,7 @@ class BodyOfDevScreen extends StatelessWidget {
                     Text(
                       // textAlign: TextAlign.center,
                       "مرتينا ناجي ناشد -",
-                      style: getArabTextStyle18(
+                      style: getMediumTextStyle(
                         fontSize: 40.sp,
                         context: context,
                         // color: AppColors.mainColor,
@@ -151,7 +151,7 @@ class BodyOfDevScreen extends StatelessWidget {
                     Text(
                       // textAlign: TextAlign.center,
                       "بسنت طارق السيد -",
-                      style: getArabTextStyle18(
+                      style: getMediumTextStyle(
                         fontSize: 40.sp,
                         context: context,
                         // color: AppColors.mainColor,
@@ -167,7 +167,7 @@ class BodyOfDevScreen extends StatelessWidget {
           Text(
             textAlign: TextAlign.center,
             ":تحت اشراف ",
-            style: getBoldItalicTextStyle(
+            style: getBoldTextStyle(
               context: context,
               fontSize: 50.sp,
               color: Colors.black,
@@ -184,7 +184,7 @@ class BodyOfDevScreen extends StatelessWidget {
                 Text(
                   textAlign: TextAlign.center,
                   "د/احمد مكاوي",
-                  style: getArabTextStyle18(
+                  style: getMediumTextStyle(
                     fontSize: 50.sp,
                     context: context,
                     // color: AppColors.mainColor,
@@ -193,7 +193,7 @@ class BodyOfDevScreen extends StatelessWidget {
                 Text(
                   textAlign: TextAlign.center,
                   "د/هنادي انور ",
-                  style: getArabTextStyle18(
+                  style: getMediumTextStyle(
                     fontSize: 50.sp,
                     context: context,
                     // color: AppColors.mainColor,

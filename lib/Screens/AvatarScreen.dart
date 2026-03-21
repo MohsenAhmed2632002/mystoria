@@ -124,7 +124,7 @@ class UserDate extends StatelessWidget {
             }
             return Text(
               player.name,
-              style: getArabLightTextStyle(
+              style: getRegulerTextStyle(
                 context: context,
                 color: Colors.black,
                 fontSize: 50.sp,
@@ -159,7 +159,7 @@ class UserDate extends StatelessWidget {
 
                       child: Text(
                         "${BlocProvider.of<GameCubit>(context).state.theGame.currentPuzzle + 1}",
-                        style: getArabLightTextStyle(
+                        style: getRegulerTextStyle(
                           context: context,
                           fontSize: 60.sp,
                         ),
@@ -176,7 +176,7 @@ class UserDate extends StatelessWidget {
 
                       child: Text(
                         "${BlocProvider.of<GameCubit>(context).state.theGame.currentLevel + 1}",
-                        style: getArabLightTextStyle(
+                        style: getRegulerTextStyle(
                           context: context,
                           fontSize: 60.sp,
                         ),
@@ -197,7 +197,7 @@ class UserDate extends StatelessWidget {
 
                       child: Text(
                         "${BlocProvider.of<GameCubit>(context).state.theGame.stars}",
-                        style: getArabLightTextStyle(
+                        style: getRegulerTextStyle(
                           context: context,
                           fontSize: 60.sp,
                         ),
@@ -236,10 +236,10 @@ class UserDate extends StatelessWidget {
                     lineHeight: 40.h,
                     barRadius: const Radius.circular(10),
                     // ممكن تضيف نص يظهر النسبة المئوية جوه الشريط لو تحب
-                    center: Text(
-                      "${(progress * 100).toInt()}%",
-                      style: TextStyle(fontSize: 12.sp, color: Colors.white),
-                    ),
+                    // center: Text(
+                    //   "${(progress * 100).toInt()}%",
+                    //   style: getRegulerTextStyle(context: context),
+                    // ),
                   );
                 },
               ),
@@ -250,10 +250,7 @@ class UserDate extends StatelessWidget {
                 Image.asset(AppImages.levels, width: 300.w, height: 300.h),
                 Text(
                   " مرحلة :${BlocProvider.of<GameCubit>(context).state.theGame.currentLevel + 1}",
-                  style: getArabLightTextStyle(
-                    context: context,
-                    fontSize: 45.sp,
-                  ),
+                  style: getRegulerTextStyle(context: context, fontSize: 45.sp),
                 ),
               ],
             ),

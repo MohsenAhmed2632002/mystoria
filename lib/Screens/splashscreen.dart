@@ -96,7 +96,7 @@ class _SplashScreenState extends State<SplashScreen>
                     Text(
                       '....  انتظر التحميل',
 
-                      style: getArabLightTextStyle(
+                      style: getRegulerTextStyle(
                         context: context,
                         color: AppColors.secondColor,
                         fontSize: 40.sp,

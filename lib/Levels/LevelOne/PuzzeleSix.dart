@@ -101,7 +101,7 @@ class _FindMistakeWidgetState extends State<FindMistakeWidget> {
                             ? Text(
                                 'فينيقيا',
                                 key: const ValueKey('fixed'),
-                                style: getArabLightTextStyle(
+                                style: getRegulerTextStyle(
                                   context: context,
                                   color: Colors.green,
                                 ),
@@ -109,7 +109,7 @@ class _FindMistakeWidgetState extends State<FindMistakeWidget> {
                             : Text(
                                 word,
                                 key: ValueKey(word),
-                                style: getArabLightTextStyle(
+                                style: getRegulerTextStyle(
                                   context: context,
                                   color: const Color.fromRGBO(132, 25, 25, 1),
                                 ),

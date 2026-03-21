@@ -145,7 +145,7 @@ class _NetworkQState extends State<NetworkQ> {
             child: placed == null
                 ? Text(
                     familyText,
-                    style: getArabLightTextStyle(
+                    style: getRegulerTextStyle(
                       context: context,
                       fontSize: 18.sp,
                     ),

@@ -27,7 +27,7 @@ class SettingScreen extends StatelessWidget {
             children: [
               Text(
                 'الإعدادات',
-                style: getArabLightTextStyle(
+                style: getRegulerTextStyle(
                   fontSize: 50.sp,
                   context: context,
                   color: AppColors.mainColor,

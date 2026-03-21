@@ -98,7 +98,7 @@ class _LevelTwoPuzzeleTwoState extends State<LevelTwoPuzzeleTwo> {
           child: Center(
             child: Text(
               "حاول مرة اخرى",
-              style: getArabLightTextStyle(
+              style: getRegulerTextStyle(
                 context: context,
                 fontSize: 80.sp,
                 color: AppColors.accentColor,

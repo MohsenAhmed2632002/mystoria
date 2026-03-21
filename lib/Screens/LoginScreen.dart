@@ -41,7 +41,7 @@ class _GestState extends State<LoginScreen> {
                 children: [
                   Text(
                     'تسجيل الدخول',
-                    style: getBoldItalicTextStyle(
+                    style: getRegulerTextStyle(
                       context: context,
                       fontSize: 40,
                       color: Colors.brown,
@@ -80,7 +80,7 @@ class _GestState extends State<LoginScreen> {
                         ),
                         Text(
                           ':الاسم',
-                          style: getArabTextStyle18(
+                          style: getMediumTextStyle(
                             fontSize: 50.sp,
                             context: context,
                             color: AppColors.mainColor,
@@ -102,7 +102,7 @@ class _GestState extends State<LoginScreen> {
                         _avatar('boy'),
                         Text(
                           ':النوع',
-                          style: getArabTextStyle18(
+                          style: getMediumTextStyle(
                             fontSize: 50.sp,
                             context: context,
                             color: AppColors.mainColor,
