@@ -20,7 +20,7 @@ class AvatarScreen extends StatelessWidget {
         children: [
           /// الخلفية
           SizedBox.expand(
-            child: Image.asset(AppImages.backgroundAvatar, fit: BoxFit.fill),
+            child: Image.asset(AppImages.award, fit: BoxFit.fill),
           ),
 
           Positioned(
@@ -70,19 +70,6 @@ class AvatarScreen extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  BlocBuilder<PlayerCubit, PlayerModel?>(
-                    builder: (context, player) {
-                      if (player == null) {
-                        return const SizedBox(); // أو Loader
-                      }
-                      return Image.asset(
-                        'assets/images/character_${player.avatar}.png',
-                        height: 650.h,
-                        width: 350.w,
-                      );
-                    },
-                  ),
-                  UserDate(),
                 ],
               ),
             ),
@@ -104,159 +91,6 @@ class AvatarScreen extends StatelessWidget {
           ),
         ],
       ),
-    );
-  }
-}
-
-class UserDate extends StatelessWidget {
-  const UserDate({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      crossAxisAlignment: CrossAxisAlignment.end,
-      children: [
-        BlocBuilder<PlayerCubit, PlayerModel?>(
-          builder: (context, player) {
-            if (player == null) {
-              return const SizedBox(); // أو Loader
-            }
-            return Text(
-              player.name,
-              style: getRegulerTextStyle(
-                context: context,
-                color: Colors.black,
-                fontSize: 50.sp,
-              ),
-            );
-          },
-        ),
-        SizedBox(
-          width: 300.w, // حدد العرض اللي يناسب تصميمك
-          child: Divider(
-            color: const Color(0xFF7C4E00),
-            indent: 0, // قلل القيم دي شوية للتجربة
-            endIndent: 100.w,
-            thickness: 3,
-            height: 10.h,
-          ),
-        ),
-        BlocBuilder<GameCubit, GameState>(
-          builder: (BuildContext context, GameState state) {
-            return Row(
-              children: [
-                Stack(
-                  alignment: AlignmentGeometry.centerRight,
-                  children: [
-                    Image.asset(
-                      AppImages.question,
-                      width: 250.w,
-                      height: 200.h,
-                    ),
-                    Positioned(
-                      right: 50.w,
-
-                      child: Text(
-                        "${BlocProvider.of<GameCubit>(context).state.theGame.currentPuzzle + 1}",
-                        style: getRegulerTextStyle(
-                          context: context,
-                          fontSize: 60.sp,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-                Stack(
-                  alignment: AlignmentGeometry.centerRight,
-                  children: [
-                    Image.asset(AppImages.level, width: 250.w, height: 200.h),
-                    Positioned(
-                      right: 50.w,
-
-                      child: Text(
-                        "${BlocProvider.of<GameCubit>(context).state.theGame.currentLevel + 1}",
-                        style: getRegulerTextStyle(
-                          context: context,
-                          fontSize: 60.sp,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-                Stack(
-                  alignment: AlignmentGeometry.centerRight,
-                  children: [
-                    Image.asset(
-                      AppImages.staravatar,
-                      width: 250.w,
-                      height: 200.h,
-                    ),
-                    Positioned(
-                      right: 50.w,
-
-                      child: Text(
-                        "${BlocProvider.of<GameCubit>(context).state.theGame.stars}",
-                        style: getRegulerTextStyle(
-                          context: context,
-                          fontSize: 60.sp,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ],
-            );
-          },
-        ),
-        Row(
-          children: [
-            SizedBox(
-              width:
-                  1.sw /
-                  3, // استخدام ScreenUtil عشان العرض يبقى متناسق (ثلث الشاشة)
-              child: BlocBuilder<GameCubit, GameState>(
-                builder: (context, state) {
-                  // حساب النسبة المئوية: اللغز الحالي + 1 مقسوم على إجمالي الألغاز
-                  // استخدمت .clamp عشان أضمن إن القيمة متخرجش بره نطاق (0.0 لـ 1.0)
-                  double progress =
-                      (BlocProvider.of<GameCubit>(
-                            context,
-                          ).state.theGame.currentPuzzle +
-                          1) /
-                      10;
-
-                  return LinearPercentIndicator(
-                    backgroundColor: Colors.black54,
-                    progressColor: const Color(0xFF7C4E00),
-                    animation: true,
-                    percent: progress.clamp(0.0, 1.0),
-                    animationDuration:
-                        1000, // خليتها ثانية واحدة عشان تبقى أسرع وألطف
-                    lineHeight: 40.h,
-                    barRadius: const Radius.circular(10),
-                    // ممكن تضيف نص يظهر النسبة المئوية جوه الشريط لو تحب
-                    // center: Text(
-                    //   "${(progress * 100).toInt()}%",
-                    //   style: getRegulerTextStyle(context: context),
-                    // ),
-                  );
-                },
-              ),
-            ),
-            Stack(
-              alignment: AlignmentGeometry.center,
-              children: [
-                Image.asset(AppImages.levels, width: 300.w, height: 300.h),
-                Text(
-                  " مرحلة :${BlocProvider.of<GameCubit>(context).state.theGame.currentLevel + 1}",
-                  style: getRegulerTextStyle(context: context, fontSize: 45.sp),
-                ),
-              ],
-            ),
-          ],
-        ),
-      ],
     );
   }
 }
