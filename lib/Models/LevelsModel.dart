@@ -70,27 +70,20 @@ final List<LevelModel> gameLevels = [
   LevelModel(levelNumber: 1, questions: levelOneQuestionsList),
   LevelModel(levelNumber: 2, questions: levelTwoQuestionsList),
   LevelModel(levelNumber: 3, questions: levelThreeQuestionsList),
-  // LevelModel(levelNumber: 4, questions: levelFourQuestionsList),
-  // LevelModel(levelNumber: 5, questions: levelFiveQuestionsList),
 ];
 
 final List<QuestionModel> levelOneQuestionsList = [
   QuestionModel(
-    color: AppColors.backgroundColor,
-
+    color: AppColors.blueColor,
     hint: "تذكر : كل حضاره ليها بدايه واضحه",
     type: QuestionType.order,
-    question: 'رتب العصور من الأقدم إلى الأحدث',
+    question: 'اسحب الاجابة لترتيب العصور',
     options: ['عصر الدولة الوسطى ', 'عصر الدولة القديمة', 'عصر الدولة الحديثة'],
-    correctAnswer: [
-      'عصر الدولة القديمة',
-      'عصر الدولة الوسطى',
-      'عصر الدولة الحديثة',
-    ],
+    correctAnswer:null,
     background: AppImages.quiz1,
   ),
   QuestionModel(
-    color: AppColors.backgroundColor,
+    color: AppColors.blueColor,
 
     type: QuestionType.mcq,
     question: 'ما اسم العصر الذي لقب بعصر بناة الأهرام؟',
@@ -100,7 +93,7 @@ final List<QuestionModel> levelOneQuestionsList = [
     hint: 'فكر في العصر اللي ظهرت فيه الاهرامات أول مره',
   ),
   QuestionModel(
-    color: AppColors.backgroundColor,
+    color: AppColors.blueColor,
 
     type: QuestionType.choose,
     question: 'انا اول  ملك دونت النصوص الدينيه علي الجدران ؟',
@@ -110,7 +103,7 @@ final List<QuestionModel> levelOneQuestionsList = [
     hint: 'لاحظ : أول نصوص دينيه سُجلت لملك مميز',
   ),
   QuestionModel(
-    color: AppColors.backgroundColor,
+    color: AppColors.blueColor,
 
     type: QuestionType.order2,
     question: "ضع  تاج كل ملك علي العرش الخاص بإنجزاته",
@@ -129,7 +122,7 @@ final List<QuestionModel> levelOneQuestionsList = [
     hint: 'كل ملك ترك آثر مختلف ..... أيهم يناسب العرش؟',
   ),
   QuestionModel(
-    color: AppColors.backgroundColor,
+    color: AppColors.blueColor,
 
     type: QuestionType.findMistake,
     question: "أوجد الخطاً في الجمله الاتيه",
@@ -150,7 +143,7 @@ final List<QuestionModel> levelOneQuestionsList = [
     hint: 'أسال نفسك : الارز كان يُجلب من أي بلد؟',
   ),
   QuestionModel(
-    color: AppColors.backgroundColor,
+    color: AppColors.blueColor,
 
     type: QuestionType.order3,
     question: 'أكمل الشبكه الثلاثيه التي امامك',
@@ -160,7 +153,7 @@ final List<QuestionModel> levelOneQuestionsList = [
     hint: 'أربط بين الملك و عصره و اثره الشهير',
   ),
   QuestionModel(
-    color: AppColors.backgroundColor,
+    color: AppColors.blueColor,
 
     type: QuestionType.choose2,
     question: "طابق كل اسم من أسماء الملوك مع إنجازته",
@@ -174,7 +167,7 @@ final List<QuestionModel> levelOneQuestionsList = [
     hint: 'أعظم هرم له صاحب معروف',
   ),
   QuestionModel(
-    color: AppColors.backgroundColor,
+    color: AppColors.blueColor,
 
     type: QuestionType.order4,
     question: 'رتب مراحل تطور المقابر من الصور اللتي امامك',
@@ -189,7 +182,7 @@ final List<QuestionModel> levelOneQuestionsList = [
     hint: 'البداية كانت بسيطة... ثم تطورت المقابر',
   ),
   QuestionModel(
-    color: AppColors.backgroundColor,
+    color: AppColors.blueColor,
 
     type: QuestionType.libraryPuzzle,
     question: 'ضع كل ختم في مكانه …فكل عصر لا يعيش الا بخصائصه',
@@ -199,7 +192,7 @@ final List<QuestionModel> levelOneQuestionsList = [
     hint: 'البناء الضخم علامه عصر معين',
   ),
   QuestionModel(
-    color: AppColors.backgroundColor,
+    color: AppColors.blueColor,
 
     type: QuestionType.theDoor,
     question: 'اكتب رمز البوابة',
@@ -356,7 +349,7 @@ final List<QuestionModel> levelTwoQuestionsList = [
 ];
 final List<QuestionModel> levelThreeQuestionsList = [
   QuestionModel(
-    color: AppColors.backgroundColor,
+    color: AppColors.blueColor,
     hint: "القوة و التوسع سر هذا العصر",
     type: QuestionType.order,
     question: 'اي خاصية كانت مميزة لعصر الدولة الحديثة؟ ',
@@ -365,7 +358,7 @@ final List<QuestionModel> levelThreeQuestionsList = [
     background: AppImages.quiz3_1,
   ),
   QuestionModel(
-    color: AppColors.backgroundColor,
+    color: AppColors.blueColor,
     type: QuestionType.mcq,
     question: 'من الملك الذي حرر مصر من الهكسوس وبدأ عصر الدوله الحديثه؟ ',
     options: ["حتشبسوت", "احمس"],
@@ -383,7 +376,7 @@ final List<QuestionModel> levelThreeQuestionsList = [
     hint: 'قائد عسكري لا يُنسي في التاريخ',
   ),
   QuestionModel(
-    color: AppColors.backgroundColor,
+    color: AppColors.blueColor,
     type: QuestionType.order2,
     question: "اي سلاح اشتهرت به جيوش الدوله الحديثه",
     options: [AppImages.door1Q4L, AppImages.door2Q4L, AppImages.door3Q4L],
@@ -392,7 +385,7 @@ final List<QuestionModel> levelThreeQuestionsList = [
     hint: 'سلاح غيّر شكل المعارك',
   ),
   QuestionModel(
-    color: AppColors.backgroundColor,
+    color: AppColors.blueColor,
     type: QuestionType.order3,
     question: 'ضع الانشطه التي تنسب لرمسيس التاني',
     options: [
@@ -411,7 +404,7 @@ final List<QuestionModel> levelThreeQuestionsList = [
     hint: 'بعد الحرب... جاء البناء و التخليد',
   ),
   QuestionModel(
-    color: AppColors.backgroundColor,
+    color: AppColors.blueColor,
     type: QuestionType.libra,
     question: "اي ملك قاد معركة مجدو الشهيره؟",
     options: [
@@ -424,7 +417,7 @@ final List<QuestionModel> levelThreeQuestionsList = [
     hint: 'بطل معركته خالدة في التاريخ',
   ),
   QuestionModel(
-    color: AppColors.backgroundColor,
+    color: AppColors.blueColor,
     type: QuestionType.choose2,
     question: "من الذين دفنوا في وادي الملوك في عصر الدوله الحديثه",
     options: [AppImages.coffin1, AppImages.coffin2, AppImages.coffin3],
@@ -433,7 +426,7 @@ final List<QuestionModel> levelThreeQuestionsList = [
     hint: 'هذا المكان خُصص للعظماء فقط',
   ),
   QuestionModel(
-    color: AppColors.backgroundColor,
+    color: AppColors.blueColor,
     type: QuestionType.order4,
     question: 'اختر سبب سقوط الدولة الحديثة ؟',
     options: [
@@ -446,7 +439,7 @@ final List<QuestionModel> levelThreeQuestionsList = [
     hint: 'زيادة نفوذ الكهنة أضعفت الحكم',
   ),
   QuestionModel(
-    color: AppColors.backgroundColor,
+    color: AppColors.blueColor,
     type: QuestionType.libraryPuzzle,
     question: "أختر العام الذي يبدأ فيه عصر الدولة الحديثة؟",
     options: [" 1780 ق.م", "1069 ق.م", "1550 ق.م"],
@@ -455,7 +448,7 @@ final List<QuestionModel> levelThreeQuestionsList = [
     hint: 'بداية عصر جديد بعد نصر كبير',
   ),
   QuestionModel(
-    color: AppColors.backgroundColor,
+    color: AppColors.blueColor,
     type: QuestionType.theDoor,
     question: "اختر الحدث الصحيح",
     options: [

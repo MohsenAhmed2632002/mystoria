@@ -40,7 +40,7 @@ class QuestionRenderer extends StatelessWidget {
     //هنا المفروض لسته من الاسئله مش سؤال واحد بعد ما بيجاوب صح
     switch (question.type) {
       case QuestionType.order:
-        return PuzzleOrder();
+        return PuzzleOrder(question: question);
 
       case QuestionType.mcq:
         return McqWidget(question: question);

@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:myhabits/Core/Font.dart';
 import 'package:myhabits/Core/constants.dart';
 import 'package:myhabits/Core/Images&colors.dart';
 

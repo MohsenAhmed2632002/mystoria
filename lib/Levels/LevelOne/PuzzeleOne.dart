@@ -4,10 +4,13 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:myhabits/Core/Images&colors.dart';
 import 'package:myhabits/Core/constants.dart';
 import 'package:myhabits/Core/soundManger.dart';
+import 'package:myhabits/Models/QuestionModel.dart';
 import 'package:myhabits/cubit/Gamecubit/game_cubit.dart';
 
 class PuzzleOrder extends StatefulWidget {
-  const PuzzleOrder({super.key});
+  final QuestionModel question;
+
+  const PuzzleOrder({super.key, required this.question});
   @override
   State<PuzzleOrder> createState() => _PuzzleOrderViewState();
 }
@@ -32,10 +35,10 @@ class _PuzzleOrderViewState extends State<PuzzleOrder> {
   @override
   Widget build(BuildContext context) {
     return GameScreen(
-      color: AppColors.backgroundColor,
-      hint: "تذكر : كل حضاره ليها بدايه واضحه",
+      color: widget.question.color,
+      hint: widget.question.hint,
 
-      background: AppImages.quiz1,
+      background: widget.question.background,
       mediaQueryRight: MediaQuery.sizeOf(context).width * 0,
       mediaQueryTop: MediaQuery.sizeOf(context).height * 0.05,
       child: Container(
@@ -61,15 +64,8 @@ class _PuzzleOrderViewState extends State<PuzzleOrder> {
               // color: AppColors.mainColor,
               width: MediaQuery.sizeOf(context).width,
               child: Row(
-                // crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  _buildDoor(0),
-                  Image.asset(AppImages.vase, width: 200.w),
-                  _buildDoor(1),
-                  Image.asset(AppImages.obelus, height: 250.h),
-                  _buildDoor(2),
-                ],
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [_buildDoor(0), _buildDoor(1), _buildDoor(2)],
               ),
             ),
           ],

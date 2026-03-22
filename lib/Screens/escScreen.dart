@@ -5,8 +5,8 @@ import 'package:myhabits/Core/Font.dart';
 import 'package:myhabits/Core/Images&colors.dart';
 import 'package:myhabits/cubit/Gamecubit/game_cubit.dart';
 
-class AwardScreen extends StatelessWidget {
-  const AwardScreen({super.key});
+class EscScreen extends StatelessWidget {
+  const EscScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -312,12 +312,13 @@ class AppImages {
   static const String staravatar = "${imagepath}staravatar.png";
   
     static const String background_Awards = "${imagepath}background_Awards.png";
-  //   static const String rawan = "${imagepath}rawan.png"; //   static const String mona = "${imagepath}mona.png";
-  //   static const String manar = "${imagepath}manar.png";
-  //   static const String farid = "${imagepath}farid.png";
-  //   static const String shahd = "${imagepath}shahd.png";
-  //   static const String shams = "${imagepath}shams.png";
-  //   static const String sondos = "${imagepath}sondos.png";
+    static const String stands = "${imagepath}stands.png"; 
+      static const String darklevel_3  = "${imagepath}dark_level_3.png";
+    static const String darklevel_2  = "${imagepath}dark_level_2.png";
+    static const String darklevel_1  = "${imagepath}dark_level_1.png";
+    static const String level_3  = "${imagepath}level_3.png";
+    static const String level_2  = "${imagepath}level_2.png";
+    static const String level_1  = "${imagepath}level_1.png";
   //   static const String zainab = "${imagepath}zainab.png";
   //   static const String rawan = "${imagepath}rawan.png"; //   static const String mona = "${imagepath}mona.png";
   //   static const String manar = "${imagepath}manar.png";

@@ -31,7 +31,7 @@ class _LevelTwoLibraryPuzzleState extends State<LevelTwoLibraryPuzzle>
 
     sandController = AnimationController(
       vsync: this,
-      duration: const Duration(seconds: 45),
+      duration: const Duration(seconds: 30),
     );
     registerController(sandController);
 

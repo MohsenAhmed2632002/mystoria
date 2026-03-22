@@ -81,8 +81,8 @@ class GameCubit extends Cubit<GamePlaying> {
   /// STARS
   /// -----------------------------
   int calculateStars() {
-    if (game.timeLeft >= 30) return 3;
-    if (game.timeLeft >= 15) return 2;
+    if (game.timeLeft >= 20) return 3;
+    if (game.timeLeft >= 10) return 2;
     return 1;
   }
 
@@ -118,7 +118,7 @@ class GameCubit extends Cubit<GamePlaying> {
           currentPuzzle: isLastQuestion
               ? game.currentPuzzle
               : game.currentPuzzle + 1,
-          timeLeft: 45,
+          timeLeft: 30,
         ),
       ),
     );
@@ -147,7 +147,7 @@ class GameCubit extends Cubit<GamePlaying> {
           game.copyWith(
             attempts: game.attempts - 1,
             correctAnswerCounter: 0,
-            timeLeft: 45,
+            timeLeft: 30,
           ),
         ),
       );

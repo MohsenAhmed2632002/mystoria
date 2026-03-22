@@ -322,8 +322,6 @@ class QustionContainer extends StatelessWidget {
 
                     color: Colors.white,
                   ),
-
-                
                 ),
               );
             } else {
@@ -349,13 +347,13 @@ class CharacterAndClueContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Positioned(
       top: 20.h,
-      left: 20.w,
+      // left: 20.w,
       child: BlocBuilder<GameCubit, GameState>(
         builder: (context, state) {
           if (state is GamePlaying) {
             return Container(
               // color: Colors.teal,
-              width: MediaQuery.sizeOf(context).width * 0.175,
+              width: 400.w,
               height: MediaQuery.sizeOf(context).height * 0.1,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -387,8 +385,13 @@ class CharacterAndClueContainer extends StatelessWidget {
                         BlocProvider.of<GameCubit>(
                           context,
                         ).state.theGame.helps--;
+
                         BlocProvider.of<GameCubit>(context).stopTimer();
-                        showHint(context);
+                        Navigator.pushNamed(
+                          context,
+                          Routes.hintScreen,
+                          arguments: hint,
+                        );
                       } else {
                         showNoHint(context);
                       }
@@ -402,10 +405,10 @@ class CharacterAndClueContainer extends StatelessWidget {
 
                   Text(
                     '${state.theGame.helps}',
-                    style: getRegulerTextStyle(
+                    style: getBoldTextStyle(
                       context: context,
                       color: AppColors.mainColor,
-                      fontSize: 30.sp,
+                      // fontSize: 20.sp,
                     ),
                   ),
                   //tryPic
@@ -422,81 +425,6 @@ class CharacterAndClueContainer extends StatelessWidget {
             );
           }
         },
-      ),
-    );
-  }
-
-  Future<dynamic> showHint(BuildContext context) {
-    return showDialog(
-      context: context,
-
-      builder: (context) => Dialog(
-        backgroundColor: Colors.transparent,
-
-        elevation: 4,
-        child: Container(
-          // height: 500.h,
-          padding: EdgeInsets.all(30.w),
-          decoration: BoxDecoration(
-            image: DecorationImage(image: AssetImage(AppImages.dialog_2)),
-            borderRadius: BorderRadius.circular(30),
-          ),
-          child: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                Text(
-                  "دليل من التاريخ",
-                  style: getRegulerTextStyle(
-                    context: context,
-                    color: AppColors.mainColor,
-                    fontSize: 96.sp,
-                  ),
-                ),
-                Text(
-                  "$hint",
-                  style: getRegulerTextStyle(
-                    context: context,
-                    color: Colors.black,
-                    fontSize: 50.sp,
-                  ),
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    GestureDetector(
-                      onTap: () {
-                        // sound.click();
-
-                        BlocProvider.of<GameCubit>(context).stopTimer();
-                        Navigator.pushReplacementNamed(
-                          context,
-                          Routes.homeScreen,
-                        );
-                      },
-                      child: Image.asset(
-                        'assets/images/home.png',
-                        width: 150.w,
-                        height: 150.h,
-                      ),
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        BlocProvider.of<GameCubit>(context).stopTimer();
-                        Navigator.pop(context);
-                      },
-                      child: Image.asset(
-                        AppImages.next1,
-                        width: 200.w,
-                        height: 200.h,
-                      ),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ),
-        ),
       ),
     );
   }
@@ -716,7 +644,7 @@ void onWrong(BuildContext context) {
   final game = cubit.state.theGame;
 
   final previewAttempts = game.attempts - 1;
-  final previewTime = 45;
+  final previewTime = 30;
   showDialog(
     context: context,
     barrierDismissible: false,
@@ -967,3 +895,5 @@ class _StarRowState extends State<StarRow>
     super.dispose();
   }
 }
+
+
