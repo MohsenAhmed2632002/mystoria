@@ -141,10 +141,7 @@ class GameButtonLight extends StatelessWidget {
             // ✏️ النص
             Text(
               text,
-              style: getRegulerTextStyle(
-                context: context,
-                color: AppColors.backgroundColor,
-              ),
+              style: getRegulerTextStyle(context: context, color: Colors.black),
             ),
           ],
         ),
@@ -181,7 +178,7 @@ class GameButtonTwo extends StatelessWidget {
         decoration: BoxDecoration(
           image: DecorationImage(
             fit: BoxFit.fill,
-            image: AssetImage(AppImages.tech),
+            image: AssetImage(AppImages.buttongame),
           ),
         ),
         child: Center(
@@ -190,7 +187,7 @@ class GameButtonTwo extends StatelessWidget {
             style: getRegulerTextStyle(
               fontSize: fontSize.sp,
               context: context,
-              color: AppColors.backgroundColor,
+              color: Colors.black,
             ),
           ),
         ),
@@ -895,5 +892,3 @@ class _StarRowState extends State<StarRow>
     super.dispose();
   }
 }
-
-

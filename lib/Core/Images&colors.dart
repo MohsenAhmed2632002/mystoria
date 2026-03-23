@@ -157,7 +157,6 @@ class AppImages {
 
   static const String papyrus3 = "${imagepath}Papyrus3.png";
 
-  static const String tech = "${imagepath}imageB.png";
 
   static const String dialog = "${imagepath}dialog.png";
   static const String next1 = "${imagepath}next1.png";
@@ -225,6 +224,13 @@ class AppImages {
   static const String door3 = "${imagepath}door3.png";
   static const String door2 = "${imagepath}door2.png";
   static const String door1 = "${imagepath}door1.png";
+
+  static const String door_3L1 = "${imagepath}door_3L1.png";
+  static const String door_2L1 = "${imagepath}door_2L1.png";
+  static const String door_1L1 = "${imagepath}door_1L1.png";
+
+
+
 
   static const String oneArow = "${imagepath}one_arow.png";
 

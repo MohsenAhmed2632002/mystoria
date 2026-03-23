@@ -5,6 +5,7 @@ import 'package:myhabits/Core/Images&colors.dart';
 import 'package:myhabits/Core/constants.dart';
 import 'package:myhabits/Core/soundManger.dart';
 import 'package:myhabits/Models/QuestionModel.dart';
+import 'package:myhabits/Screens/feedackScreen.dart';
 import 'package:myhabits/cubit/Gamecubit/game_cubit.dart';
 
 class PuzzleOrder extends StatefulWidget {
@@ -24,13 +25,13 @@ class _PuzzleOrderViewState extends State<PuzzleOrder> {
 
   final Map<int, String> userOrder = {};
 
-  @override
-  void initState() {
-    SoundManager.instance.stopBgm().then((_) {
-      BlocProvider.of<GameCubit>(context).initState(context);
-    });
-    super.initState();
-  }
+  // @override
+  // void initState() {
+  //   SoundManager.instance.stopBgm().then((_) {
+  //     BlocProvider.of<GameCubit>(context).initState(context);
+  //   });
+  //   super.initState();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -40,11 +41,12 @@ class _PuzzleOrderViewState extends State<PuzzleOrder> {
 
       background: widget.question.background,
       mediaQueryRight: MediaQuery.sizeOf(context).width * 0,
-      mediaQueryTop: MediaQuery.sizeOf(context).height * 0.05,
+      mediaQueryTop: MediaQuery.sizeOf(context).height * 0.11,
       child: Container(
-        height: MediaQuery.sizeOf(context).height,
+        // color: Colors.white38,
+        height: MediaQuery.sizeOf(context).height * 0.9,
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             // 🔹 البطاقات
             Container(
@@ -54,12 +56,26 @@ class _PuzzleOrderViewState extends State<PuzzleOrder> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   _buildDraggableCard(correctOrder[1]!),
-                  _buildDraggableCard(correctOrder[0]!),
                   _buildDraggableCard(correctOrder[2]!),
+                  _buildDraggableCard(correctOrder[0]!),
                 ],
               ),
             ),
-            // 🔹 الأبواب
+
+            //the doors
+            Container(
+              // color: Colors.red,
+              width: MediaQuery.sizeOf(context).width,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Image.asset(AppImages.door_2L1, width: 600.w, height: 550.h),
+                  Image.asset(AppImages.door_3L1, width: 600.w, height: 550.h),
+                  Image.asset(AppImages.door_1L1, width: 600.w, height: 550.h),
+                ],
+              ),
+            ),
+            // الاجابات
             Container(
               // color: AppColors.mainColor,
               width: MediaQuery.sizeOf(context).width,
@@ -91,9 +107,9 @@ class _PuzzleOrderViewState extends State<PuzzleOrder> {
       child: GameButtonTwo(
         text: text,
         onPressed: () {},
-        fromWidth: 500,
-        fromHeight: 150,
-        fontSize: 25,
+        fromWidth: 300,
+        fromHeight: 125,
+        fontSize: 50.sp,
       ),
     );
   }
@@ -109,15 +125,17 @@ class _PuzzleOrderViewState extends State<PuzzleOrder> {
       },
       builder: (context, candidateData, rejectedData) {
         return userOrder[index] != null
-            ? Image.asset(
-                'assets/images/open_door.png',
-                width: 440.w,
-                height: 610.h,
+            ? GameButtonTwo(
+                text: userOrder[index]!,
+                onPressed: () {},
+                fromWidth: 300,
+                fromHeight: 125,
+                fontSize: 25,
               )
             : Image.asset(
-                'assets/images/door.png',
-                width: 440.w,
-                height: 610.h,
+                'assets/images/button_game.png',
+                width: 300.w,
+                height: 125.h,
               );
       },
     );
@@ -135,17 +153,39 @@ class _PuzzleOrderViewState extends State<PuzzleOrder> {
     });
 
     if (isCorrect) {
-      onCorrect(context);
-      //  await Future.delayed(const Duration(seconds: 3), () {});
-      // await SoundManager.playCorrect();
-      // context.read<GameCubit>().correctAnswer(context);
-      // _showResultDialog(true);
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (_) => FeedackScreen(
+            isCorrect: true,
+            stars: BlocProvider.of<GameCubit>(context).calculateStars(),
+            helps: BlocProvider.of<GameCubit>(context).state.theGame.attempts,
+            timeLeft: BlocProvider.of<GameCubit>(
+              context,
+            ).state.theGame.timeLeft,
+          ),
+        ),
+      );
     } else {
       // await SoundManager.playWrong();
       // context.read<GameCubit>().wrongAnswer(context);
-      onWrong(context);
+      // onWrong(context);
       userOrder.clear();
-      setState(() {});
+      // setState(() {});
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (_) => FeedackScreen(
+            isCorrect: false,
+            stars: 0,
+            helps:
+                BlocProvider.of<GameCubit>(context).state.theGame.attempts - 1,
+            timeLeft: BlocProvider.of<GameCubit>(
+              context,
+            ).state.theGame.timeLeft,
+          ),
+        ),
+      );
     }
   }
 }
