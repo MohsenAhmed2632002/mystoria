@@ -73,15 +73,35 @@ final List<LevelModel> gameLevels = [
 ];
 
 final List<QuestionModel> levelOneQuestionsList = [
-  QuestionModel(
+
+QuestionModel(
     color: AppColors.blueColor,
     hint: "تذكر : كل حضاره ليها بدايه واضحه",
     type: QuestionType.order,
     question: 'اسحب الاجابة لترتيب العصور',
     options: ['عصر الدولة الوسطى ', 'عصر الدولة القديمة', 'عصر الدولة الحديثة'],
-    correctAnswer:null,
+    correctAnswer: null,
     background: AppImages.quiz1,
+  ),  QuestionModel(
+    color: AppColors.blueColor,
+
+    type: QuestionType.order2,
+    question: "ضع  تاج كل ملك علي العرش الخاص بإنجزاته",
+    options: [
+      AppImages.crownsenfro,
+      AppImages.crownzosar,
+      AppImages.crownkhofo,
+    ],
+    correctAnswer: [
+      // زوسر = الهرم المدرج - خوفو =الهرم الأكبر  -  سنفرو= سفينه
+      AppImages.crownsenfro,
+      AppImages.crownzosar,
+      AppImages.crownkhofo,
+    ],
+    background: AppImages.quiz4,
+    hint: 'كل ملك ترك آثر مختلف ..... أيهم يناسب العرش؟',
   ),
+  
   QuestionModel(
     color: AppColors.blueColor,
 
@@ -101,25 +121,6 @@ final List<QuestionModel> levelOneQuestionsList = [
     correctAnswer: 'أوناس',
     background: AppImages.quiz3,
     hint: 'لاحظ : أول نصوص دينيه سُجلت لملك مميز',
-  ),
-  QuestionModel(
-    color: AppColors.blueColor,
-
-    type: QuestionType.order2,
-    question: "ضع  تاج كل ملك علي العرش الخاص بإنجزاته",
-    options: [
-      AppImages.crownsenfro,
-      AppImages.crownzosar,
-      AppImages.crownkhofo,
-    ],
-    correctAnswer: [
-      // زوسر = الهرم المدرج - خوفو =الهرم الأكبر  -  سنفرو= سفينه
-      AppImages.crownsenfro,
-      AppImages.crownzosar,
-      AppImages.crownkhofo,
-    ],
-    background: AppImages.quiz4,
-    hint: 'كل ملك ترك آثر مختلف ..... أيهم يناسب العرش؟',
   ),
   QuestionModel(
     color: AppColors.blueColor,

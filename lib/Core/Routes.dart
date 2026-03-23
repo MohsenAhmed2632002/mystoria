@@ -69,6 +69,8 @@ class RoutesGenerator {
             settings.arguments as String; // أو نوع الـ hint الخاص بك
 
         return MaterialPageRoute(builder: (context) => HintScreen(hint: hint));
+     
+     
       case Routes.escScreen:
         return MaterialPageRoute(builder: (context) => EscScreen());
 

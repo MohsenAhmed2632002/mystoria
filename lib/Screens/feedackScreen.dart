@@ -43,7 +43,7 @@ class _FeedackScreenState extends State<FeedackScreen> {
             top: 150.h,
             left: 400.w,
             child: Container(
-              color: Colors.red,
+              // color: Colors.red,
               width: 1100.w,
               height: 900.h,
               child: Column(

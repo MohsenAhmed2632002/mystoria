@@ -25,14 +25,6 @@ class _PuzzleOrderViewState extends State<PuzzleOrder> {
 
   final Map<int, String> userOrder = {};
 
-  // @override
-  // void initState() {
-  //   SoundManager.instance.stopBgm().then((_) {
-  //     BlocProvider.of<GameCubit>(context).initState(context);
-  //   });
-  //   super.initState();
-  // }
-
   @override
   Widget build(BuildContext context) {
     return GameScreen(
@@ -41,7 +33,7 @@ class _PuzzleOrderViewState extends State<PuzzleOrder> {
 
       background: widget.question.background,
       mediaQueryRight: MediaQuery.sizeOf(context).width * 0,
-      mediaQueryTop: MediaQuery.sizeOf(context).height * 0.11,
+      mediaQueryTop: MediaQuery.sizeOf(context).height * 0.12,
       child: Container(
         // color: Colors.white38,
         height: MediaQuery.sizeOf(context).height * 0.9,
@@ -81,7 +73,11 @@ class _PuzzleOrderViewState extends State<PuzzleOrder> {
               width: MediaQuery.sizeOf(context).width,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [_buildDoor(0), _buildDoor(1), _buildDoor(2)],
+                children: [
+                  _placeOfAnswers(0),
+                  _placeOfAnswers(1),
+                  _placeOfAnswers(2),
+                ],
               ),
             ),
           ],
@@ -115,7 +111,7 @@ class _PuzzleOrderViewState extends State<PuzzleOrder> {
   }
 
   // 🚪 الباب
-  Widget _buildDoor(int index) {
+  Widget _placeOfAnswers(int index) {
     return DragTarget<String>(
       onAccept: (data) {
         setState(() {

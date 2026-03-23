@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:myhabits/Core/Images&colors.dart';
 import 'package:myhabits/Core/constants.dart';
 import 'package:myhabits/Models/QuestionModel.dart';
-import 'package:myhabits/cubit/Gamecubit/game_cubit.dart';
-import 'package:myhabits/cubit/Gamecubit/game_state.dart';
 
 class PuzzleCrown extends StatefulWidget {
   final QuestionModel question;
@@ -17,58 +14,56 @@ class PuzzleCrown extends StatefulWidget {
 
 class _PuzzleCrownState extends State<PuzzleCrown> {
   final Map<int, String> userOrder = {};
-  final Map<int, String> correctOrder = {
-    0: AppImages.crownzosar,
-    1: AppImages.crownsenfro,
-    2: AppImages.crownkhofo,
-  };
+  final Map<int, String> correctOrder = {0: "زوسر", 1: "سنفرو", 2: "خوفو"};
   @override
   Widget build(BuildContext context) {
     return GameScreen(
       color: widget.question.color,
       hint: widget.question.hint,
-
       background: AppImages.quiz4,
       mediaQueryRight: 0,
-      mediaQueryTop: MediaQuery.sizeOf(context).height * 0.1,
+      mediaQueryTop: MediaQuery.sizeOf(context).height * 0.11,
       child: Container(
-        height: MediaQuery.sizeOf(context).height,
+        // color: Colors.red,
+        height: MediaQuery.sizeOf(context).height * 0.9,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             Container(
-              // color: Colors.red,
               width: MediaQuery.sizeOf(context).width,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  _buildChoices(correctOrder[1]!),
-                  _buildChoices(correctOrder[2]!),
-                  _buildChoices(correctOrder[0]!),
+                  _buildDraggableCard(correctOrder[1]!),
+                  _buildDraggableCard(correctOrder[2]!),
+                  _buildDraggableCard(correctOrder[0]!),
                 ],
               ),
             ),
-
-            BlocBuilder<GameCubit, GameState>(
-              builder: (context, state) {
-                if (state is GamePlaying) {
-                  return Container(
-                    // color: AppColors.mainColor,
-                    width: MediaQuery.sizeOf(context).width,
-                    child: Row(
-                      // crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        _buildDoor(2, AppImages.chairwithbigpyramid),
-                        _buildDoor(1, AppImages.chairShip),
-                        _buildDoor(0, AppImages.chairSteppedPyramid),
-                      ],
-                    ),
-                  );
-                } else {
-                  return Text("No Data");
-                }
-              },
+            Container(
+              // color: AppColors.mainColor,
+              width: MediaQuery.sizeOf(context).width,
+              child: Row(
+                // crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  _buildDoor(2, AppImages.chairwithbigpyramid),
+                  _buildDoor(1, AppImages.chairShip),
+                  _buildDoor(0, AppImages.chairSteppedPyramid),
+                ],
+              ),
+            ),
+            Container(
+              // color: AppColors.mainColor,
+              width: MediaQuery.sizeOf(context).width,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  _placeOfAnswers(0),
+                  _placeOfAnswers(1),
+                  _placeOfAnswers(2),
+                ],
+              ),
             ),
           ],
         ),
@@ -76,7 +71,36 @@ class _PuzzleCrownState extends State<PuzzleCrown> {
     );
   }
 
+  // 🟦 البطاقة
+  Widget _buildDraggableCard(String era) {
+    return Draggable<String>(
+      data: era,
+      childWhenDragging: _card(era, faded: true),
+      // السحب
+      feedback: _card(era, dragging: true),
+      child: _card(era),
+    );
+  }
+
+  Widget _card(String text, {bool dragging = false, bool faded = false}) {
+    return Opacity(
+      opacity: faded ? 0.3 : 1,
+      child: GameButtonTwo(
+        text: text,
+        onPressed: () {},
+        fromWidth: 300,
+        fromHeight: 125,
+        fontSize: 50.sp,
+      ),
+    );
+  }
+
   Widget _buildDoor(int index, String image) {
+    return Image.asset(image, width: 500.w, height: 600.h);
+  }
+
+  // 🚪 الباب
+  Widget _placeOfAnswers(int index) {
     return DragTarget<String>(
       onAccept: (data) {
         setState(() {
@@ -84,34 +108,21 @@ class _PuzzleCrownState extends State<PuzzleCrown> {
         });
         _checkResult();
       },
-      builder: (context, _, __) {
-        return Column(
-          children: [
-            if (userOrder[index] != null)
-              Image.asset(userOrder[index]!, width: 250.w, height: 150.h),
-            Image.asset(image, width: 440.w, height: 600.h),
-          ],
-        );
+      builder: (context, candidateData, rejectedData) {
+        return userOrder[index] != null
+            ? GameButtonTwo(
+                text: userOrder[index]!,
+                onPressed: () {},
+                fromWidth: 300,
+                fromHeight: 125,
+                fontSize: 25,
+              )
+            : Image.asset(
+                'assets/images/button_game.png',
+                width: 300.w,
+                height: 125.h,
+              );
       },
-    );
-  }
-
-  Widget _buildChoices(String image) {
-    return Draggable<String>(
-      data: image,
-      feedback: _choiceCard(image),
-      childWhenDragging: Opacity(opacity: 0.4, child: _choiceCard(image)),
-      child: _choiceCard(image),
-    );
-  }
-
-  Widget _choiceCard(String image) {
-    return Container(
-      width: 250.w,
-      height: 250.h,
-      decoration: BoxDecoration(
-        image: DecorationImage(image: AssetImage(image)),
-      ),
     );
   }
 
@@ -139,3 +150,35 @@ class _PuzzleCrownState extends State<PuzzleCrown> {
     }
   }
 }
+
+            // Container(
+            //   // color: Colors.red,
+            //   width: MediaQuery.sizeOf(context).width,
+            //   child: Row(
+            //     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            //     children: [
+            //       _buildChoices(correctOrder[1]!),
+            //       _buildChoices(correctOrder[2]!),
+            //       _buildChoices(correctOrder[0]!),
+            //     ],
+            //   ),
+            // ),
+
+  // Widget _buildChoices(String image) {
+  //   return Draggable<String>(
+  //     data: image,
+  //     feedback: _choiceCard(image),
+  //     childWhenDragging: Opacity(opacity: 0.4, child: _choiceCard(image)),
+  //     child: _choiceCard(image),
+  //   );
+  // }
+
+  // Widget _choiceCard(String image) {
+  //   return Container(
+  //     width: 250.w,
+  //     height: 250.h,
+  //     decoration: BoxDecoration(
+  //       image: DecorationImage(image: AssetImage(image)),
+  //     ),
+  //   );
+  // }

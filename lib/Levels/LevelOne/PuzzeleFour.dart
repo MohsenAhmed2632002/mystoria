@@ -16,14 +16,12 @@ class ChoiceWidget extends StatelessWidget {
         image: DecorationImage(image: AssetImage(AppImages.buttongame)),
       ),
       child: Center(
-        child: Center(
-          child: Text(
-            widget.question.options[0],
-            style: getRegulerTextStyle(
-              context: context,
-              color: AppColors.mainColor,
-              // fontSize: 30,
-            ),
+        child: Text(
+          widget.question.options[0],
+          style: getRegulerTextStyle(
+            context: context,
+            color: AppColors.mainColor,
+            // fontSize: 30,
           ),
         ),
       ),
