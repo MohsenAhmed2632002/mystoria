@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:myhabits/Core/Images&colors.dart';
 import 'package:myhabits/Core/constants.dart';
+import 'package:myhabits/Core/soundManger.dart';
 import 'package:myhabits/Models/QuestionModel.dart';
+import 'package:myhabits/Screens/feedackScreen.dart';
+import 'package:myhabits/cubit/Gamecubit/game_cubit.dart';
 
 class LibraryPuzzle extends StatefulWidget {
   final QuestionModel question;
@@ -14,13 +18,25 @@ class LibraryPuzzle extends StatefulWidget {
 }
 
 class _LibraryPuzzleState extends State<LibraryPuzzle> {
-  Map<int, List<String>> userLibrary = {0: [], 1: [], 2: []};
+  @override
+  void initState() {
+    super.initState();
+    userOrder = {0: ?null, 1: ?null, 2: ?null};
+  }
+
+  final List<String> items = [
+    AppImages.flower,
+    AppImages.knife,
+    AppImages.bigPyramid2,
+  ];
+
+  Map<int, String> userOrder = {};
 
   /// الترتيب الصحيح
-  final Map<int, List<String>> correctLibrary = {
-    0: [AppImages.papyrus1],
-    2: [AppImages.papyrus2],
-    1: [AppImages.papyrus3],
+  final Map<int, String> correctOrder = {
+    0: AppImages.flower,
+    2: AppImages.knife,
+    1: AppImages.bigPyramid2,
   };
 
   @override
@@ -33,10 +49,10 @@ class _LibraryPuzzleState extends State<LibraryPuzzle> {
       mediaQueryTop: MediaQuery.sizeOf(context).height * 0.1,
       child: Container(
         // color: AppColors.mainColor,
-        height: MediaQuery.sizeOf(context).height,
+        height: MediaQuery.sizeOf(context).height * 0.9,
         width: MediaQuery.sizeOf(context).width,
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             /// المكتبات
             Row(
@@ -52,82 +68,128 @@ class _LibraryPuzzleState extends State<LibraryPuzzle> {
             Wrap(
               spacing: 20.w,
               children: widget.question.options.map((item) {
-                bool isUsed = userLibrary.values.any(
+                bool isUsed = userOrder.values.any(
                   (list) => list.contains(item),
                 );
 
                 return isUsed ? const SizedBox.shrink() : _buildDraggable(item);
               }).toList(),
             ),
+            Container(
+              // color: AppColors.mainColor,
+              width: MediaQuery.sizeOf(context).width,
 
-            SizedBox(height: 40.h),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  _placeOfAnswers(0),
+                  _placeOfAnswers(1),
+                  _placeOfAnswers(2),
+                ],
+              ),
+            ),
           ],
         ),
       ),
     );
   }
 
-  Widget _buildDraggable(String item) {
+  Widget _buildLibrary(int index, String imagePath) {
     return Draggable<String>(
-      data: item,
-      feedback: Image.asset(item, width: 500.w, height: 300.h),
-      childWhenDragging: Opacity(
-        opacity: 0.3,
-        child: Image.asset(item, width: 500.w, height: 300.h),
+      data: imagePath,
+      feedback: Image.asset(imagePath, width: 250.w, height: 250.h),
+      child: Container(
+        width: 250.w,
+        height: 250.h,
+        decoration: BoxDecoration(
+          // color: Colors.black45,
+          image: DecorationImage(image: AssetImage(imagePath)),
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [Image.asset(items[index], width: 250.w, height: 250.h)],
+        ),
       ),
+    );
+  }
+
+  Widget _buildDraggable(String item) {
+    return Container(
+      // color: Colors.white38,
+      width: 450.w,
+      height: 250.h,
       child: Image.asset(item, width: 500.w, height: 300.h),
     );
   }
 
-  Widget _buildLibrary(int index, String imagePath) {
+  Widget _placeOfAnswers(int index) {
     return DragTarget<String>(
       onAccept: (data) {
         setState(() {
-          userLibrary[index]!.add(data);
+          userOrder[index] = data;
         });
-
         _checkResult();
       },
-      builder: (context, candidate, rejected) {
-        return Container(
-          width: 300.w,
-          height: 500.h,
-          decoration: BoxDecoration(
-            image: DecorationImage(image: AssetImage(imagePath)),
-          ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: userLibrary[index]!
-                .map((e) => Image.asset(e, width: 500))
-                .toList(),
-          ),
+      builder: (context, candidateData, rejectedData) {
+        return Image.asset(
+          userOrder[index] != null || userOrder[index] == ''
+              ? userOrder[index]!
+              // آخر عنصر تم إضافته
+              : AppImages.apartmentTiles, // الصورة الافتراضيةwidth: 300.w,
+          height: 250.h,
+          width: 250.w,
         );
       },
     );
   }
 
+  // التحقق من الإجابة
   void _checkResult() {
-    int totalItems = userLibrary.values.fold(
-      0,
-      (sum, list) => sum + list.length,
-    );
+    // حساب عدد العناصر المستخدمة
+    int totalItems = userOrder.values.where((value) => value.isNotEmpty).length;
 
     if (totalItems < widget.question.options.length) return;
 
     bool isCorrect = true;
-
-    correctLibrary.forEach((key, value) {
-      if (userLibrary[key]!.join() != value.join()) {
+    correctOrder.forEach((key, value) {
+      if (userOrder[key] != value) {
         isCorrect = false;
       }
     });
 
     if (isCorrect) {
-      onCorrect(context);
+      SoundManager.instance.correct();
+
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (_) => FeedackScreen(
+            isCorrect: true,
+            stars: BlocProvider.of<GameCubit>(context).calculateStars(),
+            helps: BlocProvider.of<GameCubit>(context).state.theGame.attempts,
+            timeLeft: BlocProvider.of<GameCubit>(
+              context,
+            ).state.theGame.timeLeft,
+          ),
+        ),
+      );
     } else {
-      onWrong(context);
-      userLibrary = {0: [], 1: [], 2: []};
-      setState(() {});
+      SoundManager.instance.wrong();
+
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (_) => FeedackScreen(
+            isCorrect: false,
+            stars: 0,
+            helps:
+                BlocProvider.of<GameCubit>(context).state.theGame.attempts - 1,
+            timeLeft: BlocProvider.of<GameCubit>(
+              context,
+            ).state.theGame.timeLeft,
+          ),
+        ),
+      );
     }
   }
 }

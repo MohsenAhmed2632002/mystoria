@@ -157,7 +157,6 @@ class AppImages {
 
   static const String papyrus3 = "${imagepath}Papyrus3.png";
 
-
   static const String dialog = "${imagepath}dialog.png";
   static const String next1 = "${imagepath}next1.png";
   static const String exit = "${imagepath}exit.png";
@@ -228,9 +227,6 @@ class AppImages {
   static const String door_3L1 = "${imagepath}door_3L1.png";
   static const String door_2L1 = "${imagepath}door_2L1.png";
   static const String door_1L1 = "${imagepath}door_1L1.png";
-
-
-
 
   static const String oneArow = "${imagepath}one_arow.png";
 
@@ -316,18 +312,21 @@ class AppImages {
   static const String star = "${imagepath}star.png";
   static const String award = "${imagepath}Award.png";
   static const String staravatar = "${imagepath}staravatar.png";
-  
-    static const String background_Awards = "${imagepath}background_Awards.png";
-    static const String stands = "${imagepath}stands.png"; 
-      static const String darklevel_3  = "${imagepath}dark_level_3.png";
-    static const String darklevel_2  = "${imagepath}dark_level_2.png";
-    static const String darklevel_1  = "${imagepath}dark_level_1.png";
-    static const String level_3  = "${imagepath}level_3.png";
-    static const String level_2  = "${imagepath}level_2.png";
-    static const String level_1  = "${imagepath}level_1.png";
-  //   static const String zainab = "${imagepath}zainab.png";
-  //   static const String rawan = "${imagepath}rawan.png"; //   static const String mona = "${imagepath}mona.png";
-  //   static const String manar = "${imagepath}manar.png";
+
+  static const String background_Awards = "${imagepath}background_Awards.png";
+  static const String stands30 = "${imagepath}stands30.png";
+  static const String stands60 = "${imagepath}stands60.png";
+  static const String stands90 = "${imagepath}stands90.png";
+  static const String darklevel_3 = "${imagepath}dark_level_3.png";
+  static const String darklevel_2 = "${imagepath}dark_level_2.png";
+  static const String darklevel_1 = "${imagepath}dark_level_1.png";
+  static const String level_3 = "${imagepath}level_3.png";
+  static const String level_2 = "${imagepath}level_2.png";
+  static const String level_1 = "${imagepath}level_1.png";
+  static const String maabadElshams = "${imagepath}maabad_elshams.png";
+  static const String haramModarag = "${imagepath}haram_modarag.png";
+  static const String apartmentTiles = "${imagepath}Apartment_tiles.png";
+  static const String ketabatHaet = "${imagepath}ketabat_haet.png";
   //   static const String farid = "${imagepath}farid.png";
   //   static const String shahd = "${imagepath}shahd.png";
   //   static const String shams = "${imagepath}shams.png";

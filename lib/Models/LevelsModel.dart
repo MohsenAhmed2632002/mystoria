@@ -73,8 +73,8 @@ final List<LevelModel> gameLevels = [
 ];
 
 final List<QuestionModel> levelOneQuestionsList = [
-
-QuestionModel(
+  //1
+  QuestionModel(
     color: AppColors.blueColor,
     hint: "تذكر : كل حضاره ليها بدايه واضحه",
     type: QuestionType.order,
@@ -82,11 +82,13 @@ QuestionModel(
     options: ['عصر الدولة الوسطى ', 'عصر الدولة القديمة', 'عصر الدولة الحديثة'],
     correctAnswer: null,
     background: AppImages.quiz1,
-  ),  QuestionModel(
+  ),
+  //2
+  QuestionModel(
     color: AppColors.blueColor,
 
     type: QuestionType.order2,
-    question: "ضع  تاج كل ملك علي العرش الخاص بإنجزاته",
+    question: "اسحب حجر الملك للمكان الخاص به",
     options: [
       AppImages.crownsenfro,
       AppImages.crownzosar,
@@ -98,80 +100,30 @@ QuestionModel(
       AppImages.crownzosar,
       AppImages.crownkhofo,
     ],
-    background: AppImages.quiz4,
+    background: AppImages.quiz1,
     hint: 'كل ملك ترك آثر مختلف ..... أيهم يناسب العرش؟',
   ),
-  
-  QuestionModel(
-    color: AppColors.blueColor,
-
-    type: QuestionType.mcq,
-    question: 'ما اسم العصر الذي لقب بعصر بناة الأهرام؟',
-    options: ['الدولة الحديثة', 'الدولة القديمة', 'الدولة الوسطى'],
-    correctAnswer: 'الدولة القديمة',
-    background: AppImages.quiz2,
-    hint: 'فكر في العصر اللي ظهرت فيه الاهرامات أول مره',
-  ),
-  QuestionModel(
-    color: AppColors.blueColor,
-
-    type: QuestionType.choose,
-    question: 'انا اول  ملك دونت النصوص الدينيه علي الجدران ؟',
-    options: ['أوناس', 'مينا', 'أمنمحات الرابع'],
-    correctAnswer: 'أوناس',
-    background: AppImages.quiz3,
-    hint: 'لاحظ : أول نصوص دينيه سُجلت لملك مميز',
-  ),
-  QuestionModel(
-    color: AppColors.blueColor,
-
-    type: QuestionType.findMistake,
-    question: "أوجد الخطاً في الجمله الاتيه",
-    options: [
-      "بونت",
-      "بلاد ",
-      "من ",
-      "الأرز ",
-      "لإحضار  ",
-      "بحريا ",
-      "اسطولاً  ",
-      "سنفرو ",
-      "الملك",
-      "ارسل ",
-    ],
-    correctAnswer: 'بونت',
-    background: AppImages.quiz5,
-    hint: 'أسال نفسك : الارز كان يُجلب من أي بلد؟',
-  ),
-  QuestionModel(
-    color: AppColors.blueColor,
-
-    type: QuestionType.order3,
-    question: 'أكمل الشبكه الثلاثيه التي امامك',
-    options: [AppImages.khafraa, AppImages.zosar, AppImages.khofo],
-    correctAnswer: null,
-    background: AppImages.quiz6,
-    hint: 'أربط بين الملك و عصره و اثره الشهير',
-  ),
+  //3
   QuestionModel(
     color: AppColors.blueColor,
 
     type: QuestionType.choose2,
-    question: "طابق كل اسم من أسماء الملوك مع إنجازته",
+    question: "اسحب اسم الملك الي العمل الخاص به",
     options: ['اوسر كاف', 'سنفرو ', 'اوناس '],
     correctAnswer: {
       'اوسر كاف': "شيد معابد الشمس",
       'سنفرو ': " اول هرم كامل ",
       'اوناس ': "كتب نصوص الاهرام علي الجدران",
     },
-    background: AppImages.quiz7,
+    background: AppImages.quiz1,
     hint: 'أعظم هرم له صاحب معروف',
   ),
+  //4
   QuestionModel(
     color: AppColors.blueColor,
 
     type: QuestionType.order4,
-    question: 'رتب مراحل تطور المقابر من الصور اللتي امامك',
+    question: 'رتّب مراحل بناء المقابر الفرعونية ترتيبًا صحيحًا',
     options: [
       AppImages.oneStep,
       AppImages.templeWithCover,
@@ -182,48 +134,78 @@ QuestionModel(
     background: AppImages.quiz8,
     hint: 'البداية كانت بسيطة... ثم تطورت المقابر',
   ),
+  //5
   QuestionModel(
     color: AppColors.blueColor,
-
     type: QuestionType.libraryPuzzle,
-    question: 'ضع كل ختم في مكانه …فكل عصر لا يعيش الا بخصائصه',
+    question: 'اسحب الرمز للمكان الخاص به',
     options: [AppImages.papyrus1, AppImages.papyrus2, AppImages.papyrus3],
     correctAnswer: 'No',
     background: AppImages.quiz9,
     hint: 'البناء الضخم علامه عصر معين',
   ),
+  //6
+  QuestionModel(
+    color: AppColors.blueColor,
+
+    type: QuestionType.mcq,
+    question: 'اختر الملك الذي شيد الهرم الاكبر',
+    options: ['خوفو', 'زوسر', 'خفرع'],
+    correctAnswer: 'زوسر',
+    background: AppImages.quiz2,
+    hint: 'فكر في العصر اللي ظهرت فيه الاهرامات أول مره',
+  ),
+
+  //7
+  QuestionModel(
+    color: AppColors.blueColor,
+
+    type: QuestionType.choose,
+    question: 'اختر الملك الذي دون النصوص الدينيه علي الجدران',
+    options: ['أوناس', 'مينا', 'زوسر'],
+    correctAnswer: 'أوناس',
+    background: AppImages.quiz3,
+    hint: 'لاحظ : أول نصوص دينيه سُجلت لملك مميز',
+  ),
+
+  //8
+  QuestionModel(
+    color: AppColors.blueColor,
+
+    type: QuestionType.findMistake,
+    question: "اختر الكلمه الخاطئه في الجملة التي امامك",
+    options: ["بونت", "سنفرو", "الارز"],
+    correctAnswer: 'بونت',
+    background: AppImages.quiz5,
+    hint: 'أسال نفسك : الارز كان يُجلب من أي بلد؟',
+  ),
+
+  //9
+  QuestionModel(
+    color: AppColors.blueColor,
+
+    type: QuestionType.order3,
+    question: "اضغط علي الحجر الخاص بانجاز بالملك زوسر",
+    options: [AppImages.bigPyramid, AppImages.stepPyramid, AppImages.aboAlhawl],
+    correctAnswer: "الهرم المدرج",
+    background: AppImages.quiz6,
+    hint: 'أربط بين الملك و عصره و اثره الشهير',
+  ),
+
+  //10
   QuestionModel(
     color: AppColors.blueColor,
 
     type: QuestionType.theDoor,
-    question: 'اكتب رمز البوابة',
-    options: [
-      ' ترتيب الدولة القديمة بين العصور',
-      'عدد اهرامات سنفرو ',
-      'الأسرة التى انتهت معاها عصر الدولة القديمة',
-      "عدد عصور مصر القديمة الأساسية",
-    ],
-    correctAnswer: 'NoAnswer',
+    question: 'اختر  الاسره التي انتهت عندها عصر الدوله القديمه',
+    options: ['الثالثة', 'الرابعة ', 'السادسة'],
+    correctAnswer: 'السادسة',
     background: AppImages.quiz10,
     hint: 'كل رقم وراءه معلومه واضحة من الدرس',
   ),
 ];
-final List<QuestionModel> levelTwoQuestionsList = [
-  QuestionModel(
-    color: AppColors.blueColor,
-    hint: "التوحيد يبدأ بالحكم القوي أولاً",
-    type: QuestionType.order,
-    question: 'رتّب الأحداث داخل المربع  حسب تأثيرها في “إعادة وحدة مصر."',
-    options: [AppImages.q2_1, AppImages.q2_0, AppImages.q2_2, AppImages.q2_3],
-    correctAnswer: {
-      0: AppImages.q2_3,
-      1: AppImages.q2_1,
-      2: AppImages.q2_0,
-      3: AppImages.q2_2,
-    },
-    background: AppImages.quiz1,
-  ),
 
+final List<QuestionModel> levelTwoQuestionsList = [
   QuestionModel(
     color: AppColors.blueColor,
     type: QuestionType.mcq,
@@ -237,6 +219,20 @@ final List<QuestionModel> levelTwoQuestionsList = [
     correctAnswer: AppImages.himSelf,
     background: AppImages.quiz2_2,
     hint: 'الحكمه تقول : الثقه تبدأ من الداخل',
+  ),
+  QuestionModel(
+    color: AppColors.blueColor,
+    hint: "التوحيد يبدأ بالحكم القوي أولاً",
+    type: QuestionType.order,
+    question: 'رتّب الأحداث داخل المربع  حسب تأثيرها في “إعادة وحدة مصر."',
+    options: [AppImages.q2_1, AppImages.q2_0, AppImages.q2_2, AppImages.q2_3],
+    correctAnswer: {
+      0: AppImages.q2_3,
+      1: AppImages.q2_1,
+      2: AppImages.q2_0,
+      3: AppImages.q2_2,
+    },
+    background: AppImages.quiz1,
   ),
 
   QuestionModel(

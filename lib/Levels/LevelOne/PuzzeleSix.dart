@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:myhabits/Core/Font.dart';
 import 'package:myhabits/Core/Images&colors.dart';
 import 'package:myhabits/Core/constants.dart';
+import 'package:myhabits/Core/soundManger.dart';
 import 'package:myhabits/Models/QuestionModel.dart';
+import 'package:myhabits/Screens/feedackScreen.dart';
+import 'package:myhabits/cubit/Gamecubit/game_cubit.dart';
 
 class FindMistakeWidget extends StatefulWidget {
   final QuestionModel question;
@@ -15,109 +19,80 @@ class FindMistakeWidget extends StatefulWidget {
 }
 
 class _FindMistakeWidgetState extends State<FindMistakeWidget> {
-  bool fixed = false;
   @override
   Widget build(BuildContext context) {
     return GameScreen(
-
-
       color: widget.question.color,
       hint: widget.question.hint,
 
       background: widget.question.background,
       mediaQueryRight: 0,
-      mediaQueryTop: MediaQuery.sizeOf(context).height * 0.2,
+      mediaQueryTop: MediaQuery.sizeOf(context).height * 0.1,
       child: Container(
         width: MediaQuery.sizeOf(context).width,
-        height: MediaQuery.sizeOf(context).height,
-
-        child: Stack(
+        height: MediaQuery.sizeOf(context).height * 0.9,
+        // color: Colors.amber,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            //the image
-            Positioned(
-              // right: MediaQuery.sizeOf(context).width * 0.1,
-              // top: MediaQuery.sizeOf(context).height * 0.05,
-              right: 200.w,
-              top: 100.h,
-              // width: 1500.w,
-              child: Image.asset(
-                AppImages.paper,
-                width: 1500.w,
-                height: 650.h,
-                fit: BoxFit.fill,
-              ),
-            ), //the text
-            Positioned(
-              // right: 200.w,
-              // top: 100.h,
-              right: MediaQuery.sizeOf(context).width * 0.3,
-              top: MediaQuery.sizeOf(context).height * 0.25,
-              child: Container(
-                width: 750.w,
-                // color: Colors.white,
-                child: Wrap(
-                  alignment: WrapAlignment.center,
-                  children: widget.question.options.map((word) {
-                    final isWrongWord = word == widget.question.correctAnswer;
+            Image.asset(AppImages.paper, width: 700.w, height: 700.h),
+            Container(
+              width: MediaQuery.sizeOf(context).width,
+              height: 100.h,
+              child: Wrap(
+                alignment: WrapAlignment.spaceEvenly,
+                children: widget.question.options.map((word) {
+                  final isWrongWord = word == widget.question.correctAnswer;
 
-                    return GestureDetector(
-                      onTap: () async {
-                        if (fixed) return;
-
-                        if (isWrongWord) {
-                          // ✅ صح
-                          setState(() => fixed = true);
-
-                          // ⏳ استنى التأثير البصري
-                          await Future.delayed(
-                            const Duration(milliseconds: 1000),
-                          );
-
-                          // 🔊 صوت صح
-                          // context.read<GameCubit>().correctAnswer(context);
-                          onCorrect(context);
-                          // ⏭️ الانتقال للسؤال التالي بيتم تلقائي من GameCubit
-                        } else {
-                          // ❌ غلط
-                          onWrong(context);
-                          // context.read<GameCubit>().wrongAnswer(context);
-                        }
-                      },
-                      child: AnimatedSwitcher(
-                        duration: const Duration(milliseconds: 600),
-                        transitionBuilder: (child, animation) {
-                          return FadeTransition(
-                            opacity: animation,
-                            child: ScaleTransition(
-                              scale: Tween<double>(
-                                begin: 0.8,
-                                end: 1.0,
-                              ).animate(animation),
-                              child: child,
+                  return GameButtonTwo(
+                    text: word,
+                    onPressed: () async {
+                      if (isWrongWord) {
+                        SoundManager.instance.correct();
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (_) => FeedackScreen(
+                              isCorrect: true,
+                              stars: BlocProvider.of<GameCubit>(
+                                context,
+                              ).calculateStars(),
+                              helps: BlocProvider.of<GameCubit>(
+                                context,
+                              ).state.theGame.attempts,
+                              timeLeft: BlocProvider.of<GameCubit>(
+                                context,
+                              ).state.theGame.timeLeft,
                             ),
-                          );
-                        },
-                        child: fixed && isWrongWord
-                            ? Text(
-                                'فينيقيا',
-                                key: const ValueKey('fixed'),
-                                style: getRegulerTextStyle(
-                                  context: context,
-                                  color: Colors.green,
-                                ),
-                              )
-                            : Text(
-                                word,
-                                key: ValueKey(word),
-                                style: getRegulerTextStyle(
-                                  context: context,
-                                  color: const Color.fromRGBO(132, 25, 25, 1),
-                                ),
-                              ),
-                      ),
-                    );
-                  }).toList(),
-                ),
+                          ),
+                        );
+                      } else {
+                        SoundManager.instance.wrong();
+
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (_) => FeedackScreen(
+                              isCorrect: false,
+                              stars: 0,
+                              helps:
+                                  BlocProvider.of<GameCubit>(
+                                    context,
+                                  ).state.theGame.attempts -
+                                  1,
+                              timeLeft: BlocProvider.of<GameCubit>(
+                                context,
+                              ).state.theGame.timeLeft,
+                            ),
+                          ),
+                        );
+                      }
+                    },
+                    fromWidth: 350,
+                    fromHeight: 150,
+                    fontSize: 50,
+                  );
+                }).toList(),
               ),
             ),
           ],

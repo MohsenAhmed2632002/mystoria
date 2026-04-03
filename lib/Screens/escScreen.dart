@@ -77,17 +77,17 @@ class EscScreen extends StatelessWidget {
 
                         children: [
                           Image.asset(
-                            AppImages.stands,
+                            AppImages.stands30,
                             width: 250.w,
                             height: 250.h,
                           ),
                           Image.asset(
-                            AppImages.stands,
+                            AppImages.stands60,
                             width: 250.w,
                             height: 250.h,
                           ),
                           Image.asset(
-                            AppImages.stands,
+                            AppImages.stands90,
                             width: 250.w,
                             height: 250.h,
                           ),

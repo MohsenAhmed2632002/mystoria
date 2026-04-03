@@ -28,7 +28,7 @@ class SoundManager {
   Future<void> playBgm(String path) async {
     if (_bgmPlaying) return;
 
-    await _bgmPlayer.setReleaseMode(ReleaseMode.loop);
+    await _bgmPlayer.setReleaseMode(ReleaseMode.stop);
     await _bgmPlayer.play(AssetSource(path));
     _applyVolume();
     _bgmPlaying = true;

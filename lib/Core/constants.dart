@@ -6,6 +6,7 @@ import 'package:myhabits/Core/Routes.dart';
 import 'package:myhabits/Core/Images&colors.dart';
 import 'package:myhabits/Core/animation_restart_mixin.dart';
 import 'package:myhabits/Models/PlayerModel.dart';
+import 'package:myhabits/Screens/Instructions.dart';
 import 'package:myhabits/Screens/LoginScreen.dart';
 import 'package:myhabits/cubit/Gamecubit/game_cubit.dart';
 import 'package:myhabits/cubit/Gamecubit/game_state.dart';
@@ -512,9 +513,9 @@ class DownLeftButton extends StatelessWidget {
           ),
           GestureDetector(
             onTap: () {
-              Navigator.pushReplacement(
+              Navigator.push(
                 context,
-                MaterialPageRoute(builder: (_) => const LoginScreen()),
+                MaterialPageRoute(builder: (_) => const InstructionsTwo()),
               );
             },
             child: Image.asset(
@@ -542,7 +543,7 @@ class LeftButtonTwo extends StatelessWidget {
           Navigator.pop(context);
         },
         child: Image.asset(
-          'assets/images/right.png',
+          'assets/images/previous.png',
           width: 250.w,
           height: 250.h,
         ),
@@ -649,16 +650,16 @@ void onWrong(BuildContext context) {
       stars: 0,
       isCorrect: false,
 
-      onNext: () {
-        // Navigator.pop(context);
-        // cubit.correctAnswer(context);
-      },
-
       exit: () {
         cubit.exitGame();
 
         Navigator.pushReplacementNamed(context, Routes.homeScreen);
       },
+      onNext: () {
+        // Navigator.pop(context);
+        // cubit.correctAnswer(context);
+      },
+
       onRetry: () {
         Navigator.pop(context);
         cubit.wrongAnswer(context);
@@ -674,17 +675,17 @@ class AnswerResultDialog extends StatelessWidget {
   final int stars;
   final int helps;
   final int timeLeft;
-  final VoidCallback? onNext;
-  final VoidCallback? onRetry;
-  final VoidCallback? exit;
+  final VoidCallback onNext;
+  final VoidCallback onRetry;
+  final VoidCallback exit;
 
   const AnswerResultDialog({
     super.key,
     required this.isCorrect,
     this.stars = 0,
-    this.onNext,
-    this.onRetry,
-    this.exit,
+    required this.onNext,
+    required this.onRetry,
+    required this.exit,
     required this.helps,
     required this.timeLeft,
   });

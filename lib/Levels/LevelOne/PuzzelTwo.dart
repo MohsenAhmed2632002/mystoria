@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:myhabits/Core/Images&colors.dart';
 import 'package:myhabits/Core/constants.dart';
+import 'package:myhabits/Core/soundManger.dart';
 import 'package:myhabits/Models/QuestionModel.dart';
+import 'package:myhabits/Screens/feedackScreen.dart';
+import 'package:myhabits/cubit/Gamecubit/game_cubit.dart';
 
 class McqWidget extends StatelessWidget {
   final QuestionModel question;
@@ -23,7 +27,8 @@ class McqWidget extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
             Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: question.options.map((option) {
                 return GameButtonTwo(
                   text: option,
@@ -31,21 +36,49 @@ class McqWidget extends StatelessWidget {
                     // final cubit = context.read<GameCubit>();
 
                     if (option == question.correctAnswer) {
-                      // ✅ صح
-                      // SoundManager.playCorrect();
-                      onCorrect(context);
-                      // onWrong(  context);
-                      // cubit.correctAnswer(context);
+                      SoundManager.instance.correct();
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) => FeedackScreen(
+                            isCorrect: true,
+                            stars: BlocProvider.of<GameCubit>(
+                              context,
+                            ).calculateStars(),
+                            helps: BlocProvider.of<GameCubit>(
+                              context,
+                            ).state.theGame.attempts,
+                            timeLeft: BlocProvider.of<GameCubit>(
+                              context,
+                            ).state.theGame.timeLeft,
+                          ),
+                        ),
+                      );
                     } else {
-                      // ❌ غلط
-                      // SoundManager.playWrong();
-                      // cubit.wrongAnswer(context);
-                      // onCorrect(context);
-                      onWrong(context);
+                      SoundManager.instance.wrong();
+
+          
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) => FeedackScreen(
+                            isCorrect: false,
+                            stars: 0,
+                            helps:
+                                BlocProvider.of<GameCubit>(
+                                  context,
+                                ).state.theGame.attempts -
+                                1,
+                            timeLeft: BlocProvider.of<GameCubit>(
+                              context,
+                            ).state.theGame.timeLeft,
+                          ),
+                        ),
+                      );
                     }
                   },
-                  fromWidth: 550,
-                  fromHeight: 200,
+                  fromWidth: 350,
+                  fromHeight: 150,
                   fontSize: 35,
                 );
               }).toList(),

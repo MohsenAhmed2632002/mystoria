@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:myhabits/Core/Images&colors.dart';
 import 'package:myhabits/Core/constants.dart';
+import 'package:myhabits/Core/soundManger.dart';
 import 'package:myhabits/Models/QuestionModel.dart';
+import 'package:myhabits/Screens/feedackScreen.dart';
 import 'package:myhabits/cubit/Gamecubit/game_cubit.dart';
 import 'package:myhabits/cubit/Gamecubit/game_state.dart';
 
@@ -22,25 +26,60 @@ class _ChooseWidgetWidgetState extends State<ChooseWidget> {
 
       background: widget.question.background,
       mediaQueryRight: 0,
-      mediaQueryTop: MediaQuery.sizeOf(context).height * 0.2,
+      mediaQueryTop: MediaQuery.sizeOf(context).height * 0.1,
       child: Container(
         // color: Colors.amberAccent,
         width: MediaQuery.sizeOf(context).width,
-        height: MediaQuery.sizeOf(context).height,
+        height: MediaQuery.sizeOf(context).height * 0.9,
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.end,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: widget.question.options.map((option) {
             return GameButtonTwo(
-              fromHeight: 200,
-              fromWidth: 500,
+              fromHeight: 135,
+              fromWidth: 350,
               text: option,
               onPressed: () {
-
                 if (option == widget.question.correctAnswer) {
                   // ✅ صح
-                  onCorrect(context);
+                  SoundManager.instance.correct();
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) => FeedackScreen(
+                        isCorrect: true,
+                        stars: BlocProvider.of<GameCubit>(
+                          context,
+                        ).calculateStars(),
+                        helps: BlocProvider.of<GameCubit>(
+                          context,
+                        ).state.theGame.attempts,
+                        timeLeft: BlocProvider.of<GameCubit>(
+                          context,
+                        ).state.theGame.timeLeft,
+                      ),
+                    ),
+                  );
                 } else {
-                  onWrong(context);
+                  SoundManager.instance.wrong();
+
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) => FeedackScreen(
+                        isCorrect: false,
+                        stars: 0,
+                        helps:
+                            BlocProvider.of<GameCubit>(
+                              context,
+                            ).state.theGame.attempts -
+                            1,
+                        timeLeft: BlocProvider.of<GameCubit>(
+                          context,
+                        ).state.theGame.timeLeft,
+                      ),
+                    ),
+                  );
                 }
               },
               fontSize: 35,
@@ -62,9 +101,9 @@ class ChooseHWidget extends StatefulWidget {
 
 class _ChooseHWidgettWidgetState extends State<ChooseHWidget> {
   final Map<int, String> correctOrder = {
-    0: "شيد معابد الشمس",
-    1: " اول هرم كامل ",
-    2: "كتب نصوص الاهرام علي الجدران",
+    0: 'اوسر كاف',
+    1: 'سنفرو ',
+    2: 'اوناس ',
   };
 
   final Map<int, String> userOrder = {};
@@ -80,44 +119,45 @@ class _ChooseHWidgettWidgetState extends State<ChooseHWidget> {
       mediaQueryTop: MediaQuery.sizeOf(context).height * 0.1,
       child: Container(
         // color: AppColors.mainColor,
-        height: MediaQuery.sizeOf(context).height,
+        height: MediaQuery.sizeOf(context).height * 0.9,
         width: MediaQuery.sizeOf(context).width,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             Container(
               // color: Colors.red,
-              width: MediaQuery.sizeOf(context).width * 0.4,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
+              width: MediaQuery.sizeOf(context).width,
+              child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  _buildChoices(correctOrder[1]!),
-                  _buildChoices(correctOrder[2]!),
-                  _buildChoices(correctOrder[0]!),
+                  _buildChoices(widget.question.options[1]),
+                  _buildChoices(widget.question.options[2]),
+                  _buildChoices(widget.question.options[0]),
                 ],
               ),
             ),
-
-            BlocBuilder<GameCubit, GameState>(
-              builder: (context, state) {
-                if (state is GamePlaying) {
-                  return Container(
-                    // color: AppColors.m  ainColor,
-                    width: MediaQuery.sizeOf(context).width * 0.6,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        _buildDoor(0, "اوسركاف"),
-                        _buildDoor(1, "سنفرو"),
-                        _buildDoor(2, 'اوناس '),
-                      ],
-                    ),
-                  );
-                } else {
-                  return Text("No Data");
-                }
-              },
+            Container(
+              width: MediaQuery.sizeOf(context).width,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  _buildDoor(AppImages.maabadElshams),
+                  _buildDoor(AppImages.haramModarag),
+                  _buildDoor(AppImages.ketabatHaet),
+                ],
+              ),
+            ),
+            Container(
+              // color: AppColors.mainColor,
+              width: MediaQuery.sizeOf(context).width,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  _placeOfAnswers(0),
+                  _placeOfAnswers(1),
+                  _placeOfAnswers(2),
+                ],
+              ),
             ),
           ],
         ),
@@ -125,7 +165,7 @@ class _ChooseHWidgettWidgetState extends State<ChooseHWidget> {
     );
   }
 
-  Widget _buildDoor(int index, String text) {
+  Widget _placeOfAnswers(int index) {
     return DragTarget<String>(
       onAccept: (data) {
         setState(() {
@@ -133,30 +173,28 @@ class _ChooseHWidgettWidgetState extends State<ChooseHWidget> {
         });
         _checkResult();
       },
-      builder: (context, _, __) {
-        return Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            if (userOrder[index] != null)
-              GameButtonTwo(
+      builder: (context, candidateData, rejectedData) {
+        return userOrder[index] != null
+            ? GameButtonTwo(
                 text: userOrder[index]!,
-
                 onPressed: () {},
-                fromWidth: 550,
-                fromHeight: 280,
+                fromWidth: 300,
+                fromHeight: 125,
                 fontSize: 25,
-              ),
-            GameButtonTwo(
-              text: text,
-              onPressed: () {},
-              fromWidth: 550,
-              fromHeight: 280,
-              fontSize: 25,
-            ), // Image.asset(userOrder[index]!, width: 250.w, height: 150.h),
-            // Image.asset(image, width: 440.w, height: 600.h),
-          ],
-        );
+              )
+            : Image.asset(
+                'assets/images/button_game.png',
+                width: 300.w,
+                height: 125.h,
+              );
       },
+    );
+  }
+
+  Widget _buildDoor(String text) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [Image.asset(text, width: 600.w, height: 550.h)],
     );
   }
 
@@ -173,9 +211,9 @@ class _ChooseHWidgettWidgetState extends State<ChooseHWidget> {
     return GameButtonTwo(
       text: text,
       onPressed: () {},
-      fromWidth: 580,
-      fromHeight: 280,
-      fontSize: 25,
+      fromWidth: 300,
+      fromHeight: 125,
+      fontSize: 70.sp,
     );
   }
 
@@ -190,16 +228,37 @@ class _ChooseHWidgettWidgetState extends State<ChooseHWidget> {
     });
 
     if (isCorrect) {
-      onCorrect(context);
-      // await SoundManager.playCorrect();
-      // context.read<GameCubit>().correctAnswer(context);
-      // _showResultDialog(true);
+      SoundManager.instance.correct();
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (_) => FeedackScreen(
+            isCorrect: true,
+            stars: BlocProvider.of<GameCubit>(context).calculateStars(),
+            helps: BlocProvider.of<GameCubit>(context).state.theGame.attempts,
+            timeLeft: BlocProvider.of<GameCubit>(
+              context,
+            ).state.theGame.timeLeft,
+          ),
+        ),
+      );
     } else {
-      // await SoundManager.playWrong();
-      // context.read<GameCubit>().wrongAnswer(context);
-      onWrong(context);
-      userOrder.clear();
-      setState(() {});
+      SoundManager.instance.wrong();
+
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (_) => FeedackScreen(
+            isCorrect: false,
+            stars: 0,
+            helps:
+                BlocProvider.of<GameCubit>(context).state.theGame.attempts - 1,
+            timeLeft: BlocProvider.of<GameCubit>(
+              context,
+            ).state.theGame.timeLeft,
+          ),
+        ),
+      );
     }
   }
 }

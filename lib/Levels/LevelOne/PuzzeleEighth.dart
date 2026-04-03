@@ -1,10 +1,11 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:myhabits/Core/Images&colors.dart';
 import 'package:myhabits/Core/constants.dart';
+import 'package:myhabits/Core/soundManger.dart';
 import 'package:myhabits/Models/QuestionModel.dart';
+import 'package:myhabits/Screens/feedackScreen.dart';
 import 'package:myhabits/cubit/Gamecubit/game_cubit.dart';
 import 'package:myhabits/cubit/Gamecubit/game_state.dart';
 
@@ -31,17 +32,17 @@ class _PuzzeleCemeteriesState extends State<PuzzeleCemeteries> {
       mediaQueryTop: MediaQuery.sizeOf(context).height * 0.1,
 
       child: Container(
+        // color: Colors.red,
         height: MediaQuery.sizeOf(context).height,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             Container(
               // color: Colors.red,
-              width: MediaQuery.sizeOf(context).width * 0.8,
+              width: MediaQuery.sizeOf(context).width,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  // _buildDoor(0, widget.question.options[0]),
                   _buildChoices("4"),
                   _buildChoices("3"),
                   _buildChoices("2"),
@@ -49,28 +50,32 @@ class _PuzzeleCemeteriesState extends State<PuzzeleCemeteries> {
                 ],
               ),
             ),
-
-            BlocBuilder<GameCubit, GameState>(
-              builder: (context, state) {
-                if (state is GamePlaying) {
-                  return Container(
-                    // color: AppColors.mainColor,
-                    width: MediaQuery.sizeOf(context).width,
-                    child: Row(
-                      // crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        _buildDoor(index: 0, image: widget.question.options[0]),
-                        _buildDoor(index: 1, image: widget.question.options[1]),
-                        _buildDoor(index: 2, image: widget.question.options[3]),
-                        _buildDoor(index: 3, image: widget.question.options[2]),
-                      ],
-                    ),
-                  );
-                } else {
-                  return Text("No Data");
-                }
-              },
+            Container(
+              // color: AppColors.mainColor,
+              width: MediaQuery.sizeOf(context).width,
+              child: Row(
+                // crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  _buildDoor(index: 0, image: widget.question.options[0]),
+                  _buildDoor(index: 1, image: widget.question.options[1]),
+                  _buildDoor(index: 2, image: widget.question.options[3]),
+                  _buildDoor(index: 3, image: widget.question.options[2]),
+                ],
+              ),
+            ),
+            Container(
+              // color: AppColors.mainColor,
+              width: MediaQuery.sizeOf(context).width,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  _placeOfAnswers(0),
+                  _placeOfAnswers(1),
+                  _placeOfAnswers(2),
+                  _placeOfAnswers(3),
+                ],
+              ),
             ),
           ],
         ),
@@ -78,7 +83,7 @@ class _PuzzeleCemeteriesState extends State<PuzzeleCemeteries> {
     );
   }
 
-  Widget _buildDoor({required int index, required String image}) {
+  Widget _placeOfAnswers(int index) {
     return DragTarget<String>(
       onAccept: (data) {
         setState(() {
@@ -87,22 +92,25 @@ class _PuzzeleCemeteriesState extends State<PuzzeleCemeteries> {
         _checkResult();
       },
       builder: (context, candidateData, rejectedData) {
-        return Column(
-          children: [
-            if (userOrder[index] != null)
-              GameButtonTwo(
+        return userOrder[index] != null
+            ? GameButtonTwo(
                 text: userOrder[index]!,
-                fromWidth: 250,
-                fromHeight: 150,
-
                 onPressed: () {},
-                fontSize: 40,
-              ),
-            Image.asset(image, width: 300.w, height: 300.h),
-          ],
-        );
+                fromWidth: 300,
+                fromHeight: 125,
+                fontSize: 100.sp,
+              )
+            : Image.asset(
+                'assets/images/button_game.png',
+                width: 300.w,
+                height: 125.h,
+              );
       },
     );
+  }
+
+  Widget _buildDoor({required int index, required String image}) {
+    return Image.asset(image, width: 300.w, height: 300.h);
   }
 
   Widget _buildChoices(String myNum) {
@@ -119,8 +127,8 @@ class _PuzzeleCemeteriesState extends State<PuzzeleCemeteries> {
       text: myNum,
       onPressed: () {},
       fromWidth: 300,
-      fromHeight: 200,
-      fontSize: 40,
+      fromHeight: 125,
+      fontSize: 100.sp,
     );
   }
 
@@ -165,12 +173,38 @@ class _PuzzeleCemeteriesState extends State<PuzzeleCemeteries> {
     // final cubit = context.read<GameCubit>();
 
     if (isCorrect) {
-      onCorrect(context);
-      // cubit.correctAnswer(context);
+      SoundManager.instance.correct();
+
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (_) => FeedackScreen(
+            isCorrect: true,
+            stars: BlocProvider.of<GameCubit>(context).calculateStars(),
+            helps: BlocProvider.of<GameCubit>(context).state.theGame.attempts,
+            timeLeft: BlocProvider.of<GameCubit>(
+              context,
+            ).state.theGame.timeLeft,
+          ),
+        ),
+      );
     } else {
-      onWrong(context);
-      userOrder.clear();
-      setState(() {});
+      SoundManager.instance.wrong();
+
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (_) => FeedackScreen(
+            isCorrect: false,
+            stars: 0,
+            helps:
+                BlocProvider.of<GameCubit>(context).state.theGame.attempts - 1,
+            timeLeft: BlocProvider.of<GameCubit>(
+              context,
+            ).state.theGame.timeLeft,
+          ),
+        ),
+      );
     }
   }
 }

@@ -17,7 +17,7 @@ class LoginScreen extends StatefulWidget {
 
 class _GestState extends State<LoginScreen> {
   final TextEditingController _nameController = TextEditingController();
-  String selectedAvatar = 'character_boy'; // افتراضي
+  String selectedAvatar = 'boy'; // افتراضي
 
   @override
   Widget build(BuildContext context) {
@@ -119,7 +119,7 @@ class _GestState extends State<LoginScreen> {
                       context.read<PlayerCubit>().setPlayer(
                         PlayerModel(
                           name: _nameController.text,
-                          avatar: selectedAvatar,
+                          avatar: selectedAvatar.isEmpty ? 'boy' : selectedAvatar,
                         ),
                       );
                       // PlayerStorage.setPlayer(

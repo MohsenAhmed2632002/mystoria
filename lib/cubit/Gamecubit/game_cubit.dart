@@ -20,8 +20,6 @@ class GameCubit extends Cubit<GamePlaying> {
   /// -----------------------------
   LevelModel get currentLevel => levels[game.currentLevel];
 
-
-
   List get questions => currentLevel.questions;
 
   get currentQuestion => questions[game.currentPuzzle];
@@ -35,7 +33,7 @@ class GameCubit extends Cubit<GamePlaying> {
   /// -----------------------------
 
   void initState(context) async {
-    await SoundManager.instance.stopBgm();
+    // await SoundManager.instance.stopBgm();
     startTimer(context);
 
     await SoundManager.instance.playBgm('sound/music_game.mp3');
@@ -96,16 +94,17 @@ class GameCubit extends Cubit<GamePlaying> {
   /// CORRECT ANSWER
   /// -----------------------------
   void correctAnswer(BuildContext context) {
-    SoundManager.instance.correct();
+    // SoundManager.instance.correct();
     _timer?.cancel();
 
     final isLastQuestion = game.currentPuzzle >= questions.length - 1;
 
     int newCounter = game.correctAnswerCounter + 1;
     int newAttempts = game.attempts;
-
+    int newHelps = game.helps;
     if (newCounter == 4) {
       newAttempts += 1;
+      newHelps += 1;
       newCounter = 0;
     }
 
@@ -119,16 +118,18 @@ class GameCubit extends Cubit<GamePlaying> {
               ? game.currentPuzzle
               : game.currentPuzzle + 1,
           timeLeft: 30,
+          helps: newHelps,
+          
         ),
       ),
     );
 
     if (isLastQuestion) {
-      SoundManager.instance.stopBgm();
+      // SoundManager.instance.stopBgm();
 
       Navigator.pushReplacementNamed(context, Routes.levelMapScreen);
       stopTimer();
-      return;
+      // return;
     }
 
     startTimer(context);
@@ -138,7 +139,7 @@ class GameCubit extends Cubit<GamePlaying> {
   /// WRONG ANSWER
   /// -----------------------------
   void wrongAnswer(BuildContext context) {
-    SoundManager.instance.wrong();
+    // SoundManager.instance.wrong();
     stopTimer();
 
     if (game.attempts > 1) {

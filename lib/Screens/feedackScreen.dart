@@ -147,10 +147,20 @@ class _FeedackScreenState extends State<FeedackScreen> {
 
                       /// إعادة
                       GestureDetector(
-                        onTap: () {
-                          Navigator.pop(context);
-                          // cubit.wrongAnswer(context);
-                        },
+                        onTap: widget.isCorrect
+                            ? () {
+                                // cubit.correctAnswer(context);
+                                Navigator.pop(context);
+                              }
+                            : () {
+                                Navigator.pop(context);
+                                cubit.wrongAnswer(context);
+                              },
+
+                        //  () {
+                        //   Navigator.pop(context);
+                        //   cubit.wrongAnswer(context);
+                        // },
                         child: Image.asset(
                           AppImages.retry,
                           width: 200.w,

@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:myhabits/Core/Images&colors.dart';
 import 'package:myhabits/Core/constants.dart';
+import 'package:myhabits/Core/soundManger.dart';
 import 'package:myhabits/Models/QuestionModel.dart';
+import 'package:myhabits/Screens/feedackScreen.dart';
+import 'package:myhabits/cubit/Gamecubit/game_cubit.dart';
 
 class PuzzleCrown extends StatefulWidget {
   final QuestionModel question;
@@ -47,9 +51,9 @@ class _PuzzleCrownState extends State<PuzzleCrown> {
                 // crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  _buildDoor(2, AppImages.chairwithbigpyramid),
-                  _buildDoor(1, AppImages.chairShip),
-                  _buildDoor(0, AppImages.chairSteppedPyramid),
+                  _buildDoor(AppImages.chairwithbigpyramid),
+                  _buildDoor(AppImages.chairShip),
+                  _buildDoor(AppImages.chairSteppedPyramid),
                 ],
               ),
             ),
@@ -95,7 +99,7 @@ class _PuzzleCrownState extends State<PuzzleCrown> {
     );
   }
 
-  Widget _buildDoor(int index, String image) {
+  Widget _buildDoor(String image) {
     return Image.asset(image, width: 500.w, height: 600.h);
   }
 
@@ -141,12 +145,38 @@ class _PuzzleCrownState extends State<PuzzleCrown> {
     // final cubit = context.read<GameCubit>();
 
     if (isCorrect) {
-      onCorrect(context);
-      // cubit.correctAnswer(context);
+      SoundManager.instance.correct();
+
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (_) => FeedackScreen(
+            isCorrect: true,
+            stars: BlocProvider.of<GameCubit>(context).calculateStars(),
+            helps: BlocProvider.of<GameCubit>(context).state.theGame.attempts,
+            timeLeft: BlocProvider.of<GameCubit>(
+              context,
+            ).state.theGame.timeLeft,
+          ),
+        ),
+      );
     } else {
-      onWrong(context);
-      userOrder.clear();
-      setState(() {});
+      SoundManager.instance.wrong();
+
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (_) => FeedackScreen(
+            isCorrect: false,
+            stars: 0,
+            helps:
+                BlocProvider.of<GameCubit>(context).state.theGame.attempts - 1,
+            timeLeft: BlocProvider.of<GameCubit>(
+              context,
+            ).state.theGame.timeLeft,
+          ),
+        ),
+      );
     }
   }
 }

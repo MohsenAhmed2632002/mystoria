@@ -30,12 +30,15 @@ class LevelMapScreen extends StatelessWidget {
             ),
           ),
           Positioned(
-            top: 180.h,
+            bottom: 80.h,
             right: 425.w,
-            child: Image.asset(
-              stars >= 60 ? AppImages.track2 : AppImages.track_2dark,
-              width: 500.w,
-              height: 1300.h,
+            child: Container(
+              child: Image.asset(
+                // color: Colors.white,
+                stars >= 60 ? AppImages.track2 : AppImages.track_2dark,
+                width: 500.w,
+                height: 500.h,
+              ),
             ),
           ),
         ],

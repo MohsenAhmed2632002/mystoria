@@ -55,8 +55,8 @@ class BodyOfDevScreen extends StatelessWidget {
           Text(
             textAlign: TextAlign.center,
             "هذه اللعبة جزء من مشروع التخرج لسنه 2026/2025 \n لطلاب جامعة عين شمس كلية التربية النوعية قسم تكنولوجيا شعبة معلم حاسب",
-            style: getBoldTextStyle(
-              fontSize: 50.sp,
+            style: getRegulerTextStyle(
+              fontSize: 40.sp,
               context: context,
               color: AppColors.mainColor,
             ),
@@ -74,7 +74,7 @@ class BodyOfDevScreen extends StatelessWidget {
 
           //الكتور
           Container(
-            // color: Colors.red,
+            // color: Colo  rs.red,
             width: MediaQuery.sizeOf(context).width,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,

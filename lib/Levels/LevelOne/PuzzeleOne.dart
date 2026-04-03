@@ -149,6 +149,7 @@ class _PuzzleOrderViewState extends State<PuzzleOrder> {
     });
 
     if (isCorrect) {
+      SoundManager.instance.correct();
       Navigator.push(
         context,
         MaterialPageRoute(
@@ -163,7 +164,8 @@ class _PuzzleOrderViewState extends State<PuzzleOrder> {
         ),
       );
     } else {
-      // await SoundManager.playWrong();
+      SoundManager.instance.wrong();
+
       // context.read<GameCubit>().wrongAnswer(context);
       // onWrong(context);
       userOrder.clear();

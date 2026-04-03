@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:myhabits/Core/Font.dart';
 import 'package:myhabits/Core/Images&colors.dart';
 import 'package:myhabits/Core/constants.dart';
+import 'package:myhabits/Core/soundManger.dart';
 import 'package:myhabits/Models/TripleModel.Dart';
+import 'package:myhabits/Screens/feedackScreen.dart';
+import 'package:myhabits/cubit/Gamecubit/game_cubit.dart';
 
 class NetworkQ extends StatefulWidget {
   const NetworkQ({super.key});
@@ -17,33 +21,26 @@ class _NetworkQState extends State<NetworkQ> {
   final List<TripleItem> correctTriples = [
     TripleItem(
       king: AppImages.zosar,
-      family: 'الاسرة الثالثة',
+      family: "الهرم المدرج",
       achievement: AppImages.stepPyramid,
     ),
     TripleItem(
       king: AppImages.khofo,
-      family: 'ثاني ملوك الاسرة الرابعة',
+      family: 'الهرم الاكبر',
       achievement: AppImages.bigPyramid,
     ),
     TripleItem(
       king: AppImages.khafraa,
-      family: 'ثالث ملوك الاسرة الرابعة',
+      family: 'ابو الهول',
       achievement: AppImages.aboAlhawl,
     ),
   ];
 
   /// العناصر القابلة للسحب
-  late List<TripleItem> draggableItems;
+  // late List<TripleItem> draggableItems;
 
   /// اختيارات المستخدم
-  final Map<int, TripleItem> userTriples = <int, TripleItem>{};
-
-  @override
-  void initState() {
-    super.initState();
-
-    draggableItems = [...correctTriples]..shuffle();
-  }
+  // final Map<int, TripleItem> userTriples = <int, TripleItem>{};
 
   @override
   Widget build(BuildContext context) {
@@ -62,24 +59,22 @@ class _NetworkQState extends State<NetworkQ> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            /// 🔹 Draggables (الملوك)
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: draggableItems
-                  .map<Widget>((item) => _buildDraggableTwo(item))
-                  .toList(),
-            ),
-            //الصور
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: draggableItems
-                  .map<Widget>((item) => _buildDraggable(item))
+              children: correctTriples
+                  .map<Widget>(
+                    (item) => Image.asset(
+                      item.achievement,
+                      width: 400.w,
+                      height: 400.h,
+                    ),
+                  )
                   .toList(),
             ),
 
             /// 🔹 Targets (الأبواب)
             Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: List.generate(
                 correctTriples.length,
                 (index) => _buildDoor(index, correctTriples[index].family),
@@ -91,101 +86,52 @@ class _NetworkQState extends State<NetworkQ> {
     );
   }
 
-  // 🟦 Draggable
-  Widget _buildDraggable(TripleItem item) {
-    return Draggable<TripleItem>(
-      data: item,
-      feedback: _card(item.achievement, dragging: true),
-      childWhenDragging: _card(item.achievement, faded: true),
-      child: _card(item.achievement),
-    );
-  }
-
-  // 🟦 Draggable
-  Widget _buildDraggableTwo(TripleItem item) {
-    return Draggable<TripleItem>(
-      data: item,
-      feedback: _card(item.king, dragging: true),
-      childWhenDragging: _card(item.king, faded: true),
-      child: _card(item.king),
-    );
-  }
-
-  // 🟨 Card UI
-  Widget _card(String image, {bool dragging = false, bool faded = false}) {
-    return Opacity(
-      opacity: faded ? 0.3 : 1,
-      child: Image.asset(image, width: 250.w, height: 250.h),
-    );
-  }
-
   // 🚪 Door (Target)
   Widget _buildDoor(int index, String familyText) {
-    return DragTarget<TripleItem>(
-      onAccept: (item) {
-        setState(() {
-          userTriples[index] = item;
-        });
-        _checkResult();
-      },
-      builder: (context, candidateData, rejectedData) {
-        final placed = userTriples[index];
-
-        return Container(
-          margin: const EdgeInsets.all(8),
-          width: 500.w,
-          height: 150.h,
-          decoration: BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage(AppImages.buttongame),
-              fit: BoxFit.fill,
-            ),
-          ),
-          child: Center(
-            child: placed == null
-                ? Text(
-                    familyText,
-                    style: getRegulerTextStyle(
-                      context: context,
-                      fontSize: 18.sp,
-                    ),
-                  )
-                : Image.asset(placed.achievement, width: 120.w),
-          ),
-        );
-      },
+    return GameButtonTwo(
+      text: correctTriples[index].family,
+      onPressed: () => _checkResult(index),
+      fontSize: 40,
+      fromWidth: 350,
+      fromHeight: 125,
     );
   }
 
   // ✅ التحقق من الحل
-  void _checkResult() {
-    if (userTriples.length < correctTriples.length) return;
+  void _checkResult(int index) {
+    if (correctTriples[index].family == "الهرم المدرج") {
+      SoundManager.instance.correct();
 
-    bool correct = true;
-
-    for (int i = 0; i < correctTriples.length; i++) {
-      final user = userTriples[i];
-      final correctItem = correctTriples[i];
-
-      if (user == null ||
-          user.king != correctItem.king ||
-          user.family != correctItem.family ||
-          user.achievement != correctItem.achievement) {
-        correct = false;
-        break;
-      }
-    }
-
-    if (correct) {
-      onCorrect(context);
-      // onWrong(  context);
-      // context.read<GameCubit>().correctAnswer(context);
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (_) => FeedackScreen(
+            isCorrect: true,
+            stars: BlocProvider.of<GameCubit>(context).calculateStars(),
+            helps: BlocProvider.of<GameCubit>(context).state.theGame.attempts,
+            timeLeft: BlocProvider.of<GameCubit>(
+              context,
+            ).state.theGame.timeLeft,
+          ),
+        ),
+      );
     } else {
-      // onCorrect(context);
-      onWrong(context);
-      // context.read<GameCubit>().wrongAnswer(context);
-      userTriples.clear();
-      setState(() {});
+      SoundManager.instance.wrong();
+
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (_) => FeedackScreen(
+            isCorrect: false,
+            stars: 0,
+            helps:
+                BlocProvider.of<GameCubit>(context).state.theGame.attempts - 1,
+            timeLeft: BlocProvider.of<GameCubit>(
+              context,
+            ).state.theGame.timeLeft,
+          ),
+        ),
+      );
     }
   }
 }

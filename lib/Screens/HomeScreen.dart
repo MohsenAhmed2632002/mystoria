@@ -48,7 +48,7 @@ class ThereButtons extends StatelessWidget {
             fromHeight: 200,
             text: 'التعليمات',
             onPressed: () {
-              Navigator.pushNamed(context, Routes.instructions2);
+              Navigator.pushNamed(context, Routes.instructions);
             },
           ),
           GameButton(

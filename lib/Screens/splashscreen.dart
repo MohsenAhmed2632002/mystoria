@@ -26,7 +26,7 @@ class _SplashScreenState extends State<SplashScreen>
     super.initState();
 
     // 🔊 تشغيل صوت التحميل
-    // SoundManager.instance.playBgm('sound/loading.mp3');
+    SoundManager.instance.playBgm('sound/loading.mp3');
 
     _controller = AnimationController(
       vsync: this,
