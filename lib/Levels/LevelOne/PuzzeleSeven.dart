@@ -5,12 +5,15 @@ import 'package:myhabits/Core/Font.dart';
 import 'package:myhabits/Core/Images&colors.dart';
 import 'package:myhabits/Core/constants.dart';
 import 'package:myhabits/Core/soundManger.dart';
+import 'package:myhabits/Models/QuestionModel.dart';
 import 'package:myhabits/Models/TripleModel.Dart';
 import 'package:myhabits/Screens/feedackScreen.dart';
 import 'package:myhabits/cubit/Gamecubit/game_cubit.dart';
 
 class NetworkQ extends StatefulWidget {
-  const NetworkQ({super.key});
+  const NetworkQ({super.key,required this.question});
+   final QuestionModel question;
+
 
   @override
   State<NetworkQ> createState() => _NetworkQState();
@@ -45,10 +48,10 @@ class _NetworkQState extends State<NetworkQ> {
   @override
   Widget build(BuildContext context) {
     return GameScreen(
-      color: AppColors.blueColor,
-      hint: 'أربط بين الملك و عصره و اثره الشهير',
+      color: widget.question.color,
+      hint: widget.question.hint,
 
-      background: AppImages.quiz1,
+      background: widget.question.background,
       mediaQueryRight: 0,
       mediaQueryTop: MediaQuery.sizeOf(context).height * 0.05,
       child: Container(

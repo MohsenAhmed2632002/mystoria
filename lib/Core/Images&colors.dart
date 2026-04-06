@@ -41,6 +41,7 @@ class AppImages {
 
   static const buttongame = "${imagepath}button_game.png";
 
+  static const String quiz = "${imagepath}quiz.png";
   static const String quiz1 = "${imagepath}quiz1.png";
 
   static const String quiz2 = "${imagepath}quiz2.png";

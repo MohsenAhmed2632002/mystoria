@@ -27,7 +27,8 @@ class AwardScreen extends StatelessWidget {
               height: 800.h,
               // color: AppColors.blueColor,
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Text(
                     'الجوائز',
@@ -37,61 +38,49 @@ class AwardScreen extends StatelessWidget {
                       color: AppColors.mainColor,
                     ),
                   ),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    // crossAxisAlignment: CrossAxisAlignment.s,
+
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          Image.asset(
-                            stars >= 90
-                                ? AppImages.level_3
-                                : AppImages.darklevel_3,
+                      Image.asset(
+                        stars >= 90 ? AppImages.level_3 : AppImages.darklevel_3,
 
-                            width: 200.w,
-                            height: 425.h,
-                          ),
-
-                          Image.asset(
-                            stars >= 60
-                                ? AppImages.level_2
-                                : AppImages.darklevel_2,
-
-                            width: 200.w,
-                            height: 425.h,
-                          ),
-
-                          Image.asset(
-                            stars >= 30
-                                ? AppImages.level_1
-                                : AppImages.darklevel_1,
-
-                            width: 200.w,
-                            height: 425.h,
-                          ),
-                        ],
+                        width: 200.w,
+                        height: 425.h,
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
 
-                        children: [
-                          Image.asset(
-                            AppImages.stands90,
-                            width: 250.w,
-                            height: 250.h,
-                          ),
-                          Image.asset(
-                            AppImages.stands60,
-                            width: 250.w,
-                            height: 250.h,
-                          ),
-                          Image.asset(
-                            AppImages.stands30,
-                            width: 250.w,
-                            height: 250.h,
-                          ),
-                        ],
+                      Image.asset(
+                        stars >= 60 ? AppImages.level_2 : AppImages.darklevel_2,
+
+                        width: 200.w,
+                        height: 425.h,
+                      ),
+
+                      Image.asset(
+                        stars >= 30 ? AppImages.level_1 : AppImages.darklevel_1,
+
+                        width: 200.w,
+                        height: 425.h,
+                      ),
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Image.asset(
+                        AppImages.stands90,
+                        width: 250.w,
+                        height: 250.h,
+                      ),
+                      Image.asset(
+                        AppImages.stands60,
+                        width: 250.w,
+                        height: 250.h,
+                      ),
+                      Image.asset(
+                        AppImages.stands30,
+                        width: 250.w,
+                        height: 250.h,
                       ),
                     ],
                   ),

@@ -55,7 +55,7 @@ class QuestionRenderer extends StatelessWidget {
         return FindMistakeWidget(question: question);
 
       case QuestionType.order3:
-        return NetworkQ();
+        return NetworkQ(question: question,);
 
       case QuestionType.choose2:
         return ChooseHWidget(question: question);

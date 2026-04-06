@@ -115,19 +115,26 @@ class UserDate extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      crossAxisAlignment: CrossAxisAlignment.end,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         BlocBuilder<PlayerCubit, PlayerModel?>(
           builder: (context, player) {
             if (player == null) {
               return const SizedBox(); // أو Loader
             }
-            return Text(
-              player.name,
-              style: getRegulerTextStyle(
-                context: context,
-                color: Colors.black,
-                fontSize: 50.sp,
+            // هنا بنعرض اسم اللاعب
+            return Container(
+              // color: Colors.white.withOpacity(0.7), // خلفية بيضاء شفافة
+              // width:
+              // MediaQuery.sizeOf(context).width *
+              // 0.3, // حدد العرض اللي يناسب تصميمك
+              child: Text(
+                player.name,
+                style: getRegulerTextStyle(
+                  context: context,
+                  color: Colors.black,
+                  fontSize: 50.sp,
+                ),
               ),
             );
           },
@@ -137,7 +144,7 @@ class UserDate extends StatelessWidget {
           child: Divider(
             color: const Color(0xFF7C4E00),
             indent: 0, // قلل القيم دي شوية للتجربة
-            endIndent: 100.w,
+            endIndent: 10.w,
             thickness: 3,
             height: 10.h,
           ),
@@ -226,20 +233,32 @@ class UserDate extends StatelessWidget {
                           1) /
                       10;
 
-                  return LinearPercentIndicator(
-                    backgroundColor: Colors.black54,
-                    progressColor: const Color(0xFF7C4E00),
-                    animation: true,
-                    percent: progress.clamp(0.0, 1.0),
-                    animationDuration:
-                        1000, // خليتها ثانية واحدة عشان تبقى أسرع وألطف
-                    lineHeight: 40.h,
-                    barRadius: const Radius.circular(10),
-                    // ممكن تضيف نص يظهر النسبة المئوية جوه الشريط لو تحب
-                    // center: Text(
-                    //   "${(progress * 100).toInt()}%",
-                    //   style: getRegulerTextStyle(context: context),
-                    // ),
+                  return Container(
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                        color: Colors.black, // لون البوردر
+                        width: 3.w, // عرض البوردر
+                      ),
+                      borderRadius: BorderRadius.circular(
+                        50.r,
+                      ), // نفس نصف قطر الشريط
+                    ),
+                    child: LinearPercentIndicator(
+                      // fillColor: const Color(0xFFFFD700),
+                      backgroundColor: Colors.transparent,
+                      progressColor: const Color(0xFF7C4E00),
+                      animation: true,
+                      percent: progress.clamp(0.0, 1.0),
+                      animationDuration:
+                          1000, // خليتها ثانية واحدة عشان تبقى أسرع وألطف
+                      lineHeight: 40.h,
+                      barRadius: const Radius.circular(10),
+                      // ممكن تضيف نص يظهر النسبة المئوية جوه الشريط لو تحب
+                      // center: Text(
+                      //   "${(progress * 100).toInt()}%",
+                      //   style: getRegulerTextStyle(context: context),
+                      // ),
+                    ),
                   );
                 },
               ),

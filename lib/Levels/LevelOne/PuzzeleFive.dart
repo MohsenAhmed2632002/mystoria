@@ -18,13 +18,13 @@ class PuzzleCrown extends StatefulWidget {
 
 class _PuzzleCrownState extends State<PuzzleCrown> {
   final Map<int, String> userOrder = {};
-  final Map<int, String> correctOrder = {0: "زوسر", 1: "سنفرو", 2: "خوفو"};
+  final Map<int, String> correctOrder = {2: "زوسر", 1: "سنفرو", 0: "خوفو"};
   @override
   Widget build(BuildContext context) {
     return GameScreen(
       color: widget.question.color,
       hint: widget.question.hint,
-      background: AppImages.quiz4,
+      background: widget.question.background,
       mediaQueryRight: 0,
       mediaQueryTop: MediaQuery.sizeOf(context).height * 0.11,
       child: Container(

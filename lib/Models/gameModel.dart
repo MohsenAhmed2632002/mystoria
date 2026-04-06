@@ -19,7 +19,7 @@ class GameModel {
 
   factory GameModel.initial() {
     return GameModel(
-      stars: 0,
+      stars: 100,
       helps: 0,
       attempts: 0,
       correctAnswerCounter: 0,

@@ -2,8 +2,9 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:myhabits/Core/Routes.dart';
+import 'package:myhabits/Core/SharedPre.dart';
 import 'package:myhabits/Core/soundManger.dart';
-import 'package:myhabits/Models/LevelsModel.dart';
+import 'package:myhabits/Models/QuestionModel.dart';
 import 'package:myhabits/Models/gameModel.dart';
 import 'package:myhabits/cubit/Gamecubit/game_state.dart';
 
@@ -40,10 +41,17 @@ class GameCubit extends Cubit<GamePlaying> {
   }
 
   void startLevel(int levelIndex, BuildContext context) {
-    emit(GamePlaying(GameModel.initial().copyWith(currentLevel: levelIndex)));
+    emit(
+      GamePlaying(
+        GameModel.initial().copyWith(
+          currentLevel: levelIndex,
+          stars: game.stars,
+        ),
+      ),
+    );
 
     startTimer(context);
-    SoundManager.instance.playBgm('sound/music_game.mp3');
+    // SoundManager.instance.playBgm('sound/music_game.mp3');
   }
 
   /// -----------------------------
@@ -84,17 +92,10 @@ class GameCubit extends Cubit<GamePlaying> {
     return 1;
   }
 
-  // int calculateStarsPreview() {
-  //   if (game.timeLeft >= 30) return 3;
-  //   if (game.timeLeft >= 15) return 2;
-  //   return 1;
-  // }
-
   /// -----------------------------
   /// CORRECT ANSWER
   /// -----------------------------
-  void correctAnswer(BuildContext context) {
-    // SoundManager.instance.correct();
+  void correctAnswer(BuildContext context) async {
     _timer?.cancel();
 
     final isLastQuestion = game.currentPuzzle >= questions.length - 1;
@@ -108,10 +109,12 @@ class GameCubit extends Cubit<GamePlaying> {
       newCounter = 0;
     }
 
+    final newStars = game.stars + calculateStars();
+
     emit(
       GamePlaying(
         game.copyWith(
-          stars: game.stars + calculateStars(),
+          stars: newStars,
           correctAnswerCounter: newCounter,
           attempts: newAttempts,
           currentPuzzle: isLastQuestion
@@ -119,18 +122,20 @@ class GameCubit extends Cubit<GamePlaying> {
               : game.currentPuzzle + 1,
           timeLeft: 30,
           helps: newHelps,
-          
         ),
       ),
     );
 
-    if (isLastQuestion) {
-      // SoundManager.instance.stopBgm();
+    // ✅ حفظ النجوم بعد كل إجابة صحيحة
+    await PlayerStorage.saveStars(newStars);
+    Navigator.pop(context);
 
+    if (isLastQuestion) {
       Navigator.pushReplacementNamed(context, Routes.levelMapScreen);
       stopTimer();
-      // return;
+      return;
     }
+    // Navigator.pop(context); // هنا نقفل الـ Dialog
 
     startTimer(context);
   }
@@ -152,9 +157,10 @@ class GameCubit extends Cubit<GamePlaying> {
           ),
         ),
       );
-
+      Navigator.pop(context);
       startTimer(context);
     } else {
+      Navigator.pop(context);
       resetLevel(context);
     }
   }
@@ -194,13 +200,3 @@ class GameCubit extends Cubit<GamePlaying> {
     SoundManager.instance.stopBgm();
   }
 }
-
-  // void initState(context) async {
-  //   startTimer(context);
-
-  //   await SoundManager.instance.playBgm('sound/music_game.mp3');
-  // }
-  // void exitGame() {
-  //   _timer?.cancel();
-  //   SoundManager.instance.stopBgm();
-  // }

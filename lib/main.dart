@@ -4,16 +4,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:myhabits/Core/Routes.dart';
 import 'package:myhabits/Core/SharedPre.dart';
-import 'package:myhabits/Models/LevelsModel.dart';
+import 'package:myhabits/Models/QuestionModel.dart';
 import 'package:myhabits/cubit/Gamecubit/game_cubit.dart';
+import 'package:myhabits/cubit/Gamecubit/game_state.dart';
 import 'package:myhabits/cubit/Playercubit/Playercubit.dart';
-
-// الهارون
-// بطل العالم
-// قصص الانبياء
-// دكتن شحاته و حلاوة روح
-// عبدو موته الالمماني
-// MOSTAFAasdf@1133
 
 bool userisLoggedin = false;
 void main() async {
@@ -21,6 +15,16 @@ void main() async {
 
   await PlayerStorage.initSharedPreferences(); // ✅ لازم await
 
+  // ✅ تحميل النجوم المحفوظة
+  final savedStars = await PlayerStorage.loadStars();
+
+  // ✅ إنشاء الـ Cubit مرة واحدة
+  final gameCubit = GameCubit(levels: gameLevels);
+
+  // ✅ تحديث النجوم المحفوظة
+  gameCubit.emit(
+    GamePlaying(gameCubit.state.theGame.copyWith(stars: savedStars)),
+  );
   final user = await PlayerStorage.getPlayer();
   userisLoggedin = user != null && user.name.isNotEmpty;
 
@@ -36,7 +40,7 @@ void main() async {
       providers: [
         BlocProvider(create: (_) => PlayerCubit()..loadPlayer()),
 
-        BlocProvider(create: (_) => GameCubit(levels: gameLevels)),
+        BlocProvider(create: (_) => gameCubit),
       ],
       child: const MyApp(),
     ),

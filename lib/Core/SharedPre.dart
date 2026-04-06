@@ -5,7 +5,7 @@ class PlayerStorage {
   static late SharedPreferences prefs;
   static const _nameKey = 'player_name';
   static const _avatarKey = 'player_avatar';
-  // static const _stageKey = 'current_stage';
+  static const _starsKey = 'player_stars'; // ✅ مفتاح النجوم
 
   static Future<void> initSharedPreferences() async {
     prefs = await SharedPreferences.getInstance();
@@ -24,12 +24,13 @@ class PlayerStorage {
     return PlayerModel(name: name, avatar: avatar);
   }
 
-  // static Future<void> saveStage(int stage) async {
-  //   final prefs = await SharedPreferences.getInstance();
-  //   await prefs.setInt(_stageKey, stage);
-  // }
-  //  static Future<int> loadStage() async {
-  //   final prefs = await SharedPreferences.getInstance();
-  //   return prefs.getInt(_stageKey) ?? 1;
-  // }
+  // ✅ حفظ النجوم
+  static Future<void> saveStars(int stars) async {
+    await prefs.setInt(_starsKey, stars);
+  }
+
+  // ✅ تحميل النجوم
+  static Future<int> loadStars() async {
+    return prefs.getInt(_starsKey) ?? 0;
+  }
 }

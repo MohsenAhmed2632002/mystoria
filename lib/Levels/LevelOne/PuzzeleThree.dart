@@ -26,11 +26,12 @@ class _ChooseWidgetWidgetState extends State<ChooseWidget> {
 
       background: widget.question.background,
       mediaQueryRight: 0,
-      mediaQueryTop: MediaQuery.sizeOf(context).height * 0.1,
+      mediaQueryTop: 0,
       child: Container(
         // color: Colors.amberAccent,
         width: MediaQuery.sizeOf(context).width,
         height: MediaQuery.sizeOf(context).height * 0.9,
+
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.end,
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,

@@ -150,17 +150,14 @@ class _FeedackScreenState extends State<FeedackScreen> {
                         onTap: widget.isCorrect
                             ? () {
                                 // cubit.correctAnswer(context);
+
                                 Navigator.pop(context);
                               }
                             : () {
-                                Navigator.pop(context);
+                                // Navigator.pop(context);
                                 cubit.wrongAnswer(context);
                               },
 
-                        //  () {
-                        //   Navigator.pop(context);
-                        //   cubit.wrongAnswer(context);
-                        // },
                         child: Image.asset(
                           AppImages.retry,
                           width: 200.w,
@@ -168,14 +165,12 @@ class _FeedackScreenState extends State<FeedackScreen> {
                         ),
                       ),
 
-                      // SizedBox(width: 25.w),
-
                       /// التالي
                       GestureDetector(
                         onTap: widget.isCorrect
                             ? () {
                                 cubit.correctAnswer(context);
-                                Navigator.pop(context);
+                                // Navigator.pop(context);
                               }
                             : null,
                         child: Image.asset(

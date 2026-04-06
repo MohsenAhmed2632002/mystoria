@@ -6,11 +6,13 @@ import 'package:myhabits/Core/Routes.dart';
 import 'package:myhabits/Core/Images&colors.dart';
 import 'package:myhabits/Core/animation_restart_mixin.dart';
 import 'package:myhabits/Models/PlayerModel.dart';
+import 'package:myhabits/Screens/HomeScreen.dart';
 import 'package:myhabits/Screens/Instructions.dart';
 import 'package:myhabits/Screens/LoginScreen.dart';
 import 'package:myhabits/cubit/Gamecubit/game_cubit.dart';
 import 'package:myhabits/cubit/Gamecubit/game_state.dart';
 import 'package:myhabits/cubit/Playercubit/Playercubit.dart';
+import 'package:myhabits/main.dart';
 
 class GameScreen extends StatelessWidget {
   final String background;
@@ -502,7 +504,10 @@ class DownLeftButton extends StatelessWidget {
             onTap: () {
               Navigator.pushReplacement(
                 context,
-                MaterialPageRoute(builder: (_) => const LoginScreen()),
+                MaterialPageRoute(
+                  builder: (_) =>
+                      userisLoggedin ? const HomeScreen() : LoginScreen(),
+                ),
               );
             },
             child: Image.asset(
@@ -544,8 +549,8 @@ class LeftButtonTwo extends StatelessWidget {
         },
         child: Image.asset(
           'assets/images/previous.png',
-          width: 250.w,
-          height: 250.h,
+          width: 130.w,
+          height: 130.h,
         ),
       ),
     );

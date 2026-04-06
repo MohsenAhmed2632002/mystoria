@@ -27,7 +27,7 @@ class _PuzzeleCemeteriesState extends State<PuzzeleCemeteries> {
     return GameScreen(
       hint: widget.question.hint,
       color: widget.question.color,
-      background: AppImages.quiz4,
+      background:widget.question.background,
       mediaQueryRight: 0,
       mediaQueryTop: MediaQuery.sizeOf(context).height * 0.1,
 

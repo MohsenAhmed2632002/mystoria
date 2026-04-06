@@ -17,11 +17,12 @@ class McqWidget extends StatelessWidget {
     return GameScreen(
       hint: question.hint,
       color: question.color,
-      background: AppImages.quiz2,
+      background: question.background,
       mediaQueryRight: 0,
       mediaQueryTop: 0,
       child: Container(
-        height: MediaQuery.sizeOf(context).height,
+        // color: Colors.cyan,
+        height: MediaQuery.sizeOf(context).height * 0.9,
         width: MediaQuery.sizeOf(context).width,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.end,
@@ -57,7 +58,6 @@ class McqWidget extends StatelessWidget {
                     } else {
                       SoundManager.instance.wrong();
 
-          
                       Navigator.push(
                         context,
                         MaterialPageRoute(
