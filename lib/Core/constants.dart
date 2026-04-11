@@ -378,13 +378,13 @@ class CharacterAndClueContainer extends StatelessWidget {
                   //clue
                   GestureDetector(
                     onTap: () {
-                      final myHelps = BlocProvider.of<GameCubit>(
+                      final myhints = BlocProvider.of<GameCubit>(
                         context,
-                      ).state.theGame.helps;
-                      if (myHelps > 0) {
+                      ).state.theGame.hints;
+                      if (myhints > 0) {
                         BlocProvider.of<GameCubit>(
                           context,
-                        ).state.theGame.helps--;
+                        ).state.theGame.hints--;
 
                         BlocProvider.of<GameCubit>(context).stopTimer();
                         Navigator.pushNamed(
@@ -404,7 +404,7 @@ class CharacterAndClueContainer extends StatelessWidget {
                   ),
 
                   Text(
-                    '${state.theGame.helps}',
+                    '${state.theGame.hints}',
                     style: getBoldTextStyle(
                       context: context,
                       color: AppColors.mainColor,
@@ -624,9 +624,7 @@ void onCorrect(BuildContext context) {
       isCorrect: true,
       stars: stars,
       exit: () {
-        cubit.exitGame();
-
-        Navigator.pushReplacementNamed(context, Routes.homeScreen);
+        cubit.exitGame(context);
       },
       onNext: () {
         Navigator.pop(context);
@@ -636,7 +634,7 @@ void onCorrect(BuildContext context) {
         Navigator.pop(context);
       },
 
-      helps: previewAttempts,
+      hints: previewAttempts,
       timeLeft: previewTime,
     ),
   );
@@ -656,9 +654,7 @@ void onWrong(BuildContext context) {
       isCorrect: false,
 
       exit: () {
-        cubit.exitGame();
-
-        Navigator.pushReplacementNamed(context, Routes.homeScreen);
+        cubit.exitGame(context);
       },
       onNext: () {
         // Navigator.pop(context);
@@ -669,7 +665,7 @@ void onWrong(BuildContext context) {
         Navigator.pop(context);
         cubit.wrongAnswer(context);
       },
-      helps: previewAttempts,
+      hints: previewAttempts,
       timeLeft: previewTime,
     ),
   );
@@ -678,7 +674,7 @@ void onWrong(BuildContext context) {
 class AnswerResultDialog extends StatelessWidget {
   final bool isCorrect;
   final int stars;
-  final int helps;
+  final int hints;
   final int timeLeft;
   final VoidCallback onNext;
   final VoidCallback onRetry;
@@ -691,7 +687,7 @@ class AnswerResultDialog extends StatelessWidget {
     required this.onNext,
     required this.onRetry,
     required this.exit,
-    required this.helps,
+    required this.hints,
     required this.timeLeft,
   });
 
@@ -743,7 +739,7 @@ class AnswerResultDialog extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  "$helps ",
+                  "$hints ",
                   style: getRegulerTextStyle(
                     context: context,
                     fontSize: 50.sp,

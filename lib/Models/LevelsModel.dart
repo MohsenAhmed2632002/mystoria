@@ -13,7 +13,7 @@ final List<StageModel> levelStages = [
     requiredStars: 0,
     image: AppImages.mapad1,
     //        space from left, space from top
-    position: const Offset(50, 50),
+    position: const Offset(75, 50),
     imageWidth: 500.w,
     imageHeight: 500.h,
     levelScreen: const LevelOne(),
@@ -22,7 +22,7 @@ final List<StageModel> levelStages = [
     id: 2,
     requiredStars: 30,
     image: AppImages.mapad2,
-    position: const Offset(1100, 50),
+    position: const Offset(1250, 50),
     imageWidth: 500.w,
     imageHeight: 500.h,
     levelScreen: const LevelTwo(),

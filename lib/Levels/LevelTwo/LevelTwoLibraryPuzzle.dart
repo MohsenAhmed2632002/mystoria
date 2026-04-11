@@ -5,9 +5,9 @@ import 'package:myhabits/Core/Images&colors.dart';
 import 'package:myhabits/Core/animation_restart_mixin.dart';
 import 'package:myhabits/Core/constants.dart';
 import 'package:myhabits/Core/soundManger.dart';
-import 'package:myhabits/Models/PlayerModel.dart';
 import 'package:myhabits/Models/QuestionModel.dart';
-import 'package:myhabits/cubit/Playercubit/Playercubit.dart';
+import 'package:myhabits/Screens/feedackScreen.dart';
+import 'package:myhabits/cubit/Gamecubit/game_cubit.dart';
 
 class LevelTwoLibraryPuzzle extends StatefulWidget {
   final QuestionModel question;
@@ -20,156 +20,176 @@ class LevelTwoLibraryPuzzle extends StatefulWidget {
 
 class _LevelTwoLibraryPuzzleState extends State<LevelTwoLibraryPuzzle>
     with TickerProviderStateMixin, RestartableAnimations {
-  late AnimationController sandController;
-  late Animation<double> sandAnimation;
-
-  // bool gameEnded = false;
-
-  @override
-  void initState() {
-    super.initState();
-
-    sandController = AnimationController(
-      vsync: this,
-      duration: const Duration(seconds: 30),
-    );
-    registerController(sandController);
-
-    sandAnimation = CurvedAnimation(
-      parent: sandController,
-      curve: Curves.linear,
-    );
-
-    sandController.forward(from: 0);
-
-    sandController.addStatusListener((status) {
-      if (status == AnimationStatus.completed) {
-        _timeUp();
-      }
-    });
-  }
-
-  // @override
-  // void dispose() {
-  //   sandController.dispose();
-  //   super.dispose();
-  // }
+  final Map<int, String> correctOrder = {
+    3: 'اول حاكم لطيبة',
+    2: 'نقل العاصمة الي اثيت',
+    0: 'حكمت 4 سنوات',
+    1: "عهد السلام",
+  };
+  final Map<int, String> userOrder = {};
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      extendBodyBehindAppBar: true,
-      body: Stack(
-        children: [
-          /// الخلفية
-          SizedBox.expand(
-            child: Image.asset(widget.question.background, fit: BoxFit.fill),
-          ),
+    return GameScreen(
+      color: widget.question.color,
+      hint: widget.question.hint,
 
-          /// الأبواب + ساعة الرمل
-          Positioned(
-            top: MediaQuery.sizeOf(context).height * 0.1,
-            left: 0,
-            right: 0,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Image.asset(AppImages.sandglass, width: 400.w, height: 1080.h),
-                _buildDoor(widget.question.options[0]),
-                _buildDoor(widget.question.options[1]),
-                _buildDoor(widget.question.options[2]),
-              ],
+      background: widget.question.background,
+      mediaQueryRight: MediaQuery.sizeOf(context).width * 0,
+      mediaQueryTop: MediaQuery.sizeOf(context).height * 0.12,
+      child: Container(
+        // color: Colors.white38,
+        height: MediaQuery.sizeOf(context).height * 0.9,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            // 🔹 البطاقات
+            Container(
+              // color: Colors.red,
+              width: MediaQuery.sizeOf(context).width,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  _buildDraggableCard(correctOrder[1]!),
+                  _buildDraggableCard(correctOrder[2]!),
+                  _buildDraggableCard(correctOrder[0]!),
+                  _buildDraggableCard(correctOrder[3]!),
+                ],
+              ),
             ),
-          ),
 
-          /// الشخصية + الرمل
-          Positioned(
-            bottom: 10,
-            left: 20.w,
-            child: BlocBuilder<PlayerCubit, PlayerModel?>(
-              builder: (context, player) {
-                if (player == null) return const SizedBox();
-
-                return Stack(
-                  alignment: Alignment.bottomCenter,
-                  children: [
-                    /// الشخصية
-                    Image.asset(
-                      'assets/images/${player.avatar}.png',
-                      height: 435.h,
-                      width: 300.w,
-                    ),
-                    AnimatedBuilder(
-                      animation: sandAnimation,
-                      builder: (context, child) {
-                        return Align(
-                          alignment: Alignment.bottomCenter,
-                          child: Image.asset(
-                            AppImages.sand,
-                            fit: BoxFit.fill,
-                            width: 300.w,
-                            height: 435.h * sandAnimation.value,
-                          ),
-                        );
-                      },
-                    ),
-                  ],
-                );
-              },
+            //the doors
+            Container(
+              // color: Colors.red,
+              width: MediaQuery.sizeOf(context).width,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Image.asset(AppImages.group_127, width: 350.w, height: 600.h),
+                  Image.asset(AppImages.group_128, width: 350.w, height: 600.h),
+                  Image.asset(AppImages.group_129, width: 350.w, height: 600.h),
+                  Image.asset(AppImages.group_130, width: 350.w, height: 600.h),
+                ],
+              ),
             ),
-          ),
-
-          CharacterAndClueContainer(hint: widget.question.hint),
-          QustionContainer(color: widget.question.color),
-          TryAndTimeContainer(),
-        ],
+            // الاجابات
+            Container(
+              // color: AppColors.mainColor,
+              width: MediaQuery.sizeOf(context).width,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  _placeOfAnswers(0),
+                  _placeOfAnswers(1),
+                  _placeOfAnswers(2),
+                  _placeOfAnswers(3),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
 
-  Widget _buildDoor(String imagePath) {
-    return GestureDetector(
-      onTap: () => _select(imagePath),
-      child: Image.asset(imagePath, width: 350.w, height: 600.h),
+  // 🟦 البطاقة
+  Widget _buildDraggableCard(String era) {
+    return Draggable<String>(
+      data: era,
+      childWhenDragging: _card(era, faded: true),
+      // السحب
+      feedback: _card(era, dragging: true),
+      child: _card(era),
     );
   }
 
-  void _select(String choice) async {
-    // if (gameEnded) return;
-
-    if (choice == widget.question.correctAnswer) {
-      // gameEnded = true;
-
-      sandController.stop();
-      SoundManager.instance.sandFlow();
-
-      await Future.delayed(const Duration(milliseconds: 500));
-
-      if (mounted) {
-        onCorrect(context);
-      }
-    } else {
-      // gameEnded = true;
-
-      SoundManager.instance.wind();
-
-      if (mounted) {
-        restartAllAnimations();
-
-        onWrong(context);
-      }
-    }
+  Widget _card(String text, {bool dragging = false, bool faded = false}) {
+    return Opacity(
+      opacity: faded ? 0.3 : 1,
+      child: GameButtonTwo(
+        text: text,
+        onPressed: () {},
+        fromWidth: 300,
+        fromHeight: 125,
+        fontSize: 50.sp,
+      ),
+    );
   }
 
-  void _timeUp() {
-    // gameEnded = true;
+  // 🚪 الباب
+  Widget _placeOfAnswers(int index) {
+    return DragTarget<String>(
+      onAccept: (data) {
+        setState(() {
+          userOrder[index] = data;
+        });
+        _checkResult();
+      },
+      builder: (context, candidateData, rejectedData) {
+        return userOrder[index] != null
+            ? GameButtonTwo(
+                text: userOrder[index]!,
+                onPressed: () {},
+                fromWidth: 300,
+                fromHeight: 125,
+                fontSize: 50.sp,
+              )
+            : Image.asset(
+                'assets/images/button_game.png',
+                width: 300.w,
+                height: 125.h,
+              );
+      },
+    );
+  }
 
-    SoundManager.instance.wind();
+  // ✅ التحقق من الحل
+  void _checkResult() async {
+    if (userOrder.length < 4) return;
 
-    if (mounted) {
-      restartAllAnimations();
+    bool isCorrect = true;
+    correctOrder.forEach((key, value) {
+      if (userOrder[key] != value) {
+        isCorrect = false;
+      }
+    });
 
-      onWrong(context);
+    if (isCorrect) {
+      SoundManager.instance.correct();
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (_) => FeedackScreen(
+            isCorrect: true,
+            stars: BlocProvider.of<GameCubit>(context).calculateStars(),
+            attempts: BlocProvider.of<GameCubit>(
+              context,
+            ).state.theGame.attempts,
+            timeLeft: BlocProvider.of<GameCubit>(
+              context,
+            ).state.theGame.timeLeft,
+          ),
+        ),
+      );
+    } else {
+      SoundManager.instance.wrong();
+
+      userOrder.clear();
+      setState(() {});
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (_) => FeedackScreen(
+            isCorrect: false,
+            stars: 0,
+            attempts:
+                BlocProvider.of<GameCubit>(context).state.theGame.attempts - 1,
+            timeLeft: BlocProvider.of<GameCubit>(
+              context,
+            ).state.theGame.timeLeft,
+          ),
+        ),
+      );
     }
   }
 }

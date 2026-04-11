@@ -1,6 +1,6 @@
 class GameModel {
   final int stars;
-  int helps;
+  int hints;
   final int attempts;
   final int correctAnswerCounter; // إجابات صح متتالية
   final int timeLeft;
@@ -9,7 +9,7 @@ class GameModel {
 
   GameModel({
     required this.stars,
-    required this.helps,
+    required this.hints,
     required this.attempts,
     required this.correctAnswerCounter,
     required this.timeLeft,
@@ -20,7 +20,8 @@ class GameModel {
   factory GameModel.initial() {
     return GameModel(
       stars: 90,
-      helps: 0,
+
+      hints: 0,
       attempts: 0,
       correctAnswerCounter: 0,
       timeLeft: 30,
@@ -31,7 +32,7 @@ class GameModel {
 
   GameModel copyWith({
     int? stars,
-    int? helps,
+    int? hints,
     int? attempts,
     int? correctAnswerCounter,
     int? timeLeft,
@@ -40,7 +41,7 @@ class GameModel {
   }) {
     return GameModel(
       stars: stars ?? this.stars,
-      helps: helps ?? this.helps,
+      hints: hints ?? this.hints,
       attempts: attempts ?? this.attempts,
       correctAnswerCounter: correctAnswerCounter ?? this.correctAnswerCounter,
       timeLeft: timeLeft ?? this.timeLeft,

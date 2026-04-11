@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:myhabits/Core/Images&colors.dart';
 import 'package:myhabits/Core/animation_restart_mixin.dart';
 import 'package:myhabits/Core/constants.dart';
 import 'package:myhabits/Core/soundManger.dart';
 import 'package:myhabits/Models/QuestionModel.dart';
+import 'package:myhabits/Screens/feedackScreen.dart';
+import 'package:myhabits/cubit/Gamecubit/game_cubit.dart';
 
 class LevelTwoPuzzeleFive extends StatefulWidget {
   final QuestionModel question;
@@ -53,84 +56,65 @@ class _LevelTwoPuzzeleFiveState extends State<LevelTwoPuzzeleFive>
 
       background: widget.question.background,
       mediaQueryRight: 0,
-      mediaQueryTop: MediaQuery.sizeOf(context).height * 0.05,
+      mediaQueryTop: MediaQuery.sizeOf(context).height * 0.1,
       child: Container(
-        height: MediaQuery.sizeOf(context).height,
+        height: MediaQuery.sizeOf(context).height * 0.9,
         width: MediaQuery.sizeOf(context).width,
-        child: Center(
-          child: Container(
-            // color: Colors.red,
-            width: 1080.w,
-            height: 900.h,
-            child: Stack(
-              children: [
-                Image.asset(
-                  balanceImage,
-                  width: 1080.w,
-                  height: 1000.h,
-                  fit: BoxFit.fill,
-                ),
-                Container(
-                  width: 1080.w,
-                  height: 900.h,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      GestureDetector(
-                        onTap: () {
-                          setState(() {
-                            userOrder = widget.question.options[1];
-                            _checkResult();
-                          });
-                        },
-                        child: AnimatedBuilder(
-                          animation: controller,
-                          builder: (context, child) {
-                            return Transform.translate(
-                              offset: Offset(0, moveAnimationLeft.value),
-                              child: child,
-                            );
-                          },
-                          child: Container(
-                            width: 350.w,
-                            height: 350.h,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: widget.question.options.map((option) {
+            return GameButtonThree(
+              text: option,
+              onPressed: () {
+                // if (freezGame) return;
 
-                            child: Image.asset(widget.question.options[1]),
-                          ),
-                        ),
+                // ✅ الإجابة الصحيحة
+                if (option == widget.question.correctAnswer) {
+                  SoundManager.instance.correct();
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) => FeedackScreen(
+                        isCorrect: true,
+                        stars: BlocProvider.of<GameCubit>(
+                          context,
+                        ).calculateStars(),
+                        attempts: BlocProvider.of<GameCubit>(
+                          context,
+                        ).state.theGame.attempts,
+                        timeLeft: BlocProvider.of<GameCubit>(
+                          context,
+                        ).state.theGame.timeLeft,
                       ),
-                      GestureDetector(
-                        onTap: () {
-                          setState(() {
-                            userOrder = widget.question.options[0];
-                            _checkResult();
-                          });
-                        },
-                        child: AnimatedBuilder(
-                          animation: controller,
-                          builder: (context, child) {
-                            return Transform.translate(
-                              offset: Offset(0, moveAnimationRight.value),
-                              child: child,
-                            );
-                          },
-                          child: Container(
-                            width: 350.w,
-                            height: 350.h,
-
-                            child: Image.asset(
-                              widget.question.options[0],
-                              // textAlign: TextAlign.center,
-                            ),
-                          ),
-                        ),
+                    ),
+                  );
+                } else {
+                  SoundManager.instance.wrong();
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) => FeedackScreen(
+                        isCorrect: false,
+                        stars: 0,
+                        attempts:
+                            BlocProvider.of<GameCubit>(
+                              context,
+                            ).state.theGame.attempts -
+                            1,
+                        timeLeft: BlocProvider.of<GameCubit>(
+                          context,
+                        ).state.theGame.timeLeft,
                       ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          ),
+                    ),
+                  );
+                }
+              },
+              fontSize: 30,
+              fromWidth: 450,
+              fromHeight: 650,
+            );
+          }).toList(),
         ),
       ),
     );

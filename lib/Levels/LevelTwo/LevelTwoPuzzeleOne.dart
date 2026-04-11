@@ -5,6 +5,7 @@ import 'package:myhabits/Core/Images&colors.dart';
 import 'package:myhabits/Core/constants.dart';
 import 'package:myhabits/Core/soundManger.dart';
 import 'package:myhabits/Models/QuestionModel.dart';
+import 'package:myhabits/Screens/feedackScreen.dart';
 import 'package:myhabits/cubit/Gamecubit/game_cubit.dart';
 
 class LevelTwoPuzzeleOne extends StatefulWidget {
@@ -17,15 +18,6 @@ class LevelTwoPuzzeleOne extends StatefulWidget {
 
 class _LevelTwoPuzzeleOneViewState extends State<LevelTwoPuzzeleOne> {
   final List<String> userOrder = [];
-  bool _rghitAnswer = true;
-
-  bool _rghitAnswer2 = false;
-
-  @override
-  void initState() {
-    super.initState();
-    BlocProvider.of<GameCubit>(context).initState(context);
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -35,138 +27,121 @@ class _LevelTwoPuzzeleOneViewState extends State<LevelTwoPuzzeleOne> {
 
       background: widget.question.background,
       mediaQueryRight: MediaQuery.sizeOf(context).width * 0,
-      mediaQueryTop: MediaQuery.sizeOf(context).height * 0.05,
+      mediaQueryTop: MediaQuery.sizeOf(context).height * 0.1,
       child: Container(
-        height: MediaQuery.sizeOf(context).height,
+        // color: Colors.lightGreenAccent,
+        height: MediaQuery.sizeOf(context).height * 0.9,
         width: MediaQuery.sizeOf(context).width,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.end,
           children: [
-            DragTarget<String>(
-              onAccept: (data) {
-                setState(() {
-                  userOrder.add(data);
-                });
-                print(_rghitAnswer);
-                _checkResult();
-              },
-              builder: (context, candidateData, rejectedData) {
-                return Container(
-                  width: 1000.w,
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: widget.question.options.map((option) {
+                return GameButtonThree(
+                  text: option,
+                  onPressed: () {
+                    // final cubit = context.read<GameCubit>();
 
-                  // height: 1000.h,
-                  child: Stack(
-                    children: [
-                      SizedBox(
-                        child: Image.asset(
-                          AppImages.image1234,
-                          fit: BoxFit.fill,
-                          color: _rghitAnswer2 ? Colors.yellow : null,
-                        ),
-                      ),
-
-                      Center(
-                        child: Container(
-                          // color: AppColors.mainColor,
-                          width: 650.w,
-                          height: 750.h,
-                          child: GridView.builder(
-                            physics: NeverScrollableScrollPhysics(),
-                            shrinkWrap: true,
-                            gridDelegate:
-                                SliverGridDelegateWithFixedCrossAxisCount(
-                                  crossAxisCount: 2,
-                                  mainAxisSpacing: 10.h,
-                                  crossAxisSpacing: 10.w,
-                                ),
-                            itemBuilder: (context, index) =>
-                                userOrder[index] != null
-                                ? Image.asset(
-                                    userOrder[index],
-                                    width: 400.w,
-                                    height: 200.h,
-                                  )
-                                : const SizedBox(),
-
-                            itemCount: userOrder.length,
+                    if (option == widget.question.correctAnswer) {
+                      SoundManager.instance.correct();
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) => FeedackScreen(
+                            isCorrect: true,
+                            stars: BlocProvider.of<GameCubit>(
+                              context,
+                            ).calculateStars(),
+                            attempts: BlocProvider.of<GameCubit>(
+                              context,
+                            ).state.theGame.attempts,
+                            timeLeft: BlocProvider.of<GameCubit>(
+                              context,
+                            ).state.theGame.timeLeft,
                           ),
                         ),
-                      ),
-                    ],
-                  ),
-                );
-              },
-            ),
+                      );
+                    } else {
+                      SoundManager.instance.wrong();
 
-            Container(
-              width: 700.w,
-              child: GridView.builder(
-                shrinkWrap: true,
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  mainAxisSpacing: 10.h,
-                  crossAxisSpacing: 10.w,
-                ),
-                itemBuilder: (context, index) =>
-                    _buildChoicesContainer(widget.question.options[index]),
-                itemCount: widget.question.options.length,
-              ),
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) => FeedackScreen(
+                            isCorrect: false,
+                            stars: 0,
+                            attempts:
+                                BlocProvider.of<GameCubit>(
+                                  context,
+                                ).state.theGame.attempts -
+                                1,
+                            timeLeft: BlocProvider.of<GameCubit>(
+                              context,
+                            ).state.theGame.timeLeft,
+                          ),
+                        ),
+                      );
+                    }
+                  },
+                  fromWidth: 450,
+                  fromHeight: 250,
+                  fontSize: 35,
+                );
+              }).toList(),
             ),
-            // Spacer(flex: 3),
-            _rghitAnswer
-                ? SizedBox.shrink()
-                : Image.asset(AppImages.wall, width: 150.w),
           ],
         ),
       ),
     );
   }
 
-  // 🚪 الباب
-  Widget _buildChoicesContainer(String image) {
-    return Draggable<String>(
-      data: image,
-      childWhenDragging: _card(image, faded: true),
-      // السحب
-      feedback: _card(image, dragging: true),
-      child: _card(image),
-    );
-  }
+  // // 🚪 الباب
+  // Widget _buildChoicesContainer(String image) {
+  //   return Draggable<String>(
+  //     data: image,
+  //     childWhenDragging: _card(image, faded: true),
+  //     // السحب
+  //     feedback: _card(image, dragging: true),
+  //     child: _card(image),
+  //   );
+  // }
 
-  Widget _card(String text, {bool dragging = false, bool faded = false}) {
-    return Opacity(
-      opacity: faded ? 0.5 : 1,
-      child: Column(children: [Image.asset(text, width: 300.w)]),
-    );
-  }
+  // Widget _card(String text, {bool dragging = false, bool faded = false}) {
+  //   return Opacity(
+  //     opacity: faded ? 0.5 : 1,
+  //     child: Column(children: [Image.asset(text, width: 300.w)]),
+  //   );
+  // }
 
-  // ✅ التحقق من الحل
-  void _checkResult() async {
-    if (userOrder.length < 4) return;
+  // // ✅ التحقق من الحل
+  // void _checkResult() async {
+  //   if (userOrder.length < 4) return;
 
-    bool isCorrect = true;
+  //   bool isCorrect = true;
 
-    widget.question.correctAnswer.forEach((key, value) {
-      if (userOrder[key] != value) {
-        isCorrect = false;
-      }
-    });
+  //   widget.question.correctAnswer.forEach((key, value) {
+  //     if (userOrder[key] != value) {
+  //       isCorrect = false;
+  //     }
+  //   });
 
-    if (isCorrect) {
-      setState(() {
-        _rghitAnswer2 = true;
-      });
-      onCorrect(context);
-    } else {
-      setState(() {
-        _rghitAnswer = false;
-      });
+  //   if (isCorrect) {
+  //     // setState(() {
+  //       // _rghitAnswer2 = true;
+  //     // });
+  //     onCorrect(context);
+  //   } else {
+  //     setState(() {
+  //       _rghitAnswer = false;
+  //     });
 
-      // restartAllAnimations();
+  //     // restartAllAnimations();
 
-      onWrong(context);
-      userOrder.clear();
-      setState(() {});
-    }
-  }
+  //     onWrong(context);
+  //     userOrder.clear();
+  //     setState(() {});
+  //   }
+  // }
 }

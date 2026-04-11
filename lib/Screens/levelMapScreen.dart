@@ -20,9 +20,10 @@ class LevelMapScreen extends StatelessWidget {
             child: Image.asset(AppImages.mapPage, fit: BoxFit.cover),
           ),
           ...levelStages.map((stage) => StageButton(stage: stage)),
+
           Positioned(
             top: 150.h,
-            right: 650.w,
+            right: 700.w,
             child: Image.asset(
               stars >= 30 ? AppImages.track1 : AppImages.track_1dark,
               width: 650.w,
@@ -31,7 +32,7 @@ class LevelMapScreen extends StatelessWidget {
           ),
           Positioned(
             bottom: 80.h,
-            right: 425.w,
+            right: 475.w,
             child: Container(
               child: Image.asset(
                 // color: Colors.white,
@@ -81,20 +82,21 @@ class StageButton extends StatelessWidget {
               },
         child: Opacity(
           opacity: isUnlocked ? 1 : 0.3,
-          child: Row(
-            mainAxisSize: MainAxisSize.max,
+          child: Column(
+            // mainAxisAlignment: MainAxisAlignment.center,
+            // mainAxisSize: MainAxisSize.min,
             children: [
+              Image.asset(
+                stage.image,
+                width: stage.imageWidth,
+                height: stage.imageHeight,
+              ),
               Text(
                 '${stage.requiredStars} ⭐',
                 style: const TextStyle(
                   color: Colors.black87,
                   fontWeight: FontWeight.bold,
                 ),
-              ),
-              Image.asset(
-                stage.image,
-                width: stage.imageWidth,
-                height: stage.imageHeight,
               ),
             ],
           ),

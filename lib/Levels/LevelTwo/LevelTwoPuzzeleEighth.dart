@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:myhabits/Core/Images&colors.dart';
 import 'package:myhabits/Core/animation_restart_mixin.dart';
 import 'package:myhabits/Core/constants.dart';
+import 'package:myhabits/Core/soundManger.dart';
 import 'package:myhabits/Models/QuestionModel.dart';
+import 'package:myhabits/Screens/feedackScreen.dart';
+import 'package:myhabits/cubit/Gamecubit/game_cubit.dart';
 
 class LevelTwoPuzzeleEleven extends StatefulWidget {
   final QuestionModel question;
@@ -16,161 +20,176 @@ class LevelTwoPuzzeleEleven extends StatefulWidget {
 
 class _LevelTwoPuzzeleElevenState extends State<LevelTwoPuzzeleEleven>
     with SingleTickerProviderStateMixin, RestartableAnimations {
-  late AnimationController arrowController;
-  late Animation<double> arrowAnimation;
-  double arrowStartX = 0;
-  double arrowEndX = 0;
-
-  bool showArrows = false;
-  bool locked = false;
-
-  @override
-  void initState() {
-    super.initState();
-    arrowController = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 1800),
-    );
-        registerController(arrowController);
-
-    arrowAnimation = Tween<double>(
-      begin: 0,
-      end: 200,
-    ).animate(CurvedAnimation(parent: arrowController, curve: Curves.easeOut));
-  }
-
-
-  String userChoice = "";
+  final Map<int, String> correctOrder = {
+    1: 'حماية البلاد',
+    2: 'الاستصلاح الزراعي',
+    3: 'مشروعات المياه',
+    0: "توحيد البلاد",
+  };
+  final Map<int, String> userOrder = {};
 
   @override
   Widget build(BuildContext context) {
     return GameScreen(
-      hint: widget.question.hint,
       color: widget.question.color,
+      hint: widget.question.hint,
+
       background: widget.question.background,
-      mediaQueryRight: 0,
-      mediaQueryTop: MediaQuery.sizeOf(context).height * 0.2,
-      child: Stack(
-        children: [
-          /// خيارات الجمل
-          Container(
-            height: MediaQuery.sizeOf(context).height,
-            width: MediaQuery.sizeOf(context).width,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              // crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: widget.question.options.map((option) {
-                    return GestureDetector(
-                      onTap: () => _select(option),
-                      child: Image.asset(
-                        option,
-                        width: MediaQuery.sizeOf(context).width / 2,
-                        height: 1080.h,
-                      ),
-                    );
-                  }).toList(),
-                ),
-              ],
+      mediaQueryRight: MediaQuery.sizeOf(context).width * 0,
+      mediaQueryTop: MediaQuery.sizeOf(context).height * 0.12,
+      child: Container(
+        // color: Colors.white38,
+        height: MediaQuery.sizeOf(context).height * 0.9,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            // 🔹 البطاقات
+            Container(
+              // color: Colors.red,
+              width: MediaQuery.sizeOf(context).width,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  _buildDraggableCard(correctOrder[1]!),
+                  _buildDraggableCard(correctOrder[2]!),
+                  _buildDraggableCard(correctOrder[0]!),
+                  _buildDraggableCard(correctOrder[3]!),
+                ],
+              ),
             ),
-          ),
-          AnimatedBuilder(
-            animation: arrowController,
-            builder: (context, child) {
-              final screenWidth = MediaQuery.of(context).size.width;
 
-              double startX = screenWidth + 200; // يبدأ خارج الشاشة يمين
-              double endX = 20; // عند الشخصية شمال
-
-              return Container(
-                // color: Colors.red,
-                width: MediaQuery.sizeOf(context).width,
-                height: 1000.h,
-                child: Stack(
-                  children: List.generate(6, (index) {
-                    double delay = index * 0.1;
-
-                    // نخلي كل سهم يتأخر شوية
-                    double value = (arrowController.value - delay).clamp(
-                      0.0,
-                      1.0,
-                    );
-
-                    // نحسب مكان السهم
-                    double position = startX - (startX - endX) * value;
-
-                    // يقل شفافيته تدريجيًا
-                    double opacity = (1 - value).clamp(0.0, 1.0);
-
-                    return Positioned(
-                      bottom: 220.h,
-                      left: position,
-                      child: Opacity(
-                        opacity: opacity,
-                        child: Transform.scale(
-                          scale: 1 - (value * 0.3), // يصغر سنة وهو بيختفي
-                          child: Image.asset(
-                            AppImages.oneArow,
-                            width: 250.w,
-                            height: 150.h,
-                          ),
-                        ),
-                      ),
-                    );
-                  }),
-                ),
-              );
-            },
-          ),
-        ],
+            //the doors
+            Container(
+              // color: Colors.red,
+              width: MediaQuery.sizeOf(context).width,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Image.asset(AppImages.tawheed, width: 350.w, height: 300.h),
+                  Image.asset(AppImages.hemaya, width: 350.w, height: 300.h),
+                  Image.asset(AppImages.elzeraaa, width: 350.w, height: 300.h),
+                  Image.asset(AppImages.elrai, width: 350.w, height: 300.h),
+                ],
+              ),
+            ),
+            // الاجابات
+            Container(
+              // color: AppColors.mainColor,
+              width: MediaQuery.sizeOf(context).width,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  _placeOfAnswers(0),
+                  _placeOfAnswers(1),
+                  _placeOfAnswers(2),
+                  _placeOfAnswers(3),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
 
-  void _select(String option) async {
-    if (locked) return;
+  // 🟦 البطاقة
+  Widget _buildDraggableCard(String era) {
+    return Draggable<String>(
+      data: era,
+      childWhenDragging: _card(era, faded: true),
+      // السحب
+      feedback: _card(era, dragging: true),
+      child: _card(era),
+    );
+  }
 
-    if (option == widget.question.correctAnswer) {
-      // locked = true;
-      onCorrect(context);
-    } else {
-      arrowController.reset();
-      setState(() => showArrows = true);
+  Widget _card(String text, {bool dragging = false, bool faded = false}) {
+    return Opacity(
+      opacity: faded ? 0.3 : 1,
+      child: GameButtonTwo(
+        text: text,
+        onPressed: () {},
+        fromWidth: 300,
+        fromHeight: 125,
+        fontSize: 50.sp,
+      ),
+    );
+  }
 
-      await arrowController.forward(from: 0);
+  // 🚪 الباب
+  Widget _placeOfAnswers(int index) {
+    return DragTarget<String>(
+      onAccept: (data) {
+        setState(() {
+          userOrder[index] = data;
+        });
+        _checkResult();
+      },
+      builder: (context, candidateData, rejectedData) {
+        return userOrder[index] != null
+            ? GameButtonTwo(
+                text: userOrder[index]!,
+                onPressed: () {},
+                fromWidth: 300,
+                fromHeight: 125,
+                fontSize: 50.sp,
+              )
+            : Image.asset(
+                'assets/images/button_game.png',
+                width: 300.w,
+                height: 125.h,
+              );
+      },
+    );
+  }
 
-      setState(() => showArrows = false);
-      locked = true;
+  // ✅ التحقق من الحل
+  void _checkResult() async {
+    if (userOrder.length < 4) return;
 
-      final screenWidth = MediaQuery.of(context).size.width;
-
-      // بداية السهم من ناحية الاختيارات
-      arrowStartX = screenWidth * 0.6;
-
-      // نهاية السهم عند الأفاتار
-      arrowEndX = 20;
-      for (int i = 0; i < 5; i++) {
-        arrowAnimation = Tween<double>(begin: arrowStartX, end: arrowEndX)
-            .animate(
-              CurvedAnimation(parent: arrowController, curve: Curves.easeOut),
-            );
-
-        setState(() => showArrows = true);
-
-        await arrowController.forward(from: 0);
-
-        arrowController.reset();
+    bool isCorrect = true;
+    correctOrder.forEach((key, value) {
+      if (userOrder[key] != value) {
+        isCorrect = false;
       }
+    });
 
-      restartAllAnimations();
+    if (isCorrect) {
+      SoundManager.instance.correct();
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (_) => FeedackScreen(
+            isCorrect: true,
+            stars: BlocProvider.of<GameCubit>(context).calculateStars(),
+            attempts: BlocProvider.of<GameCubit>(
+              context,
+            ).state.theGame.attempts,
+            timeLeft: BlocProvider.of<GameCubit>(
+              context,
+            ).state.theGame.timeLeft,
+          ),
+        ),
+      );
+    } else {
+      SoundManager.instance.wrong();
 
-      onWrong(context);
-      setState(() {
-        showArrows = false;
-        locked = false;
-      });
+      userOrder.clear();
+      setState(() {});
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (_) => FeedackScreen(
+            isCorrect: false,
+            stars: 0,
+            attempts:
+                BlocProvider.of<GameCubit>(context).state.theGame.attempts - 1,
+            timeLeft: BlocProvider.of<GameCubit>(
+              context,
+            ).state.theGame.timeLeft,
+          ),
+        ),
+      );
     }
   }
 }

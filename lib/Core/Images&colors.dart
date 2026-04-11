@@ -9,7 +9,6 @@ class AppColors {
   static const Color greenColor = Color(0xFF026713);
 }
 
-
 class AppImages {
   static const String imagepath = "assets/images/";
   static const String previous = "${imagepath}previous.png";
@@ -331,33 +330,37 @@ class AppImages {
   static const String haramModarag = "${imagepath}haram_modarag.png";
   static const String apartmentTiles = "${imagepath}Apartment_tiles.png";
   static const String ketabatHaet = "${imagepath}ketabat_haet.png";
-    static const String eladab = "${imagepath}eladab.png";
-    static const String elahramat = "${imagepath}elahramat.png";
-    static const String magdo = "${imagepath}magdo.png";
-    static const String elheksos = "${imagepath}elheksos.png";
-  //   static const String elheksos = "${imagepath}zainab.png";
-  //   static const String rawan = "${imagepath}rawan.png";
-  //   static const String mona = "${imagepath}mona.png";
-  //   static const String manar = "${imagepath}manar.png";
-  //   static const String farid = "${imagepath}farid.png";
-  //   static const String shahd = "${imagepath}shahd.png";
-  //   static const String shams = "${imagepath}shams.png";
-  //   static const String sondos = "${imagepath}sondos.png";
-  //   static const String zainab = "${imagepath}zainab.png";
-  //   static const String rawan = "${imagepath}rawan.png"; //   static const String mona = "${imagepath}mona.png";
-  //   static const String manar = "${imagepath}manar.png";
-  //   static const String farid = "${imagepath}farid.png";
-  //   static const String shahd = "${imagepath}shahd.png";
-  //   static const String shams = "${imagepath}shams.png";
-  //   static const String sondos = "${imagepath}sondos.png";
-  //   static const String zainab = "${imagepath}zainab.png";
-  //   static const String rawan = "${imagepath}rawan.png"; //   static const String mona = "${imagepath}mona.png";
-  //   static const String manar = "${imagepath}manar.png";
-  //   static const String farid = "${imagepath}farid.png";
-  //   static const String shahd = "${imagepath}shahd.png";
-  //   static const String shams = "${imagepath}shams.png";
-  //   static const String sondos = "${imagepath}sondos.png";
-  //   static const String zainab = "${imagepath}zainab.png";
+  static const String eladab = "${imagepath}eladab.png";
+  static const String elahramat = "${imagepath}elahramat.png";
+  static const String magdo = "${imagepath}magdo.png";
+  static const String elheksos = "${imagepath}elheksos.png";
+  static const String run_lake = "${imagepath}Run_lake.png";
+  static const String dam_construction = "${imagepath}Dam_construction.png";
+  static const String digging_Canal = "${imagepath}Digging_Canal.png";
+  static const String water_level = "${imagepath}water_level.png";
+  static const String ya_bone = "${imagepath}ya_bone.png";
+  static const String eltarekh = "${imagepath}eltarekh.png";
+  static const String elasar = "${imagepath}elasar.png";
+  static const String elmadi = "${imagepath}elmadi.png";
+  static const String quiz2_L4 = "${imagepath}quiz2_L4.png";
+  static const String hoson = "${imagepath}hoson.png";
+  static const String elsdod = "${imagepath}elsdod.png";
+  static const String elrasm = "${imagepath}elrasm.png";
+  static const String belad = "${imagepath}belad.png";
+
+  static const String tawheed = "${imagepath}tawheed.png";
+  static const String hemaya = "${imagepath}hemaya.png";
+  static const String elzeraaa = "${imagepath}elzeraaa.png";
+  static const String elrai = "${imagepath}elrai.png";
+
+  static const String rawan = "${imagepath}rawan.png";
+  static const String mona = "${imagepath}mona.png";
+  static const String manar = "${imagepath}manar.png";
+  static const String farid = "${imagepath}farid.png";
+  static const String group_127 = "${imagepath}Group_127.png";
+  static const String group_128 = "${imagepath}Group_128.png";
+  static const String group_129 = "${imagepath}Group_129.png";
+  static const String group_130 = "${imagepath}Group_130.png";
   //   static const String rawan = "${imagepath}rawan.png"; //   static const String mona = "${imagepath}mona.png";
   //   static const String manar = "${imagepath}manar.png";
   //   static const String farid = "${imagepath}farid.png";

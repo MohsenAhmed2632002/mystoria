@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:myhabits/Core/Images&colors.dart';
 import 'package:myhabits/Core/animation_restart_mixin.dart';
 import 'package:myhabits/Core/constants.dart';
 import 'package:myhabits/Core/soundManger.dart';
 import 'package:myhabits/Models/QuestionModel.dart';
+import 'package:myhabits/Screens/feedackScreen.dart';
+import 'package:myhabits/cubit/Gamecubit/game_cubit.dart';
 
 class LevelTwoBordersPuzzle extends StatefulWidget {
   final QuestionModel question;
@@ -17,247 +20,176 @@ class LevelTwoBordersPuzzle extends StatefulWidget {
 
 class _LevelTwoBordersPuzzleState extends State<LevelTwoBordersPuzzle>
     with TickerProviderStateMixin, RestartableAnimations {
-  Set<String> completedDoors = {};
-  Set<String> droppedDoors = {};
-  late AnimationController symbolsController;
-  late Animation<double> symbolsDrop;
-  bool gameFinished = false;
-
-  String? activeDoor;
-
-  late AnimationController doorController;
-  late Animation<double> doorDrop;
-
-  Map<String, List<String>> placedSymbols = {};
-
-  final List<String> doors = [
-    AppImages.door3Q10,
-    AppImages.door2Q10,
-    AppImages.door1Q10,
-  ];
-
-  @override
-  void initState() {
-    super.initState();
-    symbolsController = AnimationController(
-      vsync: this,
-      duration: const Duration(seconds: 2),
-    );
-    registerController(symbolsController);
-    symbolsDrop = Tween<double>(begin: -1, end: 0).animate(
-      CurvedAnimation(parent: symbolsController, curve: Curves.easeOut),
-    );
-    symbolsController.forward(from: 0);
-
-    doorController = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 600),
-    );
-    registerController(doorController);
-    doorDrop = Tween<double>(
-      begin: 0,
-      end: 1,
-    ).animate(CurvedAnimation(parent: doorController, curve: Curves.easeIn));
-  }
-
-  // @override
-  // void dispose() {
-  //   doorController.dispose();
-  //   symbolsController.dispose();
-  //   super.dispose();
-  // }
+  final Map<int, String> correctOrder = {
+    3: 'النشاط التجاري',
+    1: 'المشروعات الزراعية',
+    2: 'الادب و الفنون',
+    0: "الحدود",
+  };
+  final Map<int, String> userOrder = {};
 
   @override
   Widget build(BuildContext context) {
     return GameScreen(
-      characterFromBottom: 125.h,
-      hint: widget.question.hint,
       color: widget.question.color,
+      hint: widget.question.hint,
+
       background: widget.question.background,
-      mediaQueryRight: 0,
-      mediaQueryTop: MediaQuery.sizeOf(context).height * 0.2,
-      child: Column(
-        children: [
-          /// الأبواب
-          Container(
-            // color: Colors.red,
-            height: 700.h,
-            width: MediaQuery.sizeOf(context).width,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: doors.map((door) => _buildDoor(door)).toList(),
+      mediaQueryRight: MediaQuery.sizeOf(context).width * 0,
+      mediaQueryTop: MediaQuery.sizeOf(context).height * 0.12,
+      child: Container(
+        // color: Colors.white38,
+        height: MediaQuery.sizeOf(context).height * 0.9,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            // 🔹 البطاقات
+            Container(
+              // color: Colors.red,
+              width: MediaQuery.sizeOf(context).width,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  _buildDraggableCard(correctOrder[1]!),
+                  _buildDraggableCard(correctOrder[2]!),
+                  _buildDraggableCard(correctOrder[0]!),
+                  _buildDraggableCard(correctOrder[3]!),
+                ],
+              ),
             ),
-          ),
 
-          // const SizedBox(height: 20),
-
-          /// الرموز
-          Wrap(
-            alignment: WrapAlignment.center,
-            spacing: 20.w,
-            children: widget.question.options
-                .map((symbol) => _buildDraggable(symbol))
-                .toList(),
-          ),
-        ],
+            //the doors
+            Container(
+              // color: Colors.red,
+              width: MediaQuery.sizeOf(context).width,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Image.asset(AppImages.hoson, width: 350.w, height: 600.h),
+                  Image.asset(AppImages.elsdod, width: 350.w, height: 600.h),
+                  Image.asset(AppImages.elrasm, width: 350.w, height: 600.h),
+                  Image.asset(AppImages.belad, width: 350.w, height: 600.h),
+                ],
+              ),
+            ),
+            // الاجابات
+            Container(
+              // color: AppColors.mainColor,
+              width: MediaQuery.sizeOf(context).width,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  _placeOfAnswers(0),
+                  _placeOfAnswers(1),
+                  _placeOfAnswers(2),
+                  _placeOfAnswers(3),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
 
-  Widget _buildDraggable(String image) {
-    return AnimatedBuilder(
-      animation: symbolsController,
-      builder: (context, child) {
-        final screenHeight = MediaQuery.of(context).size.height;
-
-        double position = screenHeight * symbolsDrop.value;
-        print(position);
-        return Transform.translate(
-          offset: Offset(0, position),
-          child: Draggable<String>(
-            data: image,
-            feedback: Image.asset(image, width: 150.w),
-            childWhenDragging: Opacity(
-              opacity: 0.3,
-              child: Image.asset(image, width: 150.w),
-            ),
-            child: Image.asset(image, width: 150.w, height: 150.h),
-          ),
-        );
-      },
+  // 🟦 البطاقة
+  Widget _buildDraggableCard(String era) {
+    return Draggable<String>(
+      data: era,
+      childWhenDragging: _card(era, faded: true),
+      // السحب
+      feedback: _card(era, dragging: true),
+      child: _card(era),
     );
   }
 
-  Widget _buildDoor(String doorImage) {
-    if (droppedDoors.contains(doorImage)) {
-      return const SizedBox();
-    }
+  Widget _card(String text, {bool dragging = false, bool faded = false}) {
+    return Opacity(
+      opacity: faded ? 0.3 : 1,
+      child: GameButtonTwo(
+        text: text,
+        onPressed: () {},
+        fromWidth: 300,
+        fromHeight: 125,
+        fontSize: 50.sp,
+      ),
+    );
+  }
 
-    return AnimatedBuilder(
-      animation: doorController,
-      builder: (context, child) {
-        final dropOffset = activeDoor == doorImage
-            ? MediaQuery.of(context).size.height * doorDrop.value
-            : 0.0;
-
-        return Transform.translate(
-          offset: Offset(0, dropOffset),
-          child: DragTarget<String>(
-            onAccept: (symbol) => _handleDrop(doorImage, symbol),
-            builder: (context, candidate, rejected) {
-              return Stack(
-                alignment: Alignment.center,
-                children: [
-                  Image.asset(doorImage, width: 450.w, height: 720.h),
-                  Positioned(
-                    bottom: 250.h,
-                    child: Row(
-                      children: placedSymbols[doorImage] != null
-                          ? placedSymbols[doorImage]!
-                                .map(
-                                  (e) => Padding(
-                                    padding: EdgeInsets.symmetric(
-                                      horizontal: 8.w,
-                                    ),
-                                    child: Image.asset(e, width: 100.w),
-                                  ),
-                                )
-                                .toList()
-                          : [],
-                    ),
-                  ),
-                ],
+  // 🚪 الباب
+  Widget _placeOfAnswers(int index) {
+    return DragTarget<String>(
+      onAccept: (data) {
+        setState(() {
+          userOrder[index] = data;
+        });
+        _checkResult();
+      },
+      builder: (context, candidateData, rejectedData) {
+        return userOrder[index] != null
+            ? GameButtonTwo(
+                text: userOrder[index]!,
+                onPressed: () {},
+                fromWidth: 300,
+                fromHeight: 125,
+                fontSize: 50.sp,
+              )
+            : Image.asset(
+                'assets/images/button_game.png',
+                width: 300.w,
+                height: 125.h,
               );
-            },
-          ),
-        );
       },
     );
   }
 
-  void _handleDrop(String door, String symbol) {
-    if (gameFinished) return;
-    if (droppedDoors.contains(door)) return;
+  // ✅ التحقق من الحل
+  void _checkResult() async {
+    if (userOrder.length < 4) return;
 
-    placedSymbols.putIfAbsent(door, () => []);
-
-    if (placedSymbols[door]!.contains(symbol)) return;
-    if (placedSymbols[door]!.length >= 2) return;
-
-    placedSymbols[door]!.add(symbol);
-    setState(() {});
-
-    if (placedSymbols[door]!.length == 2) {
-      completedDoors.add(door);
-    }
-
-    if (completedDoors.length == doors.length) {
-      _evaluateAllDoors();
-    }
-  }
-
-  Future<void> _evaluateAllDoors() async {
-    final correctMap =
-        widget.question.correctAnswer as Map<String, List<String>>;
-
-    bool allCorrect = true;
-
-    for (var door in doors) {
-      final correctList = correctMap[door] ?? [];
-      final placed = placedSymbols[door] ?? [];
-
-      if (!_isCorrectSet(placed, correctList)) {
-        allCorrect = false;
-        await _dropDoor(door);
+    bool isCorrect = true;
+    correctOrder.forEach((key, value) {
+      if (userOrder[key] != value) {
+        isCorrect = false;
       }
-    }
+    });
 
-    if (allCorrect) {
-      gameFinished = true;
-      _success();
+    if (isCorrect) {
+      SoundManager.instance.correct();
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (_) => FeedackScreen(
+            isCorrect: true,
+            stars: BlocProvider.of<GameCubit>(context).calculateStars(),
+            attempts: BlocProvider.of<GameCubit>(
+              context,
+            ).state.theGame.attempts,
+            timeLeft: BlocProvider.of<GameCubit>(
+              context,
+            ).state.theGame.timeLeft,
+          ),
+        ),
+      );
     } else {
-      _resetGameState();
-      restartAllAnimations();
-      onWrong(context);
+      SoundManager.instance.wrong();
+
+      userOrder.clear();
+      setState(() {});
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (_) => FeedackScreen(
+            isCorrect: false,
+            stars: 0,
+            attempts:
+                BlocProvider.of<GameCubit>(context).state.theGame.attempts - 1,
+            timeLeft: BlocProvider.of<GameCubit>(
+              context,
+            ).state.theGame.timeLeft,
+          ),
+        ),
+      );
     }
-  }
-
-  void _resetGameState() {
-    completedDoors.clear();
-    droppedDoors.clear();
-    placedSymbols.clear();
-    activeDoor = null;
-    gameFinished = false;
-
-    setState(() {});
-  }
-
-  Future<void> _dropDoor(String door) async {
-    activeDoor = door;
-    setState(() {});
-
-    SoundManager.instance.wrong();
-
-    await doorController.forward(from: 0);
-    doorController.reset();
-
-    droppedDoors.add(door);
-    activeDoor = null;
-
-    setState(() {});
-  }
-
-  bool _isCorrectSet(List<String> placed, List<String> correct) {
-    if (placed.length != correct.length) return false;
-    for (var item in placed) {
-      if (!correct.contains(item)) return false;
-    }
-    return true;
-  }
-
-  void _success() async {
-    SoundManager.instance.correct();
-    await Future.delayed(const Duration(milliseconds: 600));
-    onCorrect(context);
   }
 }

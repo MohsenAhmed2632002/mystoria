@@ -51,7 +51,7 @@ class _LevelTwoPuzzeleTwoState extends State<LevelTwoPuzzeleTwo> {
                         stars: BlocProvider.of<GameCubit>(
                           context,
                         ).calculateStars(),
-                        helps: BlocProvider.of<GameCubit>(
+                        attempts: BlocProvider.of<GameCubit>(
                           context,
                         ).state.theGame.attempts,
                         timeLeft: BlocProvider.of<GameCubit>(
@@ -77,7 +77,7 @@ class _LevelTwoPuzzeleTwoState extends State<LevelTwoPuzzeleTwo> {
                       builder: (_) => FeedackScreen(
                         isCorrect: false,
                         stars: 0,
-                        helps:
+                        attempts:
                             BlocProvider.of<GameCubit>(
                               context,
                             ).state.theGame.attempts -

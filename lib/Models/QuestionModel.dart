@@ -184,21 +184,8 @@ final List<QuestionModel> levelOneQuestionsList = [
 ];
 
 final List<QuestionModel> levelTwoQuestionsList = [
-  //4
-  QuestionModel(
-    color: AppColors.greenColor,
-    type: QuestionType.libra,
-    question: "اضغط علي الحجر الذي يحمل جملة تعبر عن العصر",
-    options: [
-      AppImages.elahramat,
-      AppImages.eladab,
-      AppImages.magdo,
-      AppImages.elheksos,
-    ],
-    correctAnswer: AppImages.eladab,
-    background: AppImages.quiz,
-    hint: 'هذا العصر تألق بالفكر لا بالاحتلال',
-  ),
+  
+
   //1
   QuestionModel(
     color: AppColors.greenColor,
@@ -246,6 +233,38 @@ final List<QuestionModel> levelTwoQuestionsList = [
     background: AppImages.quiz,
     hint: 'أسال نفسك : هل هذا البناء يخص هذا العصر؟',
   ),
+  //4
+  QuestionModel(
+    color: AppColors.greenColor,
+    hint: "التوحيد يبدأ بالحكم القوي أولاً",
+    type: QuestionType.order,
+    question: "اضغط علي جمله الادب المناسبة",
+    options: [
+      AppImages.ya_bone,
+      AppImages.eltarekh,
+      AppImages.elasar,
+      AppImages.elmadi,
+    ],
+    correctAnswer: AppImages.ya_bone,
+    background: AppImages.quiz2_L4,
+  ),
+
+  //5
+  QuestionModel(
+    color: AppColors.greenColor,
+    type: QuestionType.libra,
+    question: "اضغط علي الحجر الذي يحمل جملة تعبر عن العصر",
+    options: [
+      AppImages.elahramat,
+      AppImages.eladab,
+      AppImages.magdo,
+      AppImages.elheksos,
+    ],
+    correctAnswer: AppImages.eladab,
+    background: AppImages.quiz,
+    hint: 'هذا العصر تألق بالفكر لا بالاحتلال',
+  ),
+
   //6
   QuestionModel(
     color: AppColors.greenColor,
@@ -267,56 +286,12 @@ final List<QuestionModel> levelTwoQuestionsList = [
     background: AppImages.quiz,
     hint: 'اي مشروع ناجح له خطوات منطقية',
   ),
-  QuestionModel(
-    color: AppColors.greenColor,
-    hint: "التوحيد يبدأ بالحكم القوي أولاً",
-    type: QuestionType.order,
-    question: 'رتّب الأحداث داخل المربع  حسب تأثيرها في “إعادة وحدة مصر."',
-    options: [AppImages.q2_1, AppImages.q2_0, AppImages.q2_2, AppImages.q2_3],
-    correctAnswer: {
-      0: AppImages.q2_3,
-      1: AppImages.q2_1,
-      2: AppImages.q2_0,
-      3: AppImages.q2_2,
-    },
-    background: AppImages.quiz,
-  ),
 
-  QuestionModel(
-    color: AppColors.greenColor,
-    type: QuestionType.order3,
-    question: '_',
-    options: [AppImages.answer1, AppImages.answer2, AppImages.answer3],
-    correctAnswer: {
-      AppImages.answer1: AppImages.fund2,
-      AppImages.answer2: AppImages.fund4,
-      AppImages.answer3: AppImages.fund1,
-    },
-    background: AppImages.quiz,
-    hint: 'كل رمز له معني واضح ... ركز',
-  ),
-  QuestionModel(
-    color: AppColors.greenColor,
-    type: QuestionType.order4,
-    question: 'اختر الجمله التي من" ادب الحكمه " في الدولة الوسطى',
-    options: [AppImages.button2Q28, AppImages.button1Q28],
-    correctAnswer: AppImages.button1Q28,
-    background: AppImages.quiz,
-    hint: 'الحكمة تُعلّم الأخلاق لا القتال',
-  ),
-  QuestionModel(
-    color: AppColors.greenColor,
-    type: QuestionType.libraryPuzzle,
-    question: "اختر الباب الذي يعبر عن “أبرز ازدهار” في الدولة الوسطى",
-    options: [AppImages.door1, AppImages.door2, AppImages.door3],
-    correctAnswer: AppImages.door3,
-    background: AppImages.quiz,
-    hint: 'هذا العصر عُرف بالازدهار المميز',
-  ),
+  //7
   QuestionModel(
     color: AppColors.greenColor,
     type: QuestionType.theDoor,
-    question: "الصق الايقونات المناسبه علي الباب الذي يميز عصر سنوسرت التالت ",
+    question: "اسحب و طابق خصائص العصر بأنجازاته",
     options: [
       AppImages.wheat,
       AppImages.river,
@@ -327,15 +302,62 @@ final List<QuestionModel> levelTwoQuestionsList = [
       AppImages.hand,
     ],
     correctAnswer: {
-      AppImages.door1Q10: [AppImages.sword, AppImages.pyramid],
-      AppImages.door2Q10: [AppImages.axe, AppImages.hand],
-      AppImages.door3Q10: [AppImages.river, AppImages.wheat],
+      3: 'النشاط التجاري',
+      1: 'المشروعات الزراعية',
+      2: 'الادب و الفنون',
+      0: "الحدود",
     },
 
     background: AppImages.quiz,
     hint: 'كل رقم وراءه معلومه واضحة من الدرس',
   ),
-];
+  //8
+  QuestionModel(
+    color: AppColors.greenColor,
+    type: QuestionType.order4,
+    question: 'اسحب وطابق الاعمال بالرموز الصحيحة ',
+    options: [
+      AppImages.tawheed,
+      AppImages.hemaya,
+      AppImages.elzeraaa,
+      AppImages.elrai,
+    ],
+    correctAnswer: AppImages.button1Q28,
+    background: AppImages.quiz,
+    hint: 'الحكمة تُعلّم الأخلاق لا القتال',
+  ),
+
+  //9
+  QuestionModel(
+    color: AppColors.greenColor,
+    type: QuestionType.order3,
+    question: 'اسحب ورتب مراحل انشاء المشروع المائي',
+    options: [
+      AppImages.run_lake,
+      AppImages.water_level,
+      AppImages.dam_construction,
+      AppImages.digging_Canal,
+    ],
+    correctAnswer: {
+      0: AppImages.water_level,
+      1: AppImages.digging_Canal,
+      2: AppImages.dam_construction,
+      3: AppImages.run_lake,
+    },
+    background: AppImages.quiz,
+    hint: 'كل رمز له معني واضح ... ركز',
+  ),
+
+//10
+  QuestionModel(
+    color: AppColors.greenColor,
+    type: QuestionType.libraryPuzzle,
+    question: "اسحب و طابق الملك بأنجازاته",
+    options: [AppImages.door1, AppImages.door2, AppImages.door3],
+    correctAnswer: AppImages.door3,
+    background: AppImages.quiz,
+    hint: 'هذا العصر عُرف بالازدهار المميز',
+  ),];
 final List<QuestionModel> levelThreeQuestionsList = [
   QuestionModel(
     color: AppColors.blueColor,

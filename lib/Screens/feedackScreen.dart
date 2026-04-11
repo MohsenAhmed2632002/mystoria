@@ -12,13 +12,13 @@ class FeedackScreen extends StatefulWidget {
     super.key,
     required this.isCorrect,
     required this.stars,
-    required this.helps,
+    required this.attempts,
     required this.timeLeft,
   });
 
   final bool isCorrect;
   final int stars;
-  final int helps;
+  final int attempts;
   final int timeLeft;
 
   @override
@@ -89,7 +89,7 @@ class _FeedackScreenState extends State<FeedackScreen> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        "${widget.helps}",
+                        "${widget.attempts}",
                         style: getRegulerTextStyle(
                           context: context,
                           fontSize: 50.sp,
@@ -130,11 +130,11 @@ class _FeedackScreenState extends State<FeedackScreen> {
                       /// خروج
                       GestureDetector(
                         onTap: () {
-                          cubit.exitGame();
-                          Navigator.pushReplacementNamed(
-                            context,
-                            Routes.homeScreen,
-                          );
+                          cubit.exitGame(context);
+                          // Navigator.pushReplacementNamed(
+                          //   context,
+                          //   Routes.homeScreen,
+                          // );
                         },
                         child: Image.asset(
                           AppImages.exit,

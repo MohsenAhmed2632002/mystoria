@@ -104,10 +104,10 @@ class GameCubit extends Cubit<GamePlaying> {
 
     int newCounter = game.correctAnswerCounter + 1;
     int newAttempts = game.attempts;
-    int newHelps = game.helps;
+    int newhints = game.hints;
     if (newCounter == 4) {
       newAttempts += 1;
-      newHelps += 1;
+      newhints += 1;
       newCounter = 0;
     }
 
@@ -123,7 +123,7 @@ class GameCubit extends Cubit<GamePlaying> {
               ? game.currentPuzzle
               : game.currentPuzzle + 1,
           timeLeft: 30,
-          helps: newHelps,
+          hints: newhints,
         ),
       ),
     );
@@ -197,9 +197,11 @@ class GameCubit extends Cubit<GamePlaying> {
     return super.close();
   }
 
-  void exitGame() {
+  void exitGame(BuildContext context) {
     _timer?.cancel();
     SoundManager.instance.stopBgm();
+    Navigator.pop(context);
+    Navigator.pushReplacementNamed(context, Routes.homeScreen);
   }
 
   void _loadInitialStars() {

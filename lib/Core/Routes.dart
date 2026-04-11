@@ -62,15 +62,14 @@ class RoutesGenerator {
       // case Routes.feedbackScreen:
       //   return MaterialPageRoute(
       //     builder: (context) =>
-      //         FeedbackScreen(isCorrect: true, helps: 1, timeLeft: 21),
+      //         FeedbackScreen(isCorrect: true, hints: 1, timeLeft: 21),
       //   );
       case Routes.hintScreen:
         final String hint =
             settings.arguments as String; // أو نوع الـ hint الخاص بك
 
         return MaterialPageRoute(builder: (context) => HintScreen(hint: hint));
-     
-     
+
       case Routes.escScreen:
         return MaterialPageRoute(builder: (context) => EscScreen());
 

@@ -46,7 +46,7 @@ class McqWidget extends StatelessWidget {
                             stars: BlocProvider.of<GameCubit>(
                               context,
                             ).calculateStars(),
-                            helps: BlocProvider.of<GameCubit>(
+                            attempts: BlocProvider.of<GameCubit>(
                               context,
                             ).state.theGame.attempts,
                             timeLeft: BlocProvider.of<GameCubit>(
@@ -64,7 +64,7 @@ class McqWidget extends StatelessWidget {
                           builder: (_) => FeedackScreen(
                             isCorrect: false,
                             stars: 0,
-                            helps:
+                            attempts:
                                 BlocProvider.of<GameCubit>(
                                   context,
                                 ).state.theGame.attempts -

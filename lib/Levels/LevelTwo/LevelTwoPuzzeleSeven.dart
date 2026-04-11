@@ -48,7 +48,7 @@ class _LevelTwoPuzzeleBoatState extends State<LevelTwoPuzzeleBoat>
           builder: (_) => FeedackScreen(
             isCorrect: true,
             stars: BlocProvider.of<GameCubit>(context).calculateStars(),
-            helps: BlocProvider.of<GameCubit>(context).state.theGame.attempts,
+            attempts: BlocProvider.of<GameCubit>(context).state.theGame.attempts,
             timeLeft: BlocProvider.of<GameCubit>(
               context,
             ).state.theGame.timeLeft,
@@ -64,7 +64,7 @@ class _LevelTwoPuzzeleBoatState extends State<LevelTwoPuzzeleBoat>
           builder: (_) => FeedackScreen(
             isCorrect: false,
             stars: 0,
-            helps:
+            attempts:
                 BlocProvider.of<GameCubit>(context).state.theGame.attempts - 1,
             timeLeft: BlocProvider.of<GameCubit>(
               context,
