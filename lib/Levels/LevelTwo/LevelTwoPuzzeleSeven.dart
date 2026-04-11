@@ -7,6 +7,7 @@ import 'package:myhabits/Core/constants.dart';
 import 'package:myhabits/Core/soundManger.dart';
 import 'package:myhabits/Models/PlayerModel.dart';
 import 'package:myhabits/Models/QuestionModel.dart';
+import 'package:myhabits/Screens/feedackScreen.dart';
 import 'package:myhabits/cubit/Gamecubit/game_cubit.dart';
 import 'package:myhabits/cubit/Playercubit/Playercubit.dart';
 
@@ -20,190 +21,182 @@ class LevelTwoPuzzeleBoat extends StatefulWidget {
 
 class _LevelTwoPuzzeleBoatState extends State<LevelTwoPuzzeleBoat>
     with SingleTickerProviderStateMixin, RestartableAnimations {
-  late AnimationController boatController;
+  final Map<int, String> userOrder = {};
+  final Map<int, String> correctOrder = {0: "2", 1: "3", 2: "4", 3: "1"};
+  //1234
 
-  final List<String> correctOrder = [
-    AppImages.banner4,
-    AppImages.banner3,
-    AppImages.banner2,
+  void _checkResult() {
+    if (userOrder.length < correctOrder.length) return;
 
-    AppImages.banner1,
-  ];
+    bool isCorrect = true;
 
-  List<String> currentOrder = [
-    AppImages.banner3,
-    AppImages.banner1,
-    AppImages.banner4,
-
-    AppImages.banner2,
-  ];
-
-  @override
-  void initState() {
-    super.initState();
-
-    boatController = AnimationController(
-      vsync: this,
-      duration: const Duration(seconds: 2),
-    );
-    registerController(boatController);
-  }
-
-  // @override
-  // void dispose() {
-  //   boatController.dispose();
-  //   super.dispose();
-  // }
-
-  bool checkOrder() {
     for (int i = 0; i < correctOrder.length; i++) {
-      if (currentOrder[i] != correctOrder[i]) {
-        return false;
+      if (userOrder[i] != correctOrder[i]) {
+        isCorrect = false;
+        break;
       }
     }
-    return true;
+
+    // final cubit = context.read<GameCubit>();
+
+    if (isCorrect) {
+      SoundManager.instance.correct();
+
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (_) => FeedackScreen(
+            isCorrect: true,
+            stars: BlocProvider.of<GameCubit>(context).calculateStars(),
+            helps: BlocProvider.of<GameCubit>(context).state.theGame.attempts,
+            timeLeft: BlocProvider.of<GameCubit>(
+              context,
+            ).state.theGame.timeLeft,
+          ),
+        ),
+      );
+    } else {
+      SoundManager.instance.wrong();
+      userOrder.clear();
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (_) => FeedackScreen(
+            isCorrect: false,
+            stars: 0,
+            helps:
+                BlocProvider.of<GameCubit>(context).state.theGame.attempts - 1,
+            timeLeft: BlocProvider.of<GameCubit>(
+              context,
+            ).state.theGame.timeLeft,
+          ),
+        ),
+      );
+    }
   }
 
-  void startBoat() async {
-    if (checkOrder()) {
-      SoundManager.instance.waterAndBird();
-
-      await boatController.forward().then((value) => onCorrect(context));
-    } else {
-      // SoundManager.instance.wrong();
-      //
-      context.read<GameCubit>().wrongAnswer(context);
-
-      // setState(() {
-      //   currentOrder.shuffle();
-      // });
-    }
+  Widget _placeOfAnswers(int index) {
+    return DragTarget<String>(
+      onAccept: (data) {
+        setState(() {
+          userOrder[index] = data;
+        });
+        _checkResult();
+      },
+      builder: (context, candidateData, rejectedData) {
+        return userOrder[index] != null
+            ? GameButtonTwo(
+                text: userOrder[index]!,
+                onPressed: () {},
+                fromWidth: 300,
+                fromHeight: 125,
+                fontSize: 25,
+              )
+            : Image.asset(
+                'assets/images/button_game.png',
+                width: 300.w,
+                height: 125.h,
+              );
+      },
+    );
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      extendBodyBehindAppBar: true,
-      body: Stack(
-        children: [
-          // 🎨 الخلفية
-          SizedBox.expand(
-            child: Image.asset(widget.question.background, fit: BoxFit.fill),
-          ),
-
-          /// القارب
-          AnimatedBuilder(
-            animation: boatController,
-            builder: (context, child) {
-              return Positioned(
-                bottom: 100.h,
-
-                left: boatController.value * MediaQuery.of(context).size.width,
-                child: Image.asset(AppImages.ship, width: 850.w, height: 600.h),
-              );
-            },
-          ),
-          // 🎨 الجسم
-          Positioned(
-            right: MediaQuery.sizeOf(context).width * 0,
-            top: MediaQuery.sizeOf(context).height * 0.2,
-            child: Container(
-              height: MediaQuery.sizeOf(context).height,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.end,
+    return GameScreen(
+      mediaQueryRight: 0,
+      mediaQueryTop:
+          //  0,
+          MediaQuery.sizeOf(context).height * 0.1,
+      hint: widget.question.hint,
+      color: widget.question.color,
+      background: widget.question.background,
+      child: Container(
+        // color: AppColors.backgroundColor,
+        height: MediaQuery.sizeOf(context).height * 0.9,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: [
+            Container(
+              // color: Colors.red,
+              width: MediaQuery.sizeOf(context).width,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  Container(
-                    // color: AppColors.secondColor,
-                    height: MediaQuery.sizeOf(context).height / 2,
-                    width: MediaQuery.sizeOf(context).width,
-                    child: Column(
-                      children: [
-                        /// اللوحات
-                        Container(
-                          height: 350.h,
-                          alignment: Alignment.center,
-                          child: Center(
-                            child: SizedBox(
-                              height: 350.h,
-                              width: 1200.w, // مساحة التحكم في المنتصف
-                              child: ReorderableListView(
-                                scrollDirection: Axis.horizontal,
-                                onReorder: (oldIndex, newIndex) {
-                                  setState(() {
-                                    if (newIndex > oldIndex) newIndex--;
-                                    final item = currentOrder.removeAt(
-                                      oldIndex,
-                                    );
-                                    currentOrder.insert(newIndex, item);
-                                  });
-                                },
-                                children: [
-                                  for (int i = 0; i < currentOrder.length; i++)
-                                    Padding(
-                                      key: ValueKey(currentOrder[i]),
-                                      padding: EdgeInsets.symmetric(
-                                        horizontal: 20.w,
-                                      ),
-                                      child: Image.asset(
-                                        currentOrder[i],
-                                        width: 250.w,
-                                        height: 350.h,
-                                      ),
-                                    ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
+                  _buildChoices("4"),
+                  _buildChoices("3"),
+                  _buildChoices("2"),
+                  _buildChoices("1"),
+                ],
+              ),
+            ),
 
-                        /// زر الانطلاق
-                        GameButtonTwo(
-                          text: "انطلاق",
-                          onPressed: startBoat,
-                          fontSize: 35,
-                          fromWidth: 400,
-                          fromHeight: 150,
-                        ),
-                      ],
-                    ),
+            //the doors
+            Container(
+              // color: Colors.red,
+              width: MediaQuery.sizeOf(context).width,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Image.asset(
+                    widget.question.options[0],
+                    width: 450.w,
+                    height: 300.h,
+                  ),
+                  Image.asset(
+                    widget.question.options[2],
+                    width: 450.w,
+                    height: 300.h,
+                  ),
+                  Image.asset(
+                    widget.question.options[1],
+                    width: 450.w,
+                    height: 300.h,
+                  ),
+                  Image.asset(
+                    widget.question.options[3],
+                    width: 450.w,
+                    height: 300.h,
                   ),
                 ],
               ),
             ),
-          ),
-          // 🎨 الأيقونات العلوية
-          CharacterAndClueContainer(hint: "تذكر : كل حضاره ليها بدايه واضحه"),
-
-          Positioned(
-            bottom: 200.h,
-            left: 10,
-            child: BlocBuilder<PlayerCubit, PlayerModel?>(
-              builder: (context, player) {
-                if (player == null) {
-                  return const SizedBox(); // أو Loader
-                }
-
-                return Column(
-                  children: [
-                    Image.asset(
-                      'assets/images/${player.avatar}.png',
-                      height: 435.h,
-                      width: 300.w,
-                    ),
-                  ],
-                );
-              },
+            Container(
+              // color: AppColors.mainColor,
+              width: MediaQuery.sizeOf(context).width,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  _placeOfAnswers(0),
+                  _placeOfAnswers(1),
+                  _placeOfAnswers(2),
+                  _placeOfAnswers(3),
+                ],
+              ),
             ),
-          ),
-          QustionContainer(
-            color: widget.question.color,
-          ), // 🎨 الأيقونات العلوية
-          TryAndTimeContainer(),
-
-          // ),
-        ],
+          ],
+        ),
       ),
+    );
+  }
+
+  Widget _buildChoices(String myNum) {
+    return Draggable<String>(
+      data: myNum,
+      feedback: _choiceCard(myNum),
+      childWhenDragging: Opacity(opacity: 0.4, child: _choiceCard(myNum)),
+      child: _choiceCard(myNum),
+    );
+  }
+
+  Widget _choiceCard(String myNum) {
+    return GameButtonTwo(
+      text: myNum,
+      onPressed: () {},
+      fromWidth: 300,
+      fromHeight: 125,
+      fontSize: 100.sp,
     );
   }
 }

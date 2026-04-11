@@ -6,7 +6,9 @@ class AppColors {
   static const Color secondColor = Color(0xFFFFF3E0);
   static const Color accentColor = Color(0xFF88623B);
   static const Color blueColor = Color(0xFF194B84);
+  static const Color greenColor = Color(0xFF026713);
 }
+
 
 class AppImages {
   static const String imagepath = "assets/images/";
@@ -179,6 +181,7 @@ class AppImages {
   static const String stone1 = "${imagepath}stone1.png";
   static const String stone2 = "${imagepath}stone2.png";
   static const String stone3 = "${imagepath}stone3.png";
+  static const String stone4 = "${imagepath}stone4.png";
 
   static const String wall = "${imagepath}wall.png";
   static const String fog = "${imagepath}fog.png";
@@ -328,12 +331,13 @@ class AppImages {
   static const String haramModarag = "${imagepath}haram_modarag.png";
   static const String apartmentTiles = "${imagepath}Apartment_tiles.png";
   static const String ketabatHaet = "${imagepath}ketabat_haet.png";
-  //   static const String farid = "${imagepath}farid.png";
-  //   static const String shahd = "${imagepath}shahd.png";
-  //   static const String shams = "${imagepath}shams.png";
-  //   static const String sondos = "${imagepath}sondos.png";
-  //   static const String zainab = "${imagepath}zainab.png";
-  //   static const String rawan = "${imagepath}rawan.png"; //   static const String mona = "${imagepath}mona.png";
+    static const String eladab = "${imagepath}eladab.png";
+    static const String elahramat = "${imagepath}elahramat.png";
+    static const String magdo = "${imagepath}magdo.png";
+    static const String elheksos = "${imagepath}elheksos.png";
+  //   static const String elheksos = "${imagepath}zainab.png";
+  //   static const String rawan = "${imagepath}rawan.png";
+  //   static const String mona = "${imagepath}mona.png";
   //   static const String manar = "${imagepath}manar.png";
   //   static const String farid = "${imagepath}farid.png";
   //   static const String shahd = "${imagepath}shahd.png";

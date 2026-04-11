@@ -9,7 +9,9 @@ import 'package:myhabits/Models/gameModel.dart';
 import 'package:myhabits/cubit/Gamecubit/game_state.dart';
 
 class GameCubit extends Cubit<GamePlaying> {
-  GameCubit({required this.levels}) : super(GamePlaying(GameModel.initial()));
+  GameCubit({required this.levels}) : super(GamePlaying(GameModel.initial())) {
+    _loadInitialStars();
+  }
 
   final List<LevelModel> levels;
   Timer? _timer;
@@ -37,7 +39,7 @@ class GameCubit extends Cubit<GamePlaying> {
     // await SoundManager.instance.stopBgm();
     startTimer(context);
 
-    await SoundManager.instance.playBgm('sound/music_game.mp3');
+    await SoundManager.instance.playSfx('sound/music_game.mp3');
   }
 
   void startLevel(int levelIndex, BuildContext context) {
@@ -51,7 +53,7 @@ class GameCubit extends Cubit<GamePlaying> {
     );
 
     startTimer(context);
-    // SoundManager.instance.playBgm('sound/music_game.mp3');
+    SoundManager.instance.playBgm('sound/music_game.mp3');
   }
 
   /// -----------------------------
@@ -128,7 +130,7 @@ class GameCubit extends Cubit<GamePlaying> {
 
     // ✅ حفظ النجوم بعد كل إجابة صحيحة
     await PlayerStorage.saveStars(newStars);
-    Navigator.pop(context);
+    // Navigator.pop(context);
 
     if (isLastQuestion) {
       Navigator.pushReplacementNamed(context, Routes.levelMapScreen);
@@ -157,10 +159,10 @@ class GameCubit extends Cubit<GamePlaying> {
           ),
         ),
       );
-      Navigator.pop(context);
+      // Navigator.pop(context);
       startTimer(context);
     } else {
-      Navigator.pop(context);
+      // Navigator.pop(context);
       resetLevel(context);
     }
   }
@@ -198,5 +200,14 @@ class GameCubit extends Cubit<GamePlaying> {
   void exitGame() {
     _timer?.cancel();
     SoundManager.instance.stopBgm();
+  }
+
+  void _loadInitialStars() {
+    // تحميل النجوم من التخزين وتحديث الحالة
+    Future<void> _loadInitialStars() async {
+      final savedStars =
+          await PlayerStorage.loadStars(); // تحتاج تنفذ دالة getStars
+      emit(GamePlaying(state.theGame.copyWith(stars: savedStars)));
+    }
   }
 }

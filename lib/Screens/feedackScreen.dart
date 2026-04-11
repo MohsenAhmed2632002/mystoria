@@ -154,7 +154,7 @@ class _FeedackScreenState extends State<FeedackScreen> {
                                 Navigator.pop(context);
                               }
                             : () {
-                                // Navigator.pop(context);
+                                Navigator.pop(context);
                                 cubit.wrongAnswer(context);
                               },
 
@@ -170,7 +170,7 @@ class _FeedackScreenState extends State<FeedackScreen> {
                         onTap: widget.isCorrect
                             ? () {
                                 cubit.correctAnswer(context);
-                                // Navigator.pop(context);
+                                Navigator.pop(context);
                               }
                             : null,
                         child: Image.asset(

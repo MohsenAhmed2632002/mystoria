@@ -69,13 +69,15 @@ class _LevelTwoPuzzeleThreeState extends State<LevelTwoPuzzeleThree>
           child: Stack(
             children: [
               Container(
+                // color: Colors.red,
                 height: MediaQuery.sizeOf(context).height,
                 width: MediaQuery.sizeOf(context).width,
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      // crossAxisAlignment: CrossAxisAlignment.end,
                       children: widget.question.options.map((option) {
                         return GameButtonThree(
                           text: option,
@@ -90,8 +92,8 @@ class _LevelTwoPuzzeleThreeState extends State<LevelTwoPuzzeleThree>
                               onWrong(context);
                             }
                           },
-                          fromWidth: 500,
-                          fromHeight: 500,
+                          fromWidth: 400,
+                          fromHeight: 600,
                           fontSize: 35,
                         );
                       }).toList(),

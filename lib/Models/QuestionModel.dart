@@ -184,10 +184,26 @@ final List<QuestionModel> levelOneQuestionsList = [
 ];
 
 final List<QuestionModel> levelTwoQuestionsList = [
+  //4
   QuestionModel(
-    color: AppColors.blueColor,
+    color: AppColors.greenColor,
+    type: QuestionType.libra,
+    question: "اضغط علي الحجر الذي يحمل جملة تعبر عن العصر",
+    options: [
+      AppImages.elahramat,
+      AppImages.eladab,
+      AppImages.magdo,
+      AppImages.elheksos,
+    ],
+    correctAnswer: AppImages.eladab,
+    background: AppImages.quiz,
+    hint: 'هذا العصر تألق بالفكر لا بالاحتلال',
+  ),
+  //1
+  QuestionModel(
+    color: AppColors.greenColor,
     type: QuestionType.mcq,
-    question: 'اختار الكلمه اللي تكمل حكمه من "تعاليم امنمحات"',
+    question: 'اضغط علي الحجر الخاص للجملة"',
     options: [
       AppImages.hisHart,
       AppImages.hisSoul,
@@ -198,8 +214,61 @@ final List<QuestionModel> levelTwoQuestionsList = [
     background: AppImages.quiz2_2,
     hint: 'الحكمه تقول : الثقه تبدأ من الداخل',
   ),
+  //2
   QuestionModel(
-    color: AppColors.blueColor,
+    color: AppColors.greenColor,
+    type: QuestionType.choose,
+    question: 'اضغط علي الحجر الذي لا يعبر عن الدولة الوسطى',
+    options: [
+      AppImages.stone2,
+      AppImages.stone1,
+      AppImages.stone3,
+      AppImages.stone4,
+    ],
+    correctAnswer: AppImages.stone1,
+    background: AppImages.quiz,
+    hint: 'انتبه : الغزاة ليسوا من انجازات العصر',
+  ),
+
+  //3
+  QuestionModel(
+    color: AppColors.greenColor,
+    type: QuestionType.order2,
+    question: "اضغط علي الحجر الذي لا يعبر عن عصر الدولة الوسطي",
+    options: [
+      AppImages.break0,
+      AppImages.break2,
+      AppImages.break3,
+      AppImages.break1,
+      // AppImages.break4,
+    ],
+    correctAnswer: AppImages.break3,
+    background: AppImages.quiz,
+    hint: 'أسال نفسك : هل هذا البناء يخص هذا العصر؟',
+  ),
+  //6
+  QuestionModel(
+    color: AppColors.greenColor,
+    type: QuestionType.choose2,
+    question: "رتّب الاحداث حسب تأثيرها في اعاده وحدة مصر",
+    options: [
+      AppImages.banner2,
+      AppImages.banner3,
+      AppImages.banner1,
+      AppImages.banner4,
+    ],
+    correctAnswer: [
+      AppImages.banner2,
+      AppImages.banner3,
+      AppImages.banner1,
+
+      AppImages.banner4,
+    ],
+    background: AppImages.quiz,
+    hint: 'اي مشروع ناجح له خطوات منطقية',
+  ),
+  QuestionModel(
+    color: AppColors.greenColor,
     hint: "التوحيد يبدأ بالحكم القوي أولاً",
     type: QuestionType.order,
     question: 'رتّب الأحداث داخل المربع  حسب تأثيرها في “إعادة وحدة مصر."',
@@ -210,45 +279,11 @@ final List<QuestionModel> levelTwoQuestionsList = [
       2: AppImages.q2_0,
       3: AppImages.q2_2,
     },
-    background: AppImages.quiz1,
+    background: AppImages.quiz,
   ),
 
   QuestionModel(
-    color: AppColors.blueColor,
-    type: QuestionType.choose,
-    question: 'ايّ حجر من الثلاثة لا يعبّر عن خصائص “عصر الدولة الوسطى”؟',
-    options: [AppImages.stone2, AppImages.stone1, AppImages.stone3],
-    correctAnswer: AppImages.stone1,
-    background: AppImages.quiz2_3,
-    hint: 'انتبه : الغزاة ليسوا من انجازات العصر',
-  ),
-
-  QuestionModel(
-    color: AppColors.blueColor,
-    type: QuestionType.order2,
-    question: "استخرج الشظيه الخاطئه",
-    options: [
-      AppImages.break0,
-      AppImages.break2,
-      AppImages.break3,
-      AppImages.break1,
-      AppImages.break4,
-    ],
-    correctAnswer: AppImages.break3,
-    background: AppImages.quiz2_4,
-    hint: 'أسال نفسك : هل هذا البناء يخص هذا العصر؟',
-  ),
-  QuestionModel(
-    color: AppColors.blueColor,
-    type: QuestionType.libra,
-    question: "أيّ من الكفّتين تحمل عبارة صحيحة عن “عصر الدولة الوسطى”؟",
-    options: [AppImages.rightHand, AppImages.leftHand],
-    correctAnswer: AppImages.leftHand,
-    background: AppImages.quiz1,
-    hint: 'هذا العصر تألق بالفكر لا بالاحتلال',
-  ),
-  QuestionModel(
-    color: AppColors.blueColor,
+    color: AppColors.greenColor,
     type: QuestionType.order3,
     question: '_',
     options: [AppImages.answer1, AppImages.answer2, AppImages.answer3],
@@ -257,50 +292,29 @@ final List<QuestionModel> levelTwoQuestionsList = [
       AppImages.answer2: AppImages.fund4,
       AppImages.answer3: AppImages.fund1,
     },
-    background: AppImages.quiz6,
+    background: AppImages.quiz,
     hint: 'كل رمز له معني واضح ... ركز',
   ),
   QuestionModel(
-    color: AppColors.blueColor,
-    type: QuestionType.choose2,
-    question: "اسحب اللوحات ورتّب مراحل إنشاء المشروع المائي",
-    options: [
-      AppImages.banner2,
-      AppImages.banner3,
-      AppImages.banner1,
-
-      AppImages.banner4,
-    ],
-    correctAnswer: [
-      AppImages.banner2,
-      AppImages.banner3,
-      AppImages.banner1,
-
-      AppImages.banner4,
-    ],
-    background: AppImages.quiz2_7,
-    hint: 'اي مشروع ناجح له خطوات منطقية',
-  ),
-  QuestionModel(
-    color: AppColors.blueColor,
+    color: AppColors.greenColor,
     type: QuestionType.order4,
     question: 'اختر الجمله التي من" ادب الحكمه " في الدولة الوسطى',
     options: [AppImages.button2Q28, AppImages.button1Q28],
     correctAnswer: AppImages.button1Q28,
-    background: AppImages.quiz8,
+    background: AppImages.quiz,
     hint: 'الحكمة تُعلّم الأخلاق لا القتال',
   ),
   QuestionModel(
-    color: AppColors.blueColor,
+    color: AppColors.greenColor,
     type: QuestionType.libraryPuzzle,
     question: "اختر الباب الذي يعبر عن “أبرز ازدهار” في الدولة الوسطى",
     options: [AppImages.door1, AppImages.door2, AppImages.door3],
     correctAnswer: AppImages.door3,
-    background: AppImages.quiz1,
+    background: AppImages.quiz,
     hint: 'هذا العصر عُرف بالازدهار المميز',
   ),
   QuestionModel(
-    color: AppColors.blueColor,
+    color: AppColors.greenColor,
     type: QuestionType.theDoor,
     question: "الصق الايقونات المناسبه علي الباب الذي يميز عصر سنوسرت التالت ",
     options: [
@@ -318,7 +332,7 @@ final List<QuestionModel> levelTwoQuestionsList = [
       AppImages.door3Q10: [AppImages.river, AppImages.wheat],
     },
 
-    background: AppImages.quiz2_10,
+    background: AppImages.quiz,
     hint: 'كل رقم وراءه معلومه واضحة من الدرس',
   ),
 ];

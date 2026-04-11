@@ -14,18 +14,17 @@ class LevelTwoPuzzeleOne extends StatefulWidget {
   @override
   State<LevelTwoPuzzeleOne> createState() => _LevelTwoPuzzeleOneViewState();
 }
- 
+
 class _LevelTwoPuzzeleOneViewState extends State<LevelTwoPuzzeleOne> {
   final List<String> userOrder = [];
   bool _rghitAnswer = true;
 
   bool _rghitAnswer2 = false;
+
   @override
   void initState() {
-    SoundManager.instance.stopBgm().then((_) {
-      BlocProvider.of<GameCubit>(context).initState(context);
-    });
     super.initState();
+    BlocProvider.of<GameCubit>(context).initState(context);
   }
 
   @override
@@ -53,14 +52,10 @@ class _LevelTwoPuzzeleOneViewState extends State<LevelTwoPuzzeleOne> {
               },
               builder: (context, candidateData, rejectedData) {
                 return Container(
-              
                   width: 1000.w,
 
                   // height: 1000.h,
-                  child: 
-                  
-                  
-                  Stack(
+                  child: Stack(
                     children: [
                       SizedBox(
                         child: Image.asset(

@@ -12,7 +12,7 @@ class SoundManager {
   final AudioPlayer _bgmPlayer = AudioPlayer();
   final ValueNotifier<double> bgmVolume = ValueNotifier(1.0);
 
-  // final AudioPlayer _sfxPlayer = AudioPlayer();
+  final AudioPlayer _sfxPlayer = AudioPlayer();
 
   /// 🎚️ تحكم الصوت
   final ValueNotifier<double> sfxVolume = ValueNotifier(1.0);
@@ -21,7 +21,7 @@ class SoundManager {
 
   void _applyVolume() {
     _bgmPlayer.setVolume(bgmVolume.value);
-    // _sfxPlayer.setVolume(sfxVolume.value);
+    _sfxPlayer.setVolume(sfxVolume.value);
   }
 
   /// 🎵 موسيقى الخلفية

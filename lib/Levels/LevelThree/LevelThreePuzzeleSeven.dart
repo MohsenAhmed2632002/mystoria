@@ -14,7 +14,7 @@ class LevelThreePuzzeleBoat extends StatefulWidget {
 }
 
 class _LevelThreePuzzeleBoatState extends State<LevelThreePuzzeleBoat> {
- String? selectedChoice;
+  String? selectedChoice;
   @override
   Widget build(BuildContext context) {
     return GameScreen(
@@ -23,7 +23,7 @@ class _LevelThreePuzzeleBoatState extends State<LevelThreePuzzeleBoat> {
       hint: widget.question.hint,
       color: widget.question.color,
 
-      background: AppImages.quiz3_7,
+      background: widget.question.background,
       child: Container(
         height: MediaQuery.of(context).size.height * 0.9,
         width: MediaQuery.of(context).size.width,

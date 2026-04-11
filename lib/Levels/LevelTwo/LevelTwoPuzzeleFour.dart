@@ -50,12 +50,6 @@ class _LevelTwoPuzzeleFourState extends State<LevelTwoPuzzeleFour>
     await controller.animateTo(1, duration: const Duration(seconds: 1));
   }
 
-  // @override
-  // void dispose() {
-  //   controller.dispose();
-  //   super.dispose();
-  // }
-
   @override
   Widget build(BuildContext context) {
     return GameScreen(
@@ -64,96 +58,64 @@ class _LevelTwoPuzzeleFourState extends State<LevelTwoPuzzeleFour>
       background: widget.question.background,
       mediaQueryRight: 0,
       mediaQueryTop: 0,
-      child: Stack(
-        children: [
-          Container(
-            height: MediaQuery.sizeOf(context).height,
-            width: MediaQuery.sizeOf(context).width,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      child: Container(
+        // color: Colors.red,
+        height: MediaQuery.sizeOf(context).height,
+        width: MediaQuery.sizeOf(context).width,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    _buildChoicesContainer(widget.question.options[0]),
-                    _buildChoicesContainer(widget.question.options[1]),
-                  ],
-                ),
-
-                DragTarget<String>(
-                  onAccept: (data) {
-                    setState(() {
-                      userOrder = data;
-                    });
-                    _checkResult();
-                  },
-                  builder: (context, candidateData, rejectedData) {
-                    return Container(
-                      width: 300.w,
-                      height: 250.h,
-                      child: Image.asset(
-                        AppImages.breakInMirror,
-                        fit: BoxFit.fill,
-                      ),
-                    );
-                  },
-                ),
-
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    _buildChoicesContainer(widget.question.options[2]),
-                    _buildChoicesContainer(widget.question.options[3]),
-                    _buildChoicesContainer(widget.question.options[4]),
-                  ],
-                ),
+                _buildChoicesContainer(widget.question.options[0]),
+                _buildChoicesContainer(widget.question.options[1]),
+                _buildChoicesContainer(widget.question.options[2]),
+                _buildChoicesContainer(widget.question.options[3]),
               ],
             ),
-          ),
-          AnimatedBuilder(
-            animation: animation,
-            child: SizedBox(
-              child: Image.asset(
-                "assets/images/fog.png",
-                width: MediaQuery.sizeOf(context).width,
-                fit: BoxFit.cover,
-              ),
-            ),
-            builder: (context, child) {
-              return Positioned(
-                child: child!,
-                left: animation.value * MediaQuery.sizeOf(context).width,
-              );
-            },
-          ),
-        ],
+
+            // DragTarget<String>(
+            //   onAccept: (data) {
+            //     setState(() {
+            //       userOrder = data;
+            //     });
+            //     _checkResult();
+            //   },
+            //   builder: (context, candidateData, rejectedData) {
+            //     return Container(
+            //       width: 300.w,
+            //       height: 250.h,
+            //       child: Image.asset(
+            //         AppImages.breakInMirror,
+            //         fit: BoxFit.fill,
+            //       ),
+            //     );
+            //   },
+            // ),
+
+            // Column(
+            //   mainAxisAlignment: MainAxisAlignment.center,
+            //   children: [],
+            // ),
+          ],
+        ),
       ),
     );
   }
 
   // 🚪 الباب
   Widget _buildChoicesContainer(String image) {
-    return Draggable<String>(
-      data: image,
-      childWhenDragging: _card(image, faded: true),
-      // السحب
-      feedback: _card(image, dragging: true),
-      child: _card(image),
-    );
-  }
+    return GestureDetector(
+      onTap: () => _checkResult(image),
 
-  Widget _card(String text, {bool dragging = false, bool faded = false}) {
-    return Opacity(
-      opacity: faded ? 0.5 : 1,
-      child: Column(
-        children: [Image.asset(text, width: 300.w, height: 250.h)],
-      ),
+      child: Image.asset(image, width: 400.w, height: 650.h),
     );
   }
 
   // ✅ التحقق من الحل
-  void _checkResult() async {
-    if (userOrder == widget.question.correctAnswer) {
+  void _checkResult(String selectedImage) async {
+    if (selectedImage == widget.question.correctAnswer) {
       onCorrect(context);
     } else {
       setState(() {

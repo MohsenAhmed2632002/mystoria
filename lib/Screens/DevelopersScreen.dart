@@ -83,7 +83,7 @@ class BodyOfDevScreen extends StatelessWidget {
                   children: [
                     Text(
                       textAlign: TextAlign.center,
-                      "يوسف عماد جعروج",
+                      "يوسف عماد جعروج -",
                       style: getMediumTextStyle(
                         fontSize: 40.sp,
                         context: context,
@@ -92,7 +92,7 @@ class BodyOfDevScreen extends StatelessWidget {
                     ),
                     Text(
                       textAlign: TextAlign.center,
-                      "يوسف محمد ناصر ",
+                      "يوسف محمد ناصر -",
                       style: getMediumTextStyle(
                         fontSize: 40.sp,
                         context: context,
@@ -101,7 +101,7 @@ class BodyOfDevScreen extends StatelessWidget {
                     ),
                     Text(
                       textAlign: TextAlign.center,
-                      "مؤمن عصام حسن",
+                      "مؤمن عصام حسن -",
                       style: getMediumTextStyle(
                         fontSize: 40.sp,
                         context: context,
@@ -110,7 +110,7 @@ class BodyOfDevScreen extends StatelessWidget {
                     ),
                     Text(
                       textAlign: TextAlign.center,
-                      "محمد حسن السيد",
+                      "محمد حسن السيد -",
                       style: getMediumTextStyle(
                         fontSize: 40.sp,
                         context: context,
@@ -141,7 +141,7 @@ class BodyOfDevScreen extends StatelessWidget {
                     ),
                     Text(
                       // textAlign: TextAlign.center,
-                      "مرتينا ناجي ناشد -",
+                      "مارتينا ناجي ناشد -",
                       style: getMediumTextStyle(
                         fontSize: 40.sp,
                         context: context,

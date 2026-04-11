@@ -24,7 +24,11 @@ class _PuzzleOrderViewState extends State<PuzzleOrder> {
   };
 
   final Map<int, String> userOrder = {};
-
+@override
+void initState() {
+  super.initState();
+  BlocProvider.of<GameCubit>(context).initState(context);
+}
   @override
   Widget build(BuildContext context) {
     return GameScreen(
@@ -166,11 +170,9 @@ class _PuzzleOrderViewState extends State<PuzzleOrder> {
     } else {
       SoundManager.instance.wrong();
 
-      // context.read<GameCubit>().wrongAnswer(context);
-      // onWrong(context);
       userOrder.clear();
       // setState(() {});
-      Navigator.push(
+       Navigator.push(
         context,
         MaterialPageRoute(
           builder: (_) => FeedackScreen(

@@ -82,6 +82,7 @@ class StageButton extends StatelessWidget {
         child: Opacity(
           opacity: isUnlocked ? 1 : 0.3,
           child: Row(
+            mainAxisSize: MainAxisSize.max,
             children: [
               Text(
                 '${stage.requiredStars} ⭐',

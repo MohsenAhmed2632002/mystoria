@@ -203,7 +203,7 @@ class UserDate extends StatelessWidget {
                       right: 50.w,
 
                       child: Text(
-                        "${BlocProvider.of<GameCubit>(context).state.theGame.stars}",
+                        "${context.watch<GameCubit>().state.theGame.stars}",
                         style: getRegulerTextStyle(
                           context: context,
                           fontSize: 60.sp,

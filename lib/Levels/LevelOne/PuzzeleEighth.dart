@@ -7,7 +7,6 @@ import 'package:myhabits/Core/soundManger.dart';
 import 'package:myhabits/Models/QuestionModel.dart';
 import 'package:myhabits/Screens/feedackScreen.dart';
 import 'package:myhabits/cubit/Gamecubit/game_cubit.dart';
-import 'package:myhabits/cubit/Gamecubit/game_state.dart';
 
 class PuzzeleCemeteries extends StatefulWidget {
   final QuestionModel question;
@@ -27,7 +26,7 @@ class _PuzzeleCemeteriesState extends State<PuzzeleCemeteries> {
     return GameScreen(
       hint: widget.question.hint,
       color: widget.question.color,
-      background:widget.question.background,
+      background: widget.question.background,
       mediaQueryRight: 0,
       mediaQueryTop: MediaQuery.sizeOf(context).height * 0.1,
 
@@ -57,10 +56,10 @@ class _PuzzeleCemeteriesState extends State<PuzzeleCemeteries> {
                 // crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  _buildDoor(index: 0, image: widget.question.options[0]),
-                  _buildDoor(index: 1, image: widget.question.options[1]),
-                  _buildDoor(index: 2, image: widget.question.options[3]),
-                  _buildDoor(index: 3, image: widget.question.options[2]),
+                  _buildDoor(image: widget.question.options[0]),
+                  _buildDoor(image: widget.question.options[1]),
+                  _buildDoor(image: widget.question.options[3]),
+                  _buildDoor(image: widget.question.options[2]),
                 ],
               ),
             ),
@@ -109,7 +108,7 @@ class _PuzzeleCemeteriesState extends State<PuzzeleCemeteries> {
     );
   }
 
-  Widget _buildDoor({required int index, required String image}) {
+  Widget _buildDoor({required String image}) {
     return Image.asset(image, width: 300.w, height: 300.h);
   }
 
@@ -132,32 +131,6 @@ class _PuzzeleCemeteriesState extends State<PuzzeleCemeteries> {
     );
   }
 
-  // void _checkResult() {
-  //   // if (_answered) return; // يمنع التكرار
-  //   if (userOrder.length < correctOrder.length) return;
-
-  //   // _answered = true;
-
-  //   bool isCorrect = true;
-
-  //   correctOrder.forEach((key, value) {
-  //     if (userOrder[key] != value) {
-  //       isCorrect = false;
-  //     }
-  //   });
-
-  //   if (isCorrect) {
-  //     onCorrect(context);
-  //   } else {
-  //     onWrong(context);
-
-  //     // Future.delayed(const Duration(milliseconds: 300), () {
-  //     userOrder.clear();
-  //     // _answered = false;
-  //     setState(() {});
-  //     // });
-  //   }
-  // }
   void _checkResult() {
     if (userOrder.length < correctOrder.length) return;
 

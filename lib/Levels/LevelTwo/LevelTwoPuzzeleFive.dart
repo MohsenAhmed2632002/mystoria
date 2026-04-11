@@ -15,7 +15,7 @@ class LevelTwoPuzzeleFive extends StatefulWidget {
 }
 
 class _LevelTwoPuzzeleFiveState extends State<LevelTwoPuzzeleFive>
-        with SingleTickerProviderStateMixin, RestartableAnimations {
+    with SingleTickerProviderStateMixin, RestartableAnimations {
   late AnimationController controller;
   late Animation<double> moveAnimationRight;
   late Animation<double> moveAnimationLeft;
@@ -30,8 +30,7 @@ class _LevelTwoPuzzeleFiveState extends State<LevelTwoPuzzeleFive>
       vsync: this,
       duration: const Duration(milliseconds: 600),
     );
-        registerController(controller);
-
+    registerController(controller);
 
     moveAnimationRight = Tween<double>(
       begin: 0,
@@ -52,7 +51,7 @@ class _LevelTwoPuzzeleFiveState extends State<LevelTwoPuzzeleFive>
       color: widget.question.color,
       hint: widget.question.hint,
 
-      background: AppImages.quiz4,
+      background: widget.question.background,
       mediaQueryRight: 0,
       mediaQueryTop: MediaQuery.sizeOf(context).height * 0.05,
       child: Container(

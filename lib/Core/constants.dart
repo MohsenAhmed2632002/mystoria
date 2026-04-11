@@ -512,8 +512,8 @@ class DownLeftButton extends StatelessWidget {
             },
             child: Image.asset(
               'assets/images/previous.png',
-              width: 175.w,
-              height: 175.h,
+              width: 125.w,
+              height: 125.h,
             ),
           ),
           GestureDetector(
@@ -525,8 +525,8 @@ class DownLeftButton extends StatelessWidget {
             },
             child: Image.asset(
               'assets/images/right.png',
-              width: 175.w,
-              height: 175.h,
+              width: 125.w,
+              height: 125.h,
             ),
           ),
         ],

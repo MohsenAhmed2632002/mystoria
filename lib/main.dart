@@ -40,7 +40,7 @@ void main() async {
       providers: [
         BlocProvider(create: (_) => PlayerCubit()..loadPlayer()),
 
-        BlocProvider(create: (_) => gameCubit),
+        BlocProvider(create: (_) => GameCubit(levels: gameLevels)),
       ],
       child: const MyApp(),
     ),
