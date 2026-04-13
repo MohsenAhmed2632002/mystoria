@@ -184,8 +184,6 @@ final List<QuestionModel> levelOneQuestionsList = [
 ];
 
 final List<QuestionModel> levelTwoQuestionsList = [
-  
-
   //1
   QuestionModel(
     color: AppColors.greenColor,
@@ -201,6 +199,7 @@ final List<QuestionModel> levelTwoQuestionsList = [
     background: AppImages.quiz2_2,
     hint: 'الحكمه تقول : الثقه تبدأ من الداخل',
   ),
+
   //2
   QuestionModel(
     color: AppColors.greenColor,
@@ -233,6 +232,7 @@ final List<QuestionModel> levelTwoQuestionsList = [
     background: AppImages.quiz,
     hint: 'أسال نفسك : هل هذا البناء يخص هذا العصر؟',
   ),
+
   //4
   QuestionModel(
     color: AppColors.greenColor,
@@ -246,7 +246,7 @@ final List<QuestionModel> levelTwoQuestionsList = [
       AppImages.elmadi,
     ],
     correctAnswer: AppImages.ya_bone,
-    background: AppImages.quiz2_L4,
+    background: AppImages.quiz,
   ),
 
   //5
@@ -348,7 +348,7 @@ final List<QuestionModel> levelTwoQuestionsList = [
     hint: 'كل رمز له معني واضح ... ركز',
   ),
 
-//10
+  //10
   QuestionModel(
     color: AppColors.greenColor,
     type: QuestionType.libraryPuzzle,
@@ -357,13 +357,15 @@ final List<QuestionModel> levelTwoQuestionsList = [
     correctAnswer: AppImages.door3,
     background: AppImages.quiz,
     hint: 'هذا العصر عُرف بالازدهار المميز',
-  ),];
+  ),
+];
+
 final List<QuestionModel> levelThreeQuestionsList = [
   QuestionModel(
     color: AppColors.blueColor,
     hint: "القوة و التوسع سر هذا العصر",
     type: QuestionType.order,
-    question: 'اي خاصية كانت مميزة لعصر الدولة الحديثة؟ ',
+    question: 'اضغط علي الخاصيه المميزه لعصر الدولة الحديثه',
     options: ["بناء الاهرمات", "التوسع العسكري", "الزراعة البدائية"],
     correctAnswer: "التوسع العسكري",
     background: AppImages.quiz3_1,
@@ -374,7 +376,7 @@ final List<QuestionModel> levelThreeQuestionsList = [
     question: 'من الملك الذي حرر مصر من الهكسوس وبدأ عصر الدوله الحديثه؟ ',
     options: ["حتشبسوت", "احمس"],
     correctAnswer: "احمس",
-    background: "",
+    background: AppImages.quiz,
     hint: 'من أنهيِ حكم الغزاة بدأ عصراً جديداً',
   ),
   QuestionModel(
