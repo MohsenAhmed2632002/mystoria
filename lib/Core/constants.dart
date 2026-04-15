@@ -187,7 +187,7 @@ class GameButtonTwo extends StatelessWidget {
         child: Center(
           child: Text(
             text,
-            style: getRegulerTextStyle(
+            style: getBoldTextStyle(
               fontSize: fontSize.sp,
               context: context,
               color: Colors.black,

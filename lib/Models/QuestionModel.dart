@@ -361,117 +361,144 @@ final List<QuestionModel> levelTwoQuestionsList = [
 ];
 
 final List<QuestionModel> levelThreeQuestionsList = [
+  //1
   QuestionModel(
-    color: AppColors.blueColor,
-    hint: "القوة و التوسع سر هذا العصر",
+    color: AppColors.brownColor,
+    hint:
+        "يسمى عصر المجد الحربي، فالاختيار دائمًا هو الصورة اللي فيها جيش ومعارك.",
     type: QuestionType.order,
     question: 'اضغط علي الخاصيه المميزه لعصر الدولة الحديثه',
-    options: ["بناء الاهرمات", "التوسع العسكري", "الزراعة البدائية"],
-    correctAnswer: "التوسع العسكري",
-    background: AppImages.quiz3_1,
-  ),
-  QuestionModel(
-    color: AppColors.blueColor,
-    type: QuestionType.mcq,
-    question: 'من الملك الذي حرر مصر من الهكسوس وبدأ عصر الدوله الحديثه؟ ',
-    options: ["حتشبسوت", "احمس"],
-    correctAnswer: "احمس",
+    options: [AppImages.choice2, AppImages.choice3, AppImages.choice1],
+    correctAnswer: AppImages.choice3,
     background: AppImages.quiz,
-    hint: 'من أنهيِ حكم الغزاة بدأ عصراً جديداً',
   ),
+  //2
   QuestionModel(
-    color: AppColors.mainColor,
-    type: QuestionType.choose,
-    question: 'أي إنجاز يُنسب لتحتمس الثالث؟',
-    options: ["بناء أبو سمبل", "إرسال بعثة بونت", "إقامة إمبراطورية واسعة"],
-    correctAnswer: "إقامة إمبراطورية واسعة",
-    background: AppImages.quiz3_3,
-    hint: 'قائد عسكري لا يُنسي في التاريخ',
-  ),
-  QuestionModel(
-    color: AppColors.blueColor,
+    color: AppColors.brownColor,
     type: QuestionType.order2,
-    question: "اي سلاح اشتهرت به جيوش الدوله الحديثه",
+    question: "اضغط علي السلاح التي اشتهرت به جيوش الدولة الحديثة",
     options: [AppImages.door1Q4L, AppImages.door2Q4L, AppImages.door3Q4L],
     correctAnswer: AppImages.door1Q4L,
-    background: AppImages.quiz3_4,
-    hint: 'سلاح غيّر شكل المعارك',
+    background: AppImages.quiz,
+    hint: 'السلاح المشهور: التي نقلناها عن الهكسوس وطورناها لنهزمهم بها',
   ),
+  //3
   QuestionModel(
-    color: AppColors.blueColor,
-    type: QuestionType.order3,
-    question: 'ضع الانشطه التي تنسب لرمسيس التاني',
-    options: [
-      AppImages.answer3Q6,
-      AppImages.answer4Q6,
-      AppImages.answer2Q6,
-      AppImages.answer5Q6,
-      AppImages.answer1Q6,
-    ],
-    correctAnswer: [
-      AppImages.answer3Q6,
-      AppImages.answer2Q6,
-      AppImages.answer1Q6,
-    ],
-    background: AppImages.quiz3_6,
-    hint: 'بعد الحرب... جاء البناء و التخليد',
-  ),
-  QuestionModel(
-    color: AppColors.blueColor,
+    color: AppColors.brownColor,
     type: QuestionType.libra,
-    question: "اي ملك قاد معركة مجدو الشهيره؟",
+    question: "اضغط علي الباب الخاص بالملك الذي قاد معركة مجدو الشهيرة",
     options: [
       AppImages.openAhmoos,
       AppImages.openRamses,
       AppImages.openTohotmos,
     ],
-    correctAnswer: AppImages.openTohotmos,
-    background: AppImages.quiz3_5,
-    hint: 'بطل معركته خالدة في التاريخ',
+    correctAnswer: AppImages.openAhmoos,
+    background: AppImages.quiz,
+    hint:
+        'قائد معركة مجدو:* هو الملك ، صاحب الـ 16 حملة عسكرية وأول إمبراطورية.',
   ),
+  //4
   QuestionModel(
-    color: AppColors.blueColor,
+    color: AppColors.brownColor,
     type: QuestionType.choose2,
-    question: "من الذين دفنوا في وادي الملوك في عصر الدوله الحديثه",
+    question: "اضغط علي التابوت الذي يعبر عن تابوت الملوك",
     options: [AppImages.coffin1, AppImages.coffin2, AppImages.coffin3],
     correctAnswer: AppImages.coffin2,
-    background: AppImages.quiz3_7,
-    hint: 'هذا المكان خُصص للعظماء فقط',
+    background: AppImages.quiz,
+    hint: 'الملك يُعرف من شئ  يرمز للحكم والسلطة.',
   ),
+  //5
   QuestionModel(
-    color: AppColors.blueColor,
+    color: AppColors.brownColor,
+    type: QuestionType.mcq,
+    question: 'اختر الحدث الصحيح',
+    options: [
+      AppImages.choice3L3Q5,
+      AppImages.choice1L3Q5,
+      AppImages.choice2L3Q5,
+    ],
+    correctAnswer: AppImages.choice2L3Q5,
+    background: AppImages.quiz,
+    hint: 'المعلومة الصح هي وصول جيوش *تحتمس الثالث* لبلاد الشام (حدود سوريا).',
+  ),
+  //6
+  QuestionModel(
+    color: AppColors.brownColor,
+    type: QuestionType.choose,
+    question: 'رتب الأحداث التاريخية من الأقدم إلى الأحدث',
+    options: [
+      AppImages.magedo,
+      AppImages.hoksos,
+      AppImages.hatshpsot,
+      AppImages.kadesh,
+    ],
+    correctAnswer: {0: "1", 1: "3", 2: "4", 3: "2"},
+    background: AppImages.quiz,
+    hint:
+        'عشان ترتب صح، افتكر إن "البداية كانت طرد العدو، والنهاية كانت ازدهار التجارة."',
+  ),
+  //7
+  QuestionModel(
+    color: AppColors.brownColor,
+    type: QuestionType.choose,
+    question: "اي سلاح اشتهرت به جيوش الدوله الحديثه",
+    options: [
+      AppImages.king1,
+      AppImages.king2,
+      AppImages.king3,
+      AppImages.king4,
+    ],
+    correctAnswer: {0: "2", 1: "3", 2: "1", 3: "4"},
+    background: AppImages.quiz,
+    hint:
+        'ترتيب الملوك والأحداث:* ابدأ بـ *(الطارد)، ثم * (التجارة)، ثم  (الإمبراطور)، واختم بـ  (السلام).',
+  ),
+  //8
+  QuestionModel(
+    color: AppColors.brownColor,
     type: QuestionType.order4,
     question: 'اختر سبب سقوط الدولة الحديثة ؟',
     options: [
-      " زيادة نفوذ الكهنة",
-      "ضعف حكام الأقاليم",
-      "انهيار النظام المركزي ",
+      AppImages.sign1,
+      AppImages.sign3,
+      AppImages.sign2,
+      AppImages.sign4,
     ],
-    correctAnswer: " زيادة نفوذ الكهنة",
-    background: AppImages.quiz3_8,
-    hint: 'زيادة نفوذ الكهنة أضعفت الحكم',
+    correctAnswer: {0: "3", 1: "2", 2: "4", 3: "1"},
+    background: AppImages.quiz,
+    hint:
+        'عشان ترتب صح، افتكر إن "البداية كانت طرد العدو، والنهاية كانت ازدهار التجارة."',
   ),
+  //9
   QuestionModel(
-    color: AppColors.blueColor,
+    color: AppColors.brownColor,
     type: QuestionType.libraryPuzzle,
     question: "أختر العام الذي يبدأ فيه عصر الدولة الحديثة؟",
-    options: [" 1780 ق.م", "1069 ق.م", "1550 ق.م"],
-    correctAnswer: "1550 ق.م",
-    background: AppImages.quiz3_7,
-    hint: 'بداية عصر جديد بعد نصر كبير',
+    options: [AppImages.Q91, AppImages.Q92, AppImages.Q93, AppImages.Q94],
+
+    correctAnswer: {
+      0: "التوسع خارج مصر",
+      1: "تأمين الحدود",
+      2: "استخدام العجلات الحربية",
+      3: "تكوين جيش قوي",
+    },
+    background: AppImages.quiz,
+    hint: 'ترتيب القوة:* تبدأ دائمًا من *الداخل لتصل إلى *الخارج',
   ),
+  //10
   QuestionModel(
-    color: AppColors.blueColor,
+    color: AppColors.brownColor,
     type: QuestionType.theDoor,
     question: "اختر الحدث الصحيح",
-    options: [
-      AppImages.papyrus3Q101,
-      AppImages.papyrus3Q103,
-      AppImages.papyrus3Q102,
-    ],
-    correctAnswer: AppImages.papyrus3Q103,
+    options: [AppImages.q101, AppImages.q102, AppImages.q103, AppImages.q104],
 
-    background: AppImages.quiz3_10,
-    hint: 'الحدث الصحيح لازم يناسب الزمن',
+    correctAnswer: {
+      0: "ازدهار التجارة",
+      1: "تكوين إمبراطورية",
+      2: "زيادة قوة مصر العسكرية",
+      3: "طرد الهكسوس",
+    },
+    background: AppImages.quiz,
+    hint: 'بداية عصر جديد بعد نصر كبير',
   ),
 ];

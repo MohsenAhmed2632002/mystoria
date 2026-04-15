@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:myhabits/Core/Images&colors.dart';
 import 'package:myhabits/Core/animation_restart_mixin.dart';
 import 'package:myhabits/Core/constants.dart';
 import 'package:myhabits/Core/soundManger.dart';
 import 'package:myhabits/Models/QuestionModel.dart';
+import 'package:myhabits/Screens/feedackScreen.dart';
+import 'package:myhabits/cubit/Gamecubit/game_cubit.dart';
 
 class LevelThreePuzzeleFour extends StatefulWidget {
   const LevelThreePuzzeleFour({super.key, required this.question});
@@ -143,20 +146,48 @@ class _LevelThreePuzzeleFourState extends State<LevelThreePuzzeleFour>
       setState(() {
         openedDoor = userOrder;
       });
-
-      SoundManager.instance.openDoor();
-();
-
-      await Future.delayed(const Duration(milliseconds: 600));
-
-      onCorrect(context);
+  SoundManager.instance.correct();
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (_) => FeedackScreen(
+            isCorrect: true,
+            stars: BlocProvider.of<GameCubit>(context).calculateStars(),
+            attempts: BlocProvider.of<GameCubit>(
+              context,
+            ).state.theGame.attempts,
+            timeLeft: BlocProvider.of<GameCubit>(
+              context,
+            ).state.theGame.timeLeft,
+          ),
+        ),
+      );
+    
     } else {
+      
       await arrowController.forward(from: 0);
       arrowController.reset();
 
       restartAllAnimations();
 
-      onWrong(context);
+     SoundManager.instance.wrong();
+
+      // userOrder.clear();
+      setState(() {});
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (_) => FeedackScreen(
+            isCorrect: false,
+            stars: 0,
+            attempts:
+                BlocProvider.of<GameCubit>(context).state.theGame.attempts - 1,
+            timeLeft: BlocProvider.of<GameCubit>(
+              context,
+            ).state.theGame.timeLeft,
+          ),
+        ),
+      );
     }
   }
 }

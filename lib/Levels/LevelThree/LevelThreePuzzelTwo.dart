@@ -1,10 +1,14 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:myhabits/Core/Font.dart';
 import 'package:myhabits/Core/Images&colors.dart';
 import 'package:myhabits/Core/constants.dart';
 import 'package:myhabits/Core/soundManger.dart';
 import 'package:myhabits/Models/QuestionModel.dart';
+import 'package:myhabits/Screens/feedackScreen.dart';
+import 'package:myhabits/cubit/Gamecubit/game_cubit.dart';
 
 class LevelThreePuzzeleTwo extends StatefulWidget {
   final QuestionModel question;
@@ -16,137 +20,83 @@ class LevelThreePuzzeleTwo extends StatefulWidget {
 }
 
 class _LevelThreePuzzeleTwoState extends State<LevelThreePuzzeleTwo> {
-  late Timer _timer;
-
-  bool isLightOn = true;
-  // bool gameFinished = false;
-
-  @override
-  void initState() {
-    super.initState();
-    _startBlinking();
-  }
-
-  void _startBlinking() {
-    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
-      // if (!gameFinished) {
-      setState(() {
-        isLightOn = !isLightOn;
-      });
-      // }
-    });
-  }
-
-  @override
-  void dispose() {
-    _timer.cancel();
-    super.dispose();
-  }
-
-  void _select(String answer) async {
-    // ❌ لو الغرفة مظلمة مفيش اختيار
-    if (!isLightOn
-    // || gameFinished
-    )
-      return;
-
-    _timer.cancel();
-
-    if (answer == widget.question.correctAnswer) {
-      // ✅ إجابة صحيحة
-      setState(() {
-        // gameFinished = true;
-        isLightOn = true; // تثبيت النور
-      });
-
-      SoundManager.instance.openLamp();
-
-      // await Future.delayed(const Duration(milliseconds: 500));
-      onCorrect(context);
-    } else {
-      // ❌ إجابة خاطئة
-      setState(() {
-        // gameFinished = true;
-        isLightOn = false; // تثبيت الظلام
-      });
-
-      SoundManager.instance.doorMakbara();
-
-      // await Future.delayed(const Duration(milliseconds: 500));
-
-      _restartGame();
-      onWrong(context);
-    }
-  }
-
-  void _restartGame() {
-    // setState(() {
-    // gameFinished = false;
-    // });
-
-    _startBlinking();
-  }
-
   @override
   Widget build(BuildContext context) {
     return GameScreen(
-      mediaQueryRight: 0,
-      mediaQueryTop: MediaQuery.of(context).size.height * 0.1,
       hint: widget.question.hint,
       color: widget.question.color,
-
-      background: isLightOn
-          ? AppImages
-                .roomLight // الخلفية المنورة
-          : AppImages.roomDark, // الخلفية المظلمة
-      child:
-          /// التمثالين
-          Container(
-            height: MediaQuery.of(context).size.height * 0.9,
-            width: MediaQuery.of(context).size.width,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              crossAxisAlignment: CrossAxisAlignment.start,
+      background: widget.question.background,
+      mediaQueryRight: 0,
+      mediaQueryTop: MediaQuery.sizeOf(context).height * 0.1,
+      child: Container(
+        // color: Colors.red,
+        height: MediaQuery.sizeOf(context).height * 0.9,
+        width: MediaQuery.sizeOf(context).width,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                /// حتشبسوت
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Image.asset(AppImages.lamp, width: 250.w, height: 250.h),
-                    Image.asset(
-                      AppImages.hatshbsoot,
-                      width: 150.w,
-                      height: 550.h,
-                    ),
-                    GameButtonLight(
-                      text: widget.question.options[0],
-                      onPressed: () {
-                        _select(widget.question.options[0]);
-                      },
-                      fromWidth: 300,
-                      fromHeight: 100,
-                    ),
-                  ],
-                ),
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Image.asset(AppImages.lamp, width: 250.w, height: 250.h),
-
-                    Image.asset(AppImages.ahmose, width: 220.w, height: 550.h),
-                    GameButtonLight(
-                      text: widget.question.options[1],
-                      onPressed: () {
-                        _select(widget.question.options[1]);
-                      },
-                      fromWidth: 300,
-                      fromHeight: 100,
-                    ),
-                  ],
-                ),
+                _buildChoicesContainer(widget.question.options[2]),
+                _buildChoicesContainer(widget.question.options[0]),
+                _buildChoicesContainer(widget.question.options[1]),
               ],
             ),
-          ),
+          ],
+        ),
+      ),
     );
+  }
+
+  // 🚪 الباب
+  Widget _buildChoicesContainer(String image) {
+    return GestureDetector(
+      onTap: () => _checkResult(image),
+
+      child: Image.asset(image, width: 400.w, height: 650.h),
+    );
+  }
+
+  // ✅ التحقق من الحل
+  void _checkResult(String selectedImage) async {
+    if (selectedImage == widget.question.correctAnswer) {
+      SoundManager.instance.wind();
+
+      SoundManager.instance.correct();
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (_) => FeedackScreen(
+            isCorrect: true,
+            stars: BlocProvider.of<GameCubit>(context).calculateStars(),
+            attempts: BlocProvider.of<GameCubit>(
+              context,
+            ).state.theGame.attempts,
+            timeLeft: BlocProvider.of<GameCubit>(
+              context,
+            ).state.theGame.timeLeft,
+          ),
+        ),
+      );
+    } else {
+      SoundManager.instance.wrong();
+
+      setState(() {});
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (_) => FeedackScreen(
+            isCorrect: false,
+            stars: 0,
+            attempts:
+                BlocProvider.of<GameCubit>(context).state.theGame.attempts - 1,
+            timeLeft: BlocProvider.of<GameCubit>(
+              context,
+            ).state.theGame.timeLeft,
+          ),
+        ),
+      );
+    }
   }
 }
