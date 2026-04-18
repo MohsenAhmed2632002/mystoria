@@ -32,7 +32,7 @@ class _PuzzeleCemeteriesState extends State<PuzzeleCemeteries> {
 
       child: Container(
         // color: Colors.red,
-        height: MediaQuery.sizeOf(context).height,
+        height: MediaQuery.sizeOf(context).height * 0.9,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
@@ -95,21 +95,27 @@ class _PuzzeleCemeteriesState extends State<PuzzeleCemeteries> {
             ? GameButtonTwo(
                 text: userOrder[index]!,
                 onPressed: () {},
-                fromWidth: 300,
+                fromWidth: 350,
                 fromHeight: 125,
                 fontSize: 100.sp,
               )
-            : Image.asset(
-                'assets/images/button_game.png',
-                width: 300.w,
+            : Container(
+                width: 350.w,
                 height: 125.h,
+
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    fit: BoxFit.fill,
+                    image: AssetImage(AppImages.buttongame),
+                  ),
+                ),
               );
       },
     );
   }
 
   Widget _buildDoor({required String image}) {
-    return Image.asset(image, width: 300.w, height: 300.h);
+    return Image.asset(image, width: 400.w, height: 300.h);
   }
 
   Widget _buildChoices(String myNum) {
@@ -125,7 +131,7 @@ class _PuzzeleCemeteriesState extends State<PuzzeleCemeteries> {
     return GameButtonTwo(
       text: myNum,
       onPressed: () {},
-      fromWidth: 300,
+      fromWidth: 350,
       fromHeight: 125,
       fontSize: 100.sp,
     );
@@ -147,14 +153,16 @@ class _PuzzeleCemeteriesState extends State<PuzzeleCemeteries> {
 
     if (isCorrect) {
       SoundManager.instance.correct();
-
+      userOrder.clear();
       Navigator.push(
         context,
         MaterialPageRoute(
           builder: (_) => FeedackScreen(
             isCorrect: true,
             stars: BlocProvider.of<GameCubit>(context).calculateStars(),
-            attempts: BlocProvider.of<GameCubit>(context).state.theGame.attempts,
+            attempts: BlocProvider.of<GameCubit>(
+              context,
+            ).state.theGame.attempts,
             timeLeft: BlocProvider.of<GameCubit>(
               context,
             ).state.theGame.timeLeft,
@@ -163,7 +171,7 @@ class _PuzzeleCemeteriesState extends State<PuzzeleCemeteries> {
       );
     } else {
       SoundManager.instance.wrong();
-
+      userOrder.clear();
       Navigator.push(
         context,
         MaterialPageRoute(

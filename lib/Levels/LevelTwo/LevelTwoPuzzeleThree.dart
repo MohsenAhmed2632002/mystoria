@@ -128,8 +128,8 @@ class _LevelTwoPuzzeleThreeState extends State<LevelTwoPuzzeleThree> {
                           );
                         }
                       },
-                      fromWidth: 400,
-                      fromHeight: 600,
+                      fromWidth: 450,
+                      fromHeight: 650,
                       fontSize: 35,
                     );
                   }).toList(),

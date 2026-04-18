@@ -187,7 +187,7 @@ class GameButtonTwo extends StatelessWidget {
         child: Center(
           child: Text(
             text,
-            style: getBoldTextStyle(
+            style: getMediumTextStyle(
               fontSize: fontSize.sp,
               context: context,
               color: Colors.black,
@@ -360,6 +360,8 @@ class CharacterAndClueContainer extends StatelessWidget {
                 children: [
                   GestureDetector(
                     onTap: () {
+                      BlocProvider.of<GameCubit>(context).stopTimer();
+
                       Navigator.pushNamed(context, Routes.avatarScreen);
                     },
                     child: BlocBuilder<PlayerCubit, PlayerModel?>(
@@ -378,6 +380,8 @@ class CharacterAndClueContainer extends StatelessWidget {
                   //clue
                   GestureDetector(
                     onTap: () {
+                      BlocProvider.of<GameCubit>(context).stopTimer();
+
                       final myhints = BlocProvider.of<GameCubit>(
                         context,
                       ).state.theGame.hints;
@@ -386,7 +390,6 @@ class CharacterAndClueContainer extends StatelessWidget {
                           context,
                         ).state.theGame.hints--;
 
-                        BlocProvider.of<GameCubit>(context).stopTimer();
                         Navigator.pushNamed(
                           context,
                           Routes.hintScreen,
@@ -610,66 +613,66 @@ class DevAndSettingIcon extends StatelessWidget {
   }
 }
 
-void onCorrect(BuildContext context) {
-  final cubit = context.read<GameCubit>();
-  final game = cubit.state.theGame;
+// void onCorrect(BuildContext context) {
+//   final cubit = context.read<GameCubit>();
+//   final game = cubit.state.theGame;
 
-  final stars = cubit.calculateStars();
-  final previewAttempts = game.attempts;
-  final previewTime = game.timeLeft;
-  showDialog(
-    context: context,
-    barrierDismissible: true,
-    builder: (_) => AnswerResultDialog(
-      isCorrect: true,
-      stars: stars,
-      exit: () {
-        cubit.exitGame(context);
-      },
-      onNext: () {
-        Navigator.pop(context);
-        cubit.correctAnswer(context);
-      },
-      onRetry: () {
-        Navigator.pop(context);
-      },
+//   final stars = cubit.calculateStars();
+//   final previewAttempts = game.attempts;
+//   final previewTime = game.timeLeft;
+//   showDialog(
+//     context: context,
+//     barrierDismissible: true,
+//     builder: (_) => AnswerResultDialog(
+//       isCorrect: true,
+//       stars: stars,
+//       exit: () {
+//         cubit.exitGame(context);
+//       },
+//       onNext: () {
+//         Navigator.pop(context);
+//         cubit.correctAnswer(context);
+//       },
+//       onRetry: () {
+//         Navigator.pop(context);
+//       },
 
-      hints: previewAttempts,
-      timeLeft: previewTime,
-    ),
-  );
-}
+//       hints: previewAttempts,
+//       timeLeft: previewTime,
+//     ),
+//   );
+// }
 
-void onWrong(BuildContext context) {
-  final cubit = context.read<GameCubit>();
-  final game = cubit.state.theGame;
+// void onWrong(BuildContext context) {
+//   final cubit = context.read<GameCubit>();
+//   final game = cubit.state.theGame;
 
-  final previewAttempts = game.attempts - 1;
-  final previewTime = 30;
-  showDialog(
-    context: context,
-    barrierDismissible: false,
-    builder: (_) => AnswerResultDialog(
-      stars: 0,
-      isCorrect: false,
+//   final previewAttempts = game.attempts - 1;
+//   final previewTime = 30;
+//   showDialog(
+//     context: context,
+//     barrierDismissible: false,
+//     builder: (_) => AnswerResultDialog(
+//       stars: 0,
+//       isCorrect: false,
 
-      exit: () {
-        cubit.exitGame(context);
-      },
-      onNext: () {
-        // Navigator.pop(context);
-        // cubit.correctAnswer(context);
-      },
+//       exit: () {
+//         cubit.exitGame(context);
+//       },
+//       onNext: () {
+//         // Navigator.pop(context);
+//         // cubit.correctAnswer(context);
+//       },
 
-      onRetry: () {
-        Navigator.pop(context);
-        cubit.wrongAnswer(context);
-      },
-      hints: previewAttempts,
-      timeLeft: previewTime,
-    ),
-  );
-}
+//       onRetry: () {
+//         Navigator.pop(context);
+//         cubit.wrongAnswer(context);
+//       },
+//       hints: previewAttempts,
+//       timeLeft: previewTime,
+//     ),
+//   );
+// }
 
 class AnswerResultDialog extends StatelessWidget {
   final bool isCorrect;

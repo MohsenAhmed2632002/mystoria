@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:myhabits/Core/Images&colors.dart';
 import 'package:myhabits/Core/animation_restart_mixin.dart';
 import 'package:myhabits/Core/constants.dart';
 import 'package:myhabits/Core/soundManger.dart';
 import 'package:myhabits/Models/QuestionModel.dart';
+import 'package:myhabits/Screens/feedackScreen.dart';
+import 'package:myhabits/cubit/Gamecubit/game_cubit.dart';
 
 class LevelTwoPuzzeleFour extends StatefulWidget {
   const LevelTwoPuzzeleFour({super.key, required this.question});
@@ -14,41 +17,41 @@ class LevelTwoPuzzeleFour extends StatefulWidget {
   State<LevelTwoPuzzeleFour> createState() => _LevelTwoPuzzeleFourState();
 }
 
-class _LevelTwoPuzzeleFourState extends State<LevelTwoPuzzeleFour>
-    with SingleTickerProviderStateMixin, RestartableAnimations {
-  late AnimationController controller;
-  late Animation<double> animation;
+class _LevelTwoPuzzeleFourState extends State<LevelTwoPuzzeleFour>{
+  //   with SingleTickerProviderStateMixin, RestartableAnimations {
+  // late AnimationController controller;
+  // late Animation<double> animation;
   bool freezGame = false;
   int wrongCount = 0;
   String userOrder = "";
 
-  @override
-  void initState() {
-    super.initState();
+  // @override
+  // void initState() {
+  //   super.initState();
 
-    controller = AnimationController(
-      vsync: this,
-      duration: const Duration(seconds: 6),
-    );
-    registerController(controller);
+  //   controller = AnimationController(
+  //     vsync: this,
+  //     duration: const Duration(seconds: 6),
+  //   );
+  //   registerController(controller);
 
-    animation = Tween<double>(
-      begin: -1, // خارج الشاشة من الشمال
-      end: 1.2, // خارج الشاشة من اليمين
-    ).animate(CurvedAnimation(parent: controller, curve: Curves.linear));
+  //   animation = Tween<double>(
+  //     begin: -1, // خارج الشاشة من الشمال
+  //     end: 1.2, // خارج الشاشة من اليمين
+  //   ).animate(CurvedAnimation(parent: controller, curve: Curves.linear));
 
-    // _startAnimation();
-  }
+  //   // _startAnimation();
+  // }
 
-  Future<void> _startAnimation() async {
-    await controller.animateTo(0.5, duration: const Duration(seconds: 2));
+  // Future<void> _startAnimation() async {
+  //   await controller.animateTo(0.5, duration: const Duration(seconds: 2));
 
-    // توقف في المنتصف
-    await Future.delayed(const Duration(seconds: 1));
+  //   // توقف في المنتصف
+  //   await Future.delayed(const Duration(seconds: 1));
 
-    // يكمل الحركة
-    await controller.animateTo(1, duration: const Duration(seconds: 1));
-  }
+  //   // يكمل الحركة
+  //   await controller.animateTo(1, duration: const Duration(seconds: 1));
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -116,23 +119,39 @@ class _LevelTwoPuzzeleFourState extends State<LevelTwoPuzzeleFour>
   // ✅ التحقق من الحل
   void _checkResult(String selectedImage) async {
     if (selectedImage == widget.question.correctAnswer) {
-      onCorrect(context);
+      SoundManager.instance.correct();
+
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (_) => FeedackScreen(
+            isCorrect: true,
+            stars: BlocProvider.of<GameCubit>(context).calculateStars(),
+            attempts: BlocProvider.of<GameCubit>(
+              context,
+            ).state.theGame.attempts,
+            timeLeft: BlocProvider.of<GameCubit>(
+              context,
+            ).state.theGame.timeLeft,
+          ),
+        ),
+      );
     } else {
-      setState(() {
-        wrongCount++;
-      });
-
-      /// الإجابة الخاطئة
-
-      if (wrongCount == 1) {
-        SoundManager.instance.wind();
-
-        await _startAnimation();
-      } else {
-        restartAllAnimations();
-
-        onWrong(context);
-      }
+      SoundManager.instance.wrong();
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (_) => FeedackScreen(
+            isCorrect: false,
+            stars: 0,
+            attempts:
+                BlocProvider.of<GameCubit>(context).state.theGame.attempts - 1,
+            timeLeft: BlocProvider.of<GameCubit>(
+              context,
+            ).state.theGame.timeLeft,
+          ),
+        ),
+      );
     }
   }
 }

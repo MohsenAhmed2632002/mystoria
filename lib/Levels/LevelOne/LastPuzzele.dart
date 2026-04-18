@@ -27,7 +27,7 @@ class _TheDoorQuestionState extends State<TheDoorQuestion> {
       color: widget.question.color,
       background: widget.question.background,
       mediaQueryRight: 0,
-      mediaQueryTop: MediaQuery.sizeOf(context).height * 0.1,
+      mediaQueryTop: MediaQuery.sizeOf(context).height * 0.09,
       hint: widget.question.hint,
       child: Container(
         // color: Colors.cyan,
@@ -40,12 +40,12 @@ class _TheDoorQuestionState extends State<TheDoorQuestion> {
                 ? Image.asset(
                     AppImages.bigDoorOpen,
                     width: 800.w,
-                    height: 750.h,
+                    height: 800.h,
                   )
                 : Image.asset(
                     AppImages.bigDoorClose,
                     width: 800.w,
-                    height: 750.h,
+                    height: 800.h,
                   ),
 
             /// 🔹 Targets (الأبواب)
@@ -82,7 +82,9 @@ class _TheDoorQuestionState extends State<TheDoorQuestion> {
           builder: (_) => FeedackScreen(
             isCorrect: true,
             stars: BlocProvider.of<GameCubit>(context).calculateStars(),
-            attempts: BlocProvider.of<GameCubit>(context).state.theGame.attempts,
+            attempts: BlocProvider.of<GameCubit>(
+              context,
+            ).state.theGame.attempts,
             timeLeft: BlocProvider.of<GameCubit>(
               context,
             ).state.theGame.timeLeft,
@@ -98,7 +100,8 @@ class _TheDoorQuestionState extends State<TheDoorQuestion> {
           builder: (_) => FeedackScreen(
             isCorrect: false,
             stars: 0,
-            attempts: BlocProvider.of<GameCubit>(context).state.theGame.attempts-1,
+            attempts:
+                BlocProvider.of<GameCubit>(context).state.theGame.attempts - 1,
             timeLeft: BlocProvider.of<GameCubit>(
               context,
             ).state.theGame.timeLeft,

@@ -26,17 +26,17 @@ class _PuzzleCrownState extends State<PuzzleCrown> {
       hint: widget.question.hint,
       background: widget.question.background,
       mediaQueryRight: 0,
-      mediaQueryTop: MediaQuery.sizeOf(context).height * 0.11,
+      mediaQueryTop: MediaQuery.sizeOf(context).height * 0.12,
       child: Container(
         // color: Colors.red,
-        height: MediaQuery.sizeOf(context).height * 0.9,
+        height: MediaQuery.sizeOf(context).height * 0.88,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             Container(
               width: MediaQuery.sizeOf(context).width,
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   _buildDraggableCard(correctOrder[1]!),
                   _buildDraggableCard(correctOrder[2]!),
@@ -49,7 +49,7 @@ class _PuzzleCrownState extends State<PuzzleCrown> {
               width: MediaQuery.sizeOf(context).width,
               child: Row(
                 // crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   _buildDoor(AppImages.chairwithbigpyramid),
                   _buildDoor(AppImages.chairShip),
@@ -61,7 +61,7 @@ class _PuzzleCrownState extends State<PuzzleCrown> {
               // color: AppColors.mainColor,
               width: MediaQuery.sizeOf(context).width,
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   _placeOfAnswers(0),
                   _placeOfAnswers(1),
@@ -92,15 +92,15 @@ class _PuzzleCrownState extends State<PuzzleCrown> {
       child: GameButtonTwo(
         text: text,
         onPressed: () {},
-        fromWidth: 300,
+        fromWidth: 350,
         fromHeight: 125,
-        fontSize: 50.sp,
+        fontSize: 60.sp,
       ),
     );
   }
 
   Widget _buildDoor(String image) {
-    return Image.asset(image, width: 500.w, height: 600.h);
+    return Image.asset(image, width: 550.w, height: 600.h);
   }
 
   // 🚪 الباب
@@ -117,14 +117,20 @@ class _PuzzleCrownState extends State<PuzzleCrown> {
             ? GameButtonTwo(
                 text: userOrder[index]!,
                 onPressed: () {},
-                fromWidth: 300,
+                fromWidth: 350,
                 fromHeight: 125,
-                fontSize: 25,
+                fontSize: 60.sp,
               )
-            : Image.asset(
-                'assets/images/button_game.png',
-                width: 300.w,
+            : Container(
+                width: 350.w,
                 height: 125.h,
+
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    fit: BoxFit.fill,
+                    image: AssetImage(AppImages.buttongame),
+                  ),
+                ),
               );
       },
     );
@@ -153,7 +159,9 @@ class _PuzzleCrownState extends State<PuzzleCrown> {
           builder: (_) => FeedackScreen(
             isCorrect: true,
             stars: BlocProvider.of<GameCubit>(context).calculateStars(),
-            attempts: BlocProvider.of<GameCubit>(context).state.theGame.attempts,
+            attempts: BlocProvider.of<GameCubit>(
+              context,
+            ).state.theGame.attempts,
             timeLeft: BlocProvider.of<GameCubit>(
               context,
             ).state.theGame.timeLeft,

@@ -17,8 +17,8 @@ class LevelThreePuzzeleSix extends StatefulWidget {
   State<LevelThreePuzzeleSix> createState() => _LevelThreePuzzeleSixViewState();
 }
 
-class _LevelThreePuzzeleSixViewState extends State<LevelThreePuzzeleSix>
-    with TickerProviderStateMixin, RestartableAnimations {
+class _LevelThreePuzzeleSixViewState extends State<LevelThreePuzzeleSix>{
+    // with TickerProviderStateMixin, RestartableAnimations {
   final List<String> userOrder = [];
   final List<String> emptines = [
     AppImages.emptiness3,
@@ -26,46 +26,46 @@ class _LevelThreePuzzeleSixViewState extends State<LevelThreePuzzeleSix>
     AppImages.emptiness1,
   ];
 
-  late AnimationController _rockController;
-  late Animation<Offset> _rockAnimation;
+  // late AnimationController _rockController;
+  // late Animation<Offset> _rockAnimation;
 
-  late AnimationController _textController;
-  late Animation<double> _textFadeAnimation;
+  // late AnimationController _textController;
+  // late Animation<double> _textFadeAnimation;
 
-  @override
-  void initState() {
-    super.initState();
+  // @override
+  // void initState() {
+  //   super.initState();
 
-    // أنيميشن الصخور: تبدأ من Offset(0, -5) لتكون بعيدة جداً عن الشاشة في البداية
-    _rockController = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 900),
-    );
-    _rockAnimation =
-        Tween<Offset>(
-          begin: const Offset(0, -3),
-          end: const Offset(0, 1),
-        ).animate(
-          CurvedAnimation(parent: _rockController, curve: Curves.bounceOut),
-        );
+  //   // أنيميشن الصخور: تبدأ من Offset(0, -5) لتكون بعيدة جداً عن الشاشة في البداية
+  //   _rockController = AnimationController(
+  //     vsync: this,
+  //     duration: const Duration(milliseconds: 900),
+  //   );
+  //   _rockAnimation =
+  //       Tween<Offset>(
+  //         begin: const Offset(0, -3),
+  //         end: const Offset(0, 1),
+  //       ).animate(
+  //         CurvedAnimation(parent: _rockController, curve: Curves.bounceOut),
+  //       );
 
-    // أنيميشن النص
-    _textController = AnimationController(
-      vsync: this,
-      duration: const Duration(seconds: 1),
-    );
-    _textFadeAnimation = CurvedAnimation(
-      parent: _textController,
-      curve: Curves.easeIn,
-    );
+  //   // أنيميشن النص
+  //   _textController = AnimationController(
+  //     vsync: this,
+  //     duration: const Duration(seconds: 1),
+  //   );
+  //   _textFadeAnimation = CurvedAnimation(
+  //     parent: _textController,
+  //     curve: Curves.easeIn,
+  //   );
 
-    registerController(_rockController);
-    registerController(_textController);
+  //   registerController(_rockController);
+  //   registerController(_textController);
 
-    SoundManager.instance.stopBgm().then((_) {
-      BlocProvider.of<GameCubit>(context).initState(context);
-    });
-  }
+  //   SoundManager.instance.stopBgm().then((_) {
+  //     BlocProvider.of<GameCubit>(context).initState(context);
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -88,9 +88,10 @@ class _LevelThreePuzzeleSixViewState extends State<LevelThreePuzzeleSix>
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 // نص رمسيس الثاني
-                FadeTransition(
-                  opacity: _textFadeAnimation,
-                  child: Text(
+                // FadeTransition(
+                  // opacity: _textFadeAnimation,
+                  // child: 
+                  Text(
                     "رمسيس الثاني",
                     style: TextStyle(
                       fontSize: 45.sp,
@@ -100,7 +101,7 @@ class _LevelThreePuzzeleSixViewState extends State<LevelThreePuzzeleSix>
                         const Shadow(blurRadius: 15, color: Colors.black),
                       ],
                     ),
-                  ),
+                  // ),
                 ),
                 // SizedBox(height: 30.h),
 
@@ -172,15 +173,16 @@ class _LevelThreePuzzeleSixViewState extends State<LevelThreePuzzeleSix>
             ),
 
             // صخور الحائط التي تسقط عند الخطأ
-            SlideTransition(
-              position: _rockAnimation,
-              child: Image.asset(
+            // SlideTransition(
+              // position: _rockAnimation,
+              // child: 
+              Image.asset(
                 AppImages.stones2, // تأكد أن هذا المسار صحيح في الـ Assets
                 // width: 1000.w, // ملء عرض الشاشة
                 height: 500.h, // ملء ارتفاع الشاشة
                 // fit: BoxFit.contain,
               ),
-            ),
+            // ),
           ],
         ),
       ),
@@ -211,7 +213,7 @@ class _LevelThreePuzzeleSixViewState extends State<LevelThreePuzzeleSix>
     }
 
     if (isCorrect) {
-      _textController.forward();
+      // _textController.forward();
       SoundManager.instance.correct();
       Navigator.push(
         context,
@@ -229,10 +231,10 @@ class _LevelThreePuzzeleSixViewState extends State<LevelThreePuzzeleSix>
         ),
       );
     } else {
-      _rockController.reverse();
+      // _rockController.reverse();
       setState(() => userOrder.clear());
       // تشغيل أنيميشن السقوط
-      await _rockController.forward();
+      // await _rockController.forward();
       // انتظر قليلاً والصخور مغطية الشاشة
       await Future.delayed(const Duration(milliseconds: 600));
       SoundManager.instance.wrong();

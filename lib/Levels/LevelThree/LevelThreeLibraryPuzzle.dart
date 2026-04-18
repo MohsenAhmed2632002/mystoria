@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:myhabits/Core/Images&colors.dart';
 import 'package:myhabits/Core/constants.dart';
 import 'package:myhabits/Core/soundManger.dart';
 import 'package:myhabits/Models/QuestionModel.dart';
@@ -28,10 +29,10 @@ class _LevelThreeLibraryPuzzleState extends State<LevelThreeLibraryPuzzle> {
 
       background: widget.question.background,
       mediaQueryRight: MediaQuery.sizeOf(context).width * 0,
-      mediaQueryTop: MediaQuery.sizeOf(context).height * 0.2,
+      mediaQueryTop: MediaQuery.sizeOf(context).height * 0.1,
       child: Container(
         // color: Colors.white38,
-        height: MediaQuery.sizeOf(context).height * 0.8,
+        height: MediaQuery.sizeOf(context).height * 0.9,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
@@ -40,7 +41,7 @@ class _LevelThreeLibraryPuzzleState extends State<LevelThreeLibraryPuzzle> {
               // color: Colors.red,
               width: MediaQuery.sizeOf(context).width,
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   _buildDraggableCard('تأمين الحدود'),
                   _buildDraggableCard("التوسع خارج مصر"),
@@ -55,26 +56,26 @@ class _LevelThreeLibraryPuzzleState extends State<LevelThreeLibraryPuzzle> {
               // color: Colors.red,
               width: MediaQuery.sizeOf(context).width,
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   Image.asset(
                     widget.question.options[1],
-                    width: 350.w,
+                    width: 450.w,
                     height: 350.h,
                   ),
                   Image.asset(
                     widget.question.options[0],
-                    width: 350.w,
+                    width: 450.w,
                     height: 350.h,
                   ),
                   Image.asset(
                     widget.question.options[3],
-                    width: 350.w,
+                    width: 450.w,
                     height: 350.h,
                   ),
                   Image.asset(
                     widget.question.options[2],
-                    width: 350.w,
+                    width: 450.w,
                     height: 350.h,
                   ),
                 ],
@@ -85,7 +86,7 @@ class _LevelThreeLibraryPuzzleState extends State<LevelThreeLibraryPuzzle> {
               // color: AppColors.mainColor,
               width: MediaQuery.sizeOf(context).width,
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   _placeOfAnswers(0),
                   _placeOfAnswers(1),
@@ -117,9 +118,9 @@ class _LevelThreeLibraryPuzzleState extends State<LevelThreeLibraryPuzzle> {
       child: GameButtonTwo(
         text: text,
         onPressed: () {},
-        fromWidth: 300,
+        fromWidth: 350,
         fromHeight: 125,
-        fontSize: 50.sp,
+        fontSize: 27,
       ),
     );
   }
@@ -142,10 +143,16 @@ class _LevelThreeLibraryPuzzleState extends State<LevelThreeLibraryPuzzle> {
                 fromHeight: 125,
                 fontSize: 50.sp,
               )
-            : Image.asset(
-                'assets/images/button_game.png',
-                width: 300.w,
+            : Container(
+                width: 350.w,
                 height: 125.h,
+
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    fit: BoxFit.fill,
+                    image: AssetImage(AppImages.buttongame),
+                  ),
+                ),
               );
       },
     );

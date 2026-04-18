@@ -117,7 +117,7 @@ class _ChooseHWidgettWidgetState extends State<ChooseHWidget> {
 
       background: widget.question.background,
       mediaQueryRight: 0,
-      mediaQueryTop: MediaQuery.sizeOf(context).height * 0.1,
+      mediaQueryTop: MediaQuery.sizeOf(context).height * 0.12,
       child: Container(
         // color: AppColors.mainColor,
         height: MediaQuery.sizeOf(context).height * 0.9,
@@ -129,7 +129,7 @@ class _ChooseHWidgettWidgetState extends State<ChooseHWidget> {
               // color: Colors.red,
               width: MediaQuery.sizeOf(context).width,
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   _buildChoices(widget.question.options[1]),
                   _buildChoices(widget.question.options[2]),
@@ -140,7 +140,7 @@ class _ChooseHWidgettWidgetState extends State<ChooseHWidget> {
             Container(
               width: MediaQuery.sizeOf(context).width,
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   _buildDoor(AppImages.maabadElshams),
                   _buildDoor(AppImages.haramModarag),
@@ -152,7 +152,7 @@ class _ChooseHWidgettWidgetState extends State<ChooseHWidget> {
               // color: AppColors.mainColor,
               width: MediaQuery.sizeOf(context).width,
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   _placeOfAnswers(0),
                   _placeOfAnswers(1),
@@ -183,11 +183,22 @@ class _ChooseHWidgettWidgetState extends State<ChooseHWidget> {
                 fromHeight: 125,
                 fontSize: 25,
               )
-            : Image.asset(
-                'assets/images/button_game.png',
-                width: 300.w,
+            : Container(
+                width: 350.w,
                 height: 125.h,
+
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    fit: BoxFit.fill,
+                    image: AssetImage(AppImages.buttongame),
+                  ),
+                ),
               );
+        // Image.asset(
+        //   'assets/images/button_game.png',
+        //   width: 300.w,
+        //   height: 125.h,
+        // );
       },
     );
   }
@@ -212,7 +223,7 @@ class _ChooseHWidgettWidgetState extends State<ChooseHWidget> {
     return GameButtonTwo(
       text: text,
       onPressed: () {},
-      fromWidth: 300,
+      fromWidth: 350,
       fromHeight: 125,
       fontSize: 70.sp,
     );
@@ -236,7 +247,9 @@ class _ChooseHWidgettWidgetState extends State<ChooseHWidget> {
           builder: (_) => FeedackScreen(
             isCorrect: true,
             stars: BlocProvider.of<GameCubit>(context).calculateStars(),
-            attempts: BlocProvider.of<GameCubit>(context).state.theGame.attempts,
+            attempts: BlocProvider.of<GameCubit>(
+              context,
+            ).state.theGame.attempts,
             timeLeft: BlocProvider.of<GameCubit>(
               context,
             ).state.theGame.timeLeft,

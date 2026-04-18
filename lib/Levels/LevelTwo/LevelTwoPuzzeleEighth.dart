@@ -48,7 +48,7 @@ class _LevelTwoPuzzeleElevenState extends State<LevelTwoPuzzeleEleven>
               // color: Colors.red,
               width: MediaQuery.sizeOf(context).width,
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   _buildDraggableCard(correctOrder[1]!),
                   _buildDraggableCard(correctOrder[2]!),
@@ -63,12 +63,12 @@ class _LevelTwoPuzzeleElevenState extends State<LevelTwoPuzzeleEleven>
               // color: Colors.red,
               width: MediaQuery.sizeOf(context).width,
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  Image.asset(AppImages.tawheed, width: 350.w, height: 300.h),
-                  Image.asset(AppImages.hemaya, width: 350.w, height: 300.h),
-                  Image.asset(AppImages.elzeraaa, width: 350.w, height: 300.h),
-                  Image.asset(AppImages.elrai, width: 350.w, height: 300.h),
+                  Image.asset(AppImages.tawheed, width: 400.w, height: 350.h),
+                  Image.asset(AppImages.hemaya, width: 400.w, height: 350.h),
+                  Image.asset(AppImages.elzeraaa, width: 400.w, height: 350.h),
+                  Image.asset(AppImages.elrai, width: 400.w, height: 350.h),
                 ],
               ),
             ),
@@ -77,7 +77,7 @@ class _LevelTwoPuzzeleElevenState extends State<LevelTwoPuzzeleEleven>
               // color: AppColors.mainColor,
               width: MediaQuery.sizeOf(context).width,
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   _placeOfAnswers(0),
                   _placeOfAnswers(1),
@@ -109,9 +109,9 @@ class _LevelTwoPuzzeleElevenState extends State<LevelTwoPuzzeleEleven>
       child: GameButtonTwo(
         text: text,
         onPressed: () {},
-        fromWidth: 300,
+        fromWidth: 350,
         fromHeight: 125,
-        fontSize: 50.sp,
+        fontSize: 30,
       ),
     );
   }
@@ -130,14 +130,20 @@ class _LevelTwoPuzzeleElevenState extends State<LevelTwoPuzzeleEleven>
             ? GameButtonTwo(
                 text: userOrder[index]!,
                 onPressed: () {},
-                fromWidth: 300,
+                fromWidth: 350,
                 fromHeight: 125,
-                fontSize: 50.sp,
+                fontSize: 30,
               )
-            : Image.asset(
-                'assets/images/button_game.png',
-                width: 300.w,
+            : Container(
+                width: 350.w,
                 height: 125.h,
+
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    fit: BoxFit.fill,
+                    image: AssetImage(AppImages.buttongame),
+                  ),
+                ),
               );
       },
     );

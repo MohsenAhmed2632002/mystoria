@@ -52,7 +52,7 @@ class _LevelThreePuzzeleFiveState extends State<LevelThreePuzzeleFive> {
                   child: Image.asset(
                     openedDoor == e ? e : _getClosedDoor(e),
                     width: 600.w,
-                    height: 750.h,
+                    height: 900.h,
                   ),
                 );
               }).toList(),
@@ -77,7 +77,7 @@ class _LevelThreePuzzeleFiveState extends State<LevelThreePuzzeleFive> {
   Future<void> _checkResult() async {
     if (userOrder == widget.question.correctAnswer) {
       // userOrder.clear();
-      SoundManager.instance.effectOpenDoor();
+      // SoundManager.instance.effectOpenDoor();
       SoundManager.instance.correct();
       Navigator.push(
         context,

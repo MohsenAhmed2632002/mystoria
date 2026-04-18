@@ -33,7 +33,7 @@ class _LevelThreePuzzeleTwoState extends State<LevelThreePuzzeleTwo> {
         height: MediaQuery.sizeOf(context).height * 0.9,
         width: MediaQuery.sizeOf(context).width,
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.end,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -54,14 +54,14 @@ class _LevelThreePuzzeleTwoState extends State<LevelThreePuzzeleTwo> {
     return GestureDetector(
       onTap: () => _checkResult(image),
 
-      child: Image.asset(image, width: 400.w, height: 650.h),
+      child: Image.asset(image, width: 500.w, height: 800.h),
     );
   }
 
   // ✅ التحقق من الحل
   void _checkResult(String selectedImage) async {
     if (selectedImage == widget.question.correctAnswer) {
-      SoundManager.instance.wind();
+      // SoundManager.instance.wind();
 
       SoundManager.instance.correct();
       Navigator.push(

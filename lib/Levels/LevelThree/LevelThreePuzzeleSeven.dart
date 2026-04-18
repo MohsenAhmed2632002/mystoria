@@ -21,15 +21,16 @@ class _LevelThreePuzzeleBoatState extends State<LevelThreePuzzeleBoat> {
   @override
   Widget build(BuildContext context) {
     return GameScreen(
-      mediaQueryRight: 0,
+      mediaQueryRight: MediaQuery.sizeOf(context).width * 0.1,
       mediaQueryTop: MediaQuery.of(context).size.height * 0.1,
       hint: widget.question.hint,
       color: widget.question.color,
 
       background: widget.question.background,
       child: Container(
+        // color: Colors.blue,
         height: MediaQuery.of(context).size.height * 0.9,
-        width: MediaQuery.of(context).size.width,
+        width: MediaQuery.of(context).size.width * 0.8,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
@@ -52,8 +53,8 @@ class _LevelThreePuzzeleBoatState extends State<LevelThreePuzzeleBoat> {
       onTap: () => _select(imagePath),
       child: Image.asset(
         imagePath,
-        width: 400.w,
-        height: 650.h,
+        width: 500.w,
+        height: 850.h,
         // التلوين بناءً على الشرط الجديد
         color: isCorrectAndSelected ? Colors.yellowAccent : null,
       ),
@@ -62,10 +63,10 @@ class _LevelThreePuzzeleBoatState extends State<LevelThreePuzzeleBoat> {
 
   void _select(String choice) async {
     if (choice == widget.question.correctAnswer) {
-      selectedChoice = choice;
+      // selectedChoice = choice;
 
       // sandController.stop();
-      SoundManager.instance.openCoffin();
+      // SoundManager.instance.openCoffin();
 
       await Future.delayed(const Duration(milliseconds: 500));
       SoundManager.instance.correct();

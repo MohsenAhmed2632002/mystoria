@@ -66,8 +66,8 @@ class _LevelTwoPuzzeleTwoState extends State<LevelTwoPuzzeleTwo> {
                 // ❌ الإجابة الخاطئة
                 if (wrongCount == 0) {
                   wrongCount++;
-                  SoundManager.instance
-                      .lamp(); // إذا كان هذا يسبب "هنت" غير مرغوب، علقه
+                  // SoundManager.instance
+                  //     .lamp(); // إذا كان هذا يسبب "هنت" غير مرغوب، علقه
                   _firstWrong(context);
                 } else {
                   SoundManager.instance.wrong();
@@ -92,7 +92,7 @@ class _LevelTwoPuzzeleTwoState extends State<LevelTwoPuzzeleTwo> {
               },
               fontSize: 30,
               fromWidth: 450,
-              fromHeight: 250,
+              fromHeight: 200,
             );
           }).toList(),
         ),
@@ -150,7 +150,7 @@ class _LevelTwoPuzzeleTwoState extends State<LevelTwoPuzzeleTwo> {
     freezGame = true;
     setState(() {});
 
-    SoundManager.instance.lamp();
+    // SoundManager.instance.lamp();
 
     showDialog(
       context: context,

@@ -17,10 +17,10 @@ class LevelThreePuzzeleFour extends StatefulWidget {
   State<LevelThreePuzzeleFour> createState() => _LevelThreePuzzeleFourState();
 }
 
-class _LevelThreePuzzeleFourState extends State<LevelThreePuzzeleFour>
-    with SingleTickerProviderStateMixin, RestartableAnimations {
-  late AnimationController arrowController;
-  late Animation<double> arrowAnimation;
+class _LevelThreePuzzeleFourState extends State<LevelThreePuzzeleFour> {
+  // with SingleTickerProviderStateMixin, RestartableAnimations {
+  // late AnimationController arrowController;
+  // late Animation<double> arrowAnimation;
   double arrowStartX = 0;
   double arrowEndX = 0;
 
@@ -28,20 +28,18 @@ class _LevelThreePuzzeleFourState extends State<LevelThreePuzzeleFour>
   String userOrder = "";
   String? openedDoor;
   @override
-  void initState() {
-    super.initState();
-    arrowController = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 1800),
-    );
-    registerController(arrowController);
-
-    arrowAnimation = Tween<double>(
-      begin: 0,
-      end: 200,
-    ).animate(CurvedAnimation(parent: arrowController, curve: Curves.easeOut));
-  }
-
+  // void initState() {
+  //   super.initState();
+  //   arrowController = AnimationController(
+  //     vsync: this,
+  //     duration: const Duration(milliseconds: 1800),
+  //   );
+  //   registerController(arrowController);
+  //   arrowAnimation = Tween<double>(
+  //     begin: 0,
+  //     end: 200,
+  //   ).animate(CurvedAnimation(parent: arrowController, curve: Curves.easeOut));
+  // }
   @override
   Widget build(BuildContext context) {
     return GameScreen(
@@ -77,54 +75,51 @@ class _LevelThreePuzzeleFourState extends State<LevelThreePuzzeleFour>
             ),
           ),
 
-          AnimatedBuilder(
-            animation: arrowController,
-            builder: (context, child) {
-              final screenWidth = MediaQuery.of(context).size.width;
+          // AnimatedBuilder(
+          //   animation: arrowController,
+          //   builder: (context, child) {
+          //     final screenWidth = MediaQuery.of(context).size.width;
 
-              double startX = screenWidth + 200; // يبدأ خارج الشاشة يمين
-              double endX = 20; // عند الشخصية شمال
+          //     double startX = screenWidth + 200; // يبدأ خارج الشاشة يمين
+          //     double endX = 20; // عند الشخصية شمال
 
-              return Container(
-                // color: Colors.red,
-                width: MediaQuery.sizeOf(context).width,
-                height: 1000.h,
-                child: Stack(
-                  children: List.generate(6, (index) {
-                    double delay = index * 0.1;
+          //     return Container(
+          //       // color: Colors.red,
+          //       width: MediaQuery.sizeOf(context).width,
+          //       height: 1000.h,
+          //       child: Stack(
+          //         children: List.generate(6, (index) {
+          //           double delay = index * 0.1;
 
-                    // نخلي كل سهم يتأخر شوية
-                    double value = (arrowController.value - delay).clamp(
-                      0.0,
-                      1.0,
-                    );
+          //           // نخلي كل سهم يتأخر شوية
+          //           double value = (arrowController.value - delay).clamp(
+          //             0.0,
+          //             1.0,
+          //           );
 
-                    // نحسب مكان السهم
-                    double position = startX - (startX - endX) * value;
+          //           // نحسب مكان السهم
+          //           double position = startX - (startX - endX) * value;
 
-                    // يقل شفافيته تدريجيًا
-                    double opacity = (1 - value).clamp(0.0, 1.0);
+          //           // يقل شفافيته تدريجيًا
+          //           double opacity = (1 - value).clamp(0.0, 1.0);
 
-                    return Positioned(
-                      bottom: 220.h,
-                      left: position,
-                      child: Opacity(
-                        opacity: opacity,
-                        child: Transform.scale(
-                          scale: 1 - (value * 0.3), // يصغر سنة وهو بيختفي
-                          child: Image.asset(
-                            AppImages.oneArow,
-                            width: 250.w,
-                            height: 150.h,
-                          ),
-                        ),
-                      ),
-                    );
-                  }),
-                ),
-              );
-            },
-          ),
+          // return
+          // Positioned(
+          // bottom: 220.h,
+          // left: position,
+          // child: Opacity(
+          // opacity: opacity,
+          // child: Transform.scale(
+          // scale: 1 - (value * 0.3), // يصغر سنة وهو بيختفي
+          // child: Image.asset(AppImages.oneArow, width: 250.w, height: 150.h),
+          // ),
+          // ),
+          // );
+          // }),
+          // ),
+          //     );
+          //   },
+          // ),
         ],
       ),
     );
@@ -146,7 +141,7 @@ class _LevelThreePuzzeleFourState extends State<LevelThreePuzzeleFour>
       setState(() {
         openedDoor = userOrder;
       });
-  SoundManager.instance.correct();
+      SoundManager.instance.correct();
       Navigator.push(
         context,
         MaterialPageRoute(
@@ -162,15 +157,13 @@ class _LevelThreePuzzeleFourState extends State<LevelThreePuzzeleFour>
           ),
         ),
       );
-    
     } else {
-      
-      await arrowController.forward(from: 0);
-      arrowController.reset();
+      // await arrowController.forward(from: 0);
+      // arrowController.reset();
 
-      restartAllAnimations();
+      // restartAllAnimations();
 
-     SoundManager.instance.wrong();
+      SoundManager.instance.wrong();
 
       // userOrder.clear();
       setState(() {});

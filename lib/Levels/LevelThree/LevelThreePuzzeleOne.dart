@@ -21,33 +21,33 @@ class LevelThreePuzzeleOne extends StatefulWidget {
   State<LevelThreePuzzeleOne> createState() => _LevelThreePuzzeleOneViewState();
 }
 
-class _LevelThreePuzzeleOneViewState extends State<LevelThreePuzzeleOne>
-    with TickerProviderStateMixin, RestartableAnimations {
+class _LevelThreePuzzeleOneViewState extends State<LevelThreePuzzeleOne> {
+  // with TickerProviderStateMixin, RestartableAnimations {
   bool answered = false;
-  late AnimationController stonesController;
-  late Animation<double> stonesDrop;
+  // late AnimationController stonesController;
+  // late Animation<double> stonesDrop;
 
   bool showStones = false;
   final List<String> userOrder = [];
 
-  @override
-  void initState() {
-    // SoundManager.instance.stopBgm().then((_) {
-    // BlocProvider.of<GameCubit>(context).initState(context);
-    // });
-    stonesController = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 800),
-    );
+  // @override
+  // void initState() {
+  //   // SoundManager.instance.stopBgm().then((_) {
+  //   // BlocProvider.of<GameCubit>(context).initState(context);
+  //   // });
+  //   stonesController = AnimationController(
+  //     vsync: this,
+  //     duration: const Duration(milliseconds: 800),
+  //   );
 
-    registerController(stonesController);
+  //   registerController(stonesController);
 
-    stonesDrop = Tween<double>(
-      begin: -1,
-      end: 0,
-    ).animate(CurvedAnimation(parent: stonesController, curve: Curves.easeIn));
-    super.initState();
-  }
+  //   stonesDrop = Tween<double>(
+  //     begin: -1,
+  //     end: 0,
+  //   ).animate(CurvedAnimation(parent: stonesController, curve: Curves.easeIn));
+  //   super.initState();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -130,9 +130,9 @@ class _LevelThreePuzzeleOneViewState extends State<LevelThreePuzzeleOne>
           ),
         ),
       );
-      SoundManager.instance.wind();
+      // SoundManager.instance.wind();
     } else {
-      restartAllAnimations();
+      // restartAllAnimations();
       SoundManager.instance.wrong();
 
       // userOrder.clear();

@@ -347,7 +347,6 @@ final List<QuestionModel> levelTwoQuestionsList = [
     background: AppImages.quiz,
     hint: 'كل رمز له معني واضح ... ركز',
   ),
-
   //10
   QuestionModel(
     color: AppColors.greenColor,

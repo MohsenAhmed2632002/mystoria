@@ -22,7 +22,7 @@ class LevelTwoPuzzeleBoat extends StatefulWidget {
 class _LevelTwoPuzzeleBoatState extends State<LevelTwoPuzzeleBoat>
     with SingleTickerProviderStateMixin, RestartableAnimations {
   final Map<int, String> userOrder = {};
-  final Map<int, String> correctOrder = {0: "2", 1: "3", 2: "4", 3: "1"};
+  final Map<int, String> correctOrder = {0: "2", 1: "4", 2: "3", 3: "1"};
   //1234
 
   void _checkResult() {
@@ -48,7 +48,9 @@ class _LevelTwoPuzzeleBoatState extends State<LevelTwoPuzzeleBoat>
           builder: (_) => FeedackScreen(
             isCorrect: true,
             stars: BlocProvider.of<GameCubit>(context).calculateStars(),
-            attempts: BlocProvider.of<GameCubit>(context).state.theGame.attempts,
+            attempts: BlocProvider.of<GameCubit>(
+              context,
+            ).state.theGame.attempts,
             timeLeft: BlocProvider.of<GameCubit>(
               context,
             ).state.theGame.timeLeft,
@@ -88,14 +90,20 @@ class _LevelTwoPuzzeleBoatState extends State<LevelTwoPuzzeleBoat>
             ? GameButtonTwo(
                 text: userOrder[index]!,
                 onPressed: () {},
-                fromWidth: 300,
+                fromWidth: 350,
                 fromHeight: 125,
-                fontSize: 25,
+                fontSize: 50,
               )
-            : Image.asset(
-                'assets/images/button_game.png',
-                width: 300.w,
+            : Container(
+                width: 350.w,
                 height: 125.h,
+
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    fit: BoxFit.fill,
+                    image: AssetImage(AppImages.buttongame),
+                  ),
+                ),
               );
       },
     );
@@ -122,7 +130,7 @@ class _LevelTwoPuzzeleBoatState extends State<LevelTwoPuzzeleBoat>
               // color: Colors.red,
               width: MediaQuery.sizeOf(context).width,
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   _buildChoices("4"),
                   _buildChoices("3"),
@@ -137,7 +145,7 @@ class _LevelTwoPuzzeleBoatState extends State<LevelTwoPuzzeleBoat>
               // color: Colors.red,
               width: MediaQuery.sizeOf(context).width,
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   Image.asset(
                     widget.question.options[0],
@@ -194,7 +202,7 @@ class _LevelTwoPuzzeleBoatState extends State<LevelTwoPuzzeleBoat>
     return GameButtonTwo(
       text: myNum,
       onPressed: () {},
-      fromWidth: 300,
+      fromWidth: 350,
       fromHeight: 125,
       fontSize: 100.sp,
     );

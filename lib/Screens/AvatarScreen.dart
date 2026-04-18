@@ -93,6 +93,7 @@ class AvatarScreen extends StatelessWidget {
             right: 900.w,
             child: GestureDetector(
               onTap: () {
+                BlocProvider.of<GameCubit>(context).startTimer(context);
                 Navigator.pop(context);
               },
               child: Image.asset(
@@ -219,9 +220,9 @@ class UserDate extends StatelessWidget {
         Row(
           children: [
             SizedBox(
-              width:
-                  1.sw /
-                  3, // استخدام ScreenUtil عشان العرض يبقى متناسق (ثلث الشاشة)
+              width: 600.w,
+              // 1.sw /
+              // 3, // استخدام ScreenUtil عشان العرض يبقى متناسق (ثلث الشاشة)
               child: BlocBuilder<GameCubit, GameState>(
                 builder: (context, state) {
                   // حساب النسبة المئوية: اللغز الحالي + 1 مقسوم على إجمالي الألغاز
@@ -233,32 +234,35 @@ class UserDate extends StatelessWidget {
                           1) /
                       10;
 
-                  return Container(
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                        color: Colors.black, // لون البوردر
-                        width: 3.w, // عرض البوردر
-                      ),
-                      borderRadius: BorderRadius.circular(
-                        50.r,
-                      ), // نفس نصف قطر الشريط
-                    ),
-                    child: LinearPercentIndicator(
-                      // fillColor: const Color(0xFFFFD700),
-                      backgroundColor: Colors.transparent,
-                      progressColor: const Color(0xFF7C4E00),
-                      animation: true,
-                      percent: progress.clamp(0.0, 1.0),
-                      animationDuration:
-                          1000, // خليتها ثانية واحدة عشان تبقى أسرع وألطف
-                      lineHeight: 40.h,
-                      barRadius: const Radius.circular(10),
-                      // ممكن تضيف نص يظهر النسبة المئوية جوه الشريط لو تحب
-                      // center: Text(
-                      //   "${(progress * 100).toInt()}%",
-                      //   style: getRegulerTextStyle(context: context),
-                      // ),
-                    ),
+                  return
+                  // Container(
+                  //   decoration: BoxDecoration(
+                  //     border: Border.all(
+                  //       color: Colors.black, // لون البوردر
+                  //       width: 3.w, // عرض البوردر
+                  //     ),
+                  //     borderRadius: BorderRadius.circular(
+                  //       50.r,
+                  //     ), // نفس نصف قطر الشريط
+                  //   ),
+                  //   child:
+                  LinearPercentIndicator(
+                    // fillColor: Colors.black,
+                    progressBorderColor: Colors.black,
+                    backgroundColor: Colors.transparent,
+                    progressColor: const Color(0xFF7C4E00),
+                    animation: true,
+                    percent: progress.clamp(0.0, 1.0),
+                    animationDuration:
+                        1000, // خليتها ثانية واحدة عشان تبقى أسرع وألطف
+                    lineHeight: 40.h,
+                    barRadius: const Radius.circular(10),
+                    // ممكن تضيف نص يظهر النسبة المئوية جوه الشريط لو تحب
+                    // center: Text(
+                    //   "${(progress * 100).toInt()}%",
+                    //   style: getRegulerTextStyle(context: context),
+                    // ),
+                    // ),
                   );
                 },
               ),

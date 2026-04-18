@@ -97,27 +97,24 @@ class _LibraryPuzzleState extends State<LibraryPuzzle> {
   Widget _buildLibrary(int index, String imagePath) {
     return Draggable<String>(
       data: imagePath,
-      feedback: Image.asset(imagePath, width: 250.w, height: 250.h),
-      child: Container(
-        width: 250.w,
-        height: 250.h,
-        decoration: BoxDecoration(
-          // color: Colors.black45,
-          image: DecorationImage(image: AssetImage(imagePath)),
-        ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [Image.asset(items[index], width: 250.w, height: 250.h)],
-        ),
-      ),
+      feedback: Image.asset(imagePath, width: 350.w, height: 350.h),
+      // child: Container(
+      // width: 450.w,
+      // height: 350.h,
+      // decoration: BoxDecoration(
+      // color: Colors.black45,
+      // image: DecorationImage(image: AssetImage(imagePath)),
+      // ),
+      child: Image.asset(items[index], width: 350.w, height: 350.h),
+      // ),
     );
   }
 
   Widget _buildDraggable(String item) {
     return Container(
       // color: Colors.white38,
-      width: 450.w,
-      height: 250.h,
+      width: 500.w,
+      height: 300.h,
       child: Image.asset(item, width: 500.w, height: 300.h),
     );
   }
@@ -136,7 +133,7 @@ class _LibraryPuzzleState extends State<LibraryPuzzle> {
               ? userOrder[index]!
               // آخر عنصر تم إضافته
               : AppImages.apartmentTiles, // الصورة الافتراضيةwidth: 300.w,
-          height: 250.h,
+          height: 300.h,
           width: 250.w,
         );
       },
@@ -166,7 +163,9 @@ class _LibraryPuzzleState extends State<LibraryPuzzle> {
           builder: (_) => FeedackScreen(
             isCorrect: true,
             stars: BlocProvider.of<GameCubit>(context).calculateStars(),
-            attempts: BlocProvider.of<GameCubit>(context).state.theGame.attempts,
+            attempts: BlocProvider.of<GameCubit>(
+              context,
+            ).state.theGame.attempts,
             timeLeft: BlocProvider.of<GameCubit>(
               context,
             ).state.theGame.timeLeft,

@@ -24,11 +24,12 @@ class _PuzzleOrderViewState extends State<PuzzleOrder> {
   };
 
   final Map<int, String> userOrder = {};
-@override
-void initState() {
-  super.initState();
-  BlocProvider.of<GameCubit>(context).initState(context);
-}
+  @override
+  void initState() {
+    super.initState();
+    BlocProvider.of<GameCubit>(context).initState(context);
+  }
+
   @override
   Widget build(BuildContext context) {
     return GameScreen(
@@ -63,11 +64,11 @@ void initState() {
               // color: Colors.red,
               width: MediaQuery.sizeOf(context).width,
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Image.asset(AppImages.door_2L1, width: 600.w, height: 550.h),
-                  Image.asset(AppImages.door_3L1, width: 600.w, height: 550.h),
-                  Image.asset(AppImages.door_1L1, width: 600.w, height: 550.h),
+                  Image.asset(AppImages.door_2L1, width: 550.w, height: 600.h),
+                  Image.asset(AppImages.door_3L1, width: 550.w, height: 600.h),
+                  Image.asset(AppImages.door_1L1, width: 550.w, height: 600.h),
                 ],
               ),
             ),
@@ -107,8 +108,8 @@ void initState() {
       child: GameButtonTwo(
         text: text,
         onPressed: () {},
-        fromWidth: 300,
-        fromHeight: 125,
+        fromWidth: 350,
+        fromHeight: 120,
         fontSize: 50.sp,
       ),
     );
@@ -128,15 +129,36 @@ void initState() {
             ? GameButtonTwo(
                 text: userOrder[index]!,
                 onPressed: () {},
-                fromWidth: 300,
+                fromWidth: 350,
                 fromHeight: 125,
-                fontSize: 25,
+                fontSize: 50.sp,
               )
-            : Image.asset(
-                'assets/images/button_game.png',
-                width: 300.w,
+            : Container(
+                width: 350.w,
                 height: 125.h,
+
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    fit: BoxFit.fill,
+                    image: AssetImage(AppImages.buttongame),
+                  ),
+                ),
+                // child: Center(
+                //   child: Text(
+                //     text,
+                //     style: getBoldTextStyle(
+                //       fontSize: fontSize.sp,
+                //       context: context,
+                //       color: Colors.black,
+                //     ),
+                //   ),
+                // ),
               );
+        // Image.asset(
+        //     'assets/images/button_game.png',
+        //     width: 350.w,
+        //     height: 125.h,
+        //   );
       },
     );
   }
@@ -160,7 +182,9 @@ void initState() {
           builder: (_) => FeedackScreen(
             isCorrect: true,
             stars: BlocProvider.of<GameCubit>(context).calculateStars(),
-            attempts: BlocProvider.of<GameCubit>(context).state.theGame.attempts,
+            attempts: BlocProvider.of<GameCubit>(
+              context,
+            ).state.theGame.attempts,
             timeLeft: BlocProvider.of<GameCubit>(
               context,
             ).state.theGame.timeLeft,
@@ -172,7 +196,7 @@ void initState() {
 
       userOrder.clear();
       // setState(() {});
-       Navigator.push(
+      Navigator.push(
         context,
         MaterialPageRoute(
           builder: (_) => FeedackScreen(

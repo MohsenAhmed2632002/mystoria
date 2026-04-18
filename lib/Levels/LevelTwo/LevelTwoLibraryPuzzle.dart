@@ -111,7 +111,7 @@ class _LevelTwoLibraryPuzzleState extends State<LevelTwoLibraryPuzzle>
         onPressed: () {},
         fromWidth: 300,
         fromHeight: 125,
-        fontSize: 50.sp,
+        fontSize: 25,
       ),
     );
   }
@@ -132,12 +132,18 @@ class _LevelTwoLibraryPuzzleState extends State<LevelTwoLibraryPuzzle>
                 onPressed: () {},
                 fromWidth: 300,
                 fromHeight: 125,
-                fontSize: 50.sp,
+                fontSize: 25,
               )
-            : Image.asset(
-                'assets/images/button_game.png',
-                width: 300.w,
+            : Container(
+                width: 350.w,
                 height: 125.h,
+
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    fit: BoxFit.fill,
+                    image: AssetImage(AppImages.buttongame),
+                  ),
+                ),
               );
       },
     );

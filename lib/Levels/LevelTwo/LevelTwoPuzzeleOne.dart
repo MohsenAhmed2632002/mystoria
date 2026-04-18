@@ -27,10 +27,10 @@ class _LevelTwoPuzzeleOneViewState extends State<LevelTwoPuzzeleOne> {
 
       background: widget.question.background,
       mediaQueryRight: MediaQuery.sizeOf(context).width * 0,
-      mediaQueryTop: MediaQuery.sizeOf(context).height * 0.1,
+      mediaQueryTop: MediaQuery.sizeOf(context).height * 0.2,
       child: Container(
         // color: Colors.lightGreenAccent,
-        height: MediaQuery.sizeOf(context).height * 0.9,
+        height: MediaQuery.sizeOf(context).height * 0.7,
         width: MediaQuery.sizeOf(context).width,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.end,

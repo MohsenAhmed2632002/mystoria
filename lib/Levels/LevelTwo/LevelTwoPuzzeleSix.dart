@@ -45,7 +45,9 @@ class _LevelTwoPuzzeleSixViewState extends State<LevelTwoPuzzeleSix> {
           builder: (_) => FeedackScreen(
             isCorrect: true,
             stars: BlocProvider.of<GameCubit>(context).calculateStars(),
-            attempts: BlocProvider.of<GameCubit>(context).state.theGame.attempts,
+            attempts: BlocProvider.of<GameCubit>(
+              context,
+            ).state.theGame.attempts,
             timeLeft: BlocProvider.of<GameCubit>(
               context,
             ).state.theGame.timeLeft,
@@ -119,12 +121,12 @@ class _LevelTwoPuzzeleSixViewState extends State<LevelTwoPuzzeleSix> {
               // color: Colors.red,
               width: MediaQuery.sizeOf(context).width,
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   _buildChoices("1"),
+                  _buildChoices("2"),
                   _buildChoices("3"),
                   _buildChoices("4"),
-                  _buildChoices("2"),
                 ],
               ),
             ),
@@ -134,7 +136,7 @@ class _LevelTwoPuzzeleSixViewState extends State<LevelTwoPuzzeleSix> {
               // color: Colors.red,
               width: MediaQuery.sizeOf(context).width,
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   Image.asset(
                     widget.question.options[0],
@@ -163,7 +165,7 @@ class _LevelTwoPuzzeleSixViewState extends State<LevelTwoPuzzeleSix> {
               // color: AppColors.mainColor,
               width: MediaQuery.sizeOf(context).width,
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   _placeOfAnswers(0),
                   _placeOfAnswers(1),

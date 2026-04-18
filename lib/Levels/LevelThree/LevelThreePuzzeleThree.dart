@@ -42,7 +42,7 @@ class _LevelThreePuzzeleThreeState extends State<LevelThreePuzzeleThree>
               // color: Colors.red,
               width: MediaQuery.sizeOf(context).width,
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   _buildDraggableCard('4'),
                   _buildDraggableCard("3"),
@@ -57,26 +57,26 @@ class _LevelThreePuzzeleThreeState extends State<LevelThreePuzzeleThree>
               // color: Colors.red,
               width: MediaQuery.sizeOf(context).width,
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   Image.asset(
                     widget.question.options[1],
-                    width: 350.w,
+                    width: 450.w,
                     height: 500.h,
                   ),
                   Image.asset(
                     widget.question.options[0],
-                    width: 350.w,
+                    width: 450.w,
                     height: 500.h,
                   ),
                   Image.asset(
                     widget.question.options[3],
-                    width: 350.w,
+                    width: 450.w,
                     height: 500.h,
                   ),
                   Image.asset(
                     widget.question.options[2],
-                    width: 350.w,
+                    width: 450.w,
                     height: 500.h,
                   ),
                 ],
@@ -87,7 +87,7 @@ class _LevelThreePuzzeleThreeState extends State<LevelThreePuzzeleThree>
               // color: AppColors.mainColor,
               width: MediaQuery.sizeOf(context).width,
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   _placeOfAnswers(0),
                   _placeOfAnswers(1),

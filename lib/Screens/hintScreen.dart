@@ -55,11 +55,12 @@ class _HintScreenState extends State<HintScreen> {
                         ),
                       ),
                       Text(
+                        textAlign: TextAlign.right,
                         widget.hint,
                         style: getRegulerTextStyle(
                           context: context,
                           color: Colors.black,
-                          fontSize: 50.sp,
+                          fontSize: 40.sp,
                         ),
                       ),
                       Row(

@@ -20,13 +20,12 @@ class GameModel {
   factory GameModel.initial() {
     return GameModel(
       stars: 90,
-
-      hints: 50,
-      attempts: 30,
+      hints: 90,
+      attempts: 90,
       correctAnswerCounter: 0,
       timeLeft: 30,
       currentPuzzle: 0,
-      currentLevel: 0,
+      currentLevel: 90,
     );
   }
 

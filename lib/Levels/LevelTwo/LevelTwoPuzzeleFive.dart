@@ -17,34 +17,34 @@ class LevelTwoPuzzeleFive extends StatefulWidget {
   State<LevelTwoPuzzeleFive> createState() => _LevelTwoPuzzeleFiveState();
 }
 
-class _LevelTwoPuzzeleFiveState extends State<LevelTwoPuzzeleFive>
-    with SingleTickerProviderStateMixin, RestartableAnimations {
-  late AnimationController controller;
-  late Animation<double> moveAnimationRight;
-  late Animation<double> moveAnimationLeft;
+class _LevelTwoPuzzeleFiveState extends State<LevelTwoPuzzeleFive>{
+    // with SingleTickerProviderStateMixin, RestartableAnimations {
+  // late AnimationController controller;
+  // late Animation<double> moveAnimationRight;
+  // late Animation<double> moveAnimationLeft;
   String balanceImage = AppImages.balance;
   bool locked = false;
 
-  @override
-  void initState() {
-    super.initState();
+  // @override
+  // void initState() {
+  //   super.initState();
 
-    controller = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 600),
-    );
-    registerController(controller);
+  //   controller = AnimationController(
+  //     vsync: this,
+  //     duration: const Duration(milliseconds: 600),
+  //   );
+  //   registerController(controller);
 
-    moveAnimationRight = Tween<double>(
-      begin: 0,
-      end: -60,
-    ).animate(CurvedAnimation(parent: controller, curve: Curves.easeOut));
+  //   moveAnimationRight = Tween<double>(
+  //     begin: 0,
+  //     end: -60,
+  //   ).animate(CurvedAnimation(parent: controller, curve: Curves.easeOut));
 
-    moveAnimationLeft = Tween<double>(
-      begin: 0,
-      end: -60,
-    ).animate(CurvedAnimation(parent: controller, curve: Curves.easeOut));
-  }
+  //   moveAnimationLeft = Tween<double>(
+  //     begin: 0,
+  //     end: -60,
+  //   ).animate(CurvedAnimation(parent: controller, curve: Curves.easeOut));
+  // }
 
   String userOrder = "";
 
@@ -118,39 +118,5 @@ class _LevelTwoPuzzeleFiveState extends State<LevelTwoPuzzeleFive>
         ),
       ),
     );
-  }
-
-  void _checkResult() async {
-    if (userOrder == widget.question.correctAnswer) {
-      balanceImage = AppImages.balance2;
-
-      await controller.forward(from: 0);
-
-      SoundManager.instance.iron();
-      moveAnimationLeft = Tween<double>(begin: 0, end: 60).animate(controller);
-      controller.reverse().then(
-        (value) => setState(() {
-          balanceImage = AppImages.balance;
-        }),
-      );
-      onCorrect(context);
-    } else {
-      balanceImage = AppImages.balance1;
-
-      moveAnimationRight = Tween<double>(begin: 0, end: 60).animate(controller);
-
-      await controller.forward(from: 0);
-
-      SoundManager.instance.ironFall();
-      restartAllAnimations();
-
-      onWrong(context);
-
-      controller.reverse().then(
-        (value) => setState(() {
-          balanceImage = AppImages.balance;
-        }),
-      );
-    }
   }
 }

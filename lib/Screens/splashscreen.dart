@@ -46,19 +46,13 @@ class _SplashScreenState extends State<SplashScreen>
     _controller.forward(from: 0);
 
     // ⏱️ الانتقال بعد الأنيميشن
-    Future.delayed(const Duration(milliseconds: 8000), () {
+    Future.delayed(const Duration(milliseconds:10000), () {
       Navigator.pushReplacementNamed(
         context,
         // userisLoggedin ? Routes.levelMapScreen : Routes.homeScreen,
         userisLoggedin ? Routes.homeScreen : Routes.instructions,
       );
     });
-  }
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
   }
 
   @override
@@ -110,5 +104,11 @@ class _SplashScreenState extends State<SplashScreen>
         ],
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
   }
 }

@@ -111,7 +111,7 @@ class _LevelTwoBordersPuzzleState extends State<LevelTwoBordersPuzzle>
         onPressed: () {},
         fromWidth: 300,
         fromHeight: 125,
-        fontSize: 50.sp,
+        fontSize: 29,
       ),
     );
   }
@@ -132,12 +132,18 @@ class _LevelTwoBordersPuzzleState extends State<LevelTwoBordersPuzzle>
                 onPressed: () {},
                 fromWidth: 300,
                 fromHeight: 125,
-                fontSize: 50.sp,
+                fontSize: 29,
               )
-            : Image.asset(
-                'assets/images/button_game.png',
+            : Container(
                 width: 300.w,
                 height: 125.h,
+
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    fit: BoxFit.fill,
+                    image: AssetImage(AppImages.buttongame),
+                  ),
+                ),
               );
       },
     );

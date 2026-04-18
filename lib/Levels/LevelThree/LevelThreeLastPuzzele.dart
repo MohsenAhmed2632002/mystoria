@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:myhabits/Core/Images&colors.dart';
 import 'package:myhabits/Core/animation_restart_mixin.dart';
 import 'package:myhabits/Core/constants.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -42,7 +43,7 @@ class _LevelThreeBordersPuzzleState extends State<LevelThreeBordersPuzzle> {
               // color: Colors.red,
               width: MediaQuery.sizeOf(context).width,
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   _buildDraggableCard("طرد الهكسوس"),
                   _buildDraggableCard("ازدهار التجارة"),
@@ -57,27 +58,27 @@ class _LevelThreeBordersPuzzleState extends State<LevelThreeBordersPuzzle> {
               // color: Colors.red,
               width: MediaQuery.sizeOf(context).width,
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   Image.asset(
                     widget.question.options[1],
-                    width: 350.w,
-                    height: 350.h,
+                    width: 400.w,
+                    height: 400.h,
                   ),
                   Image.asset(
                     widget.question.options[0],
-                    width: 350.w,
-                    height: 350.h,
+                    width: 400.w,
+                    height: 400.h,
                   ),
                   Image.asset(
                     widget.question.options[3],
-                    width: 350.w,
-                    height: 350.h,
+                    width: 400.w,
+                    height: 400.h,
                   ),
                   Image.asset(
                     widget.question.options[2],
-                    width: 350.w,
-                    height: 350.h,
+                    width: 400.w,
+                    height: 400.h,
                   ),
                 ],
               ),
@@ -87,7 +88,7 @@ class _LevelThreeBordersPuzzleState extends State<LevelThreeBordersPuzzle> {
               // color: AppColors.mainColor,
               width: MediaQuery.sizeOf(context).width,
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   _placeOfAnswers(0),
                   _placeOfAnswers(1),
@@ -119,9 +120,9 @@ class _LevelThreeBordersPuzzleState extends State<LevelThreeBordersPuzzle> {
       child: GameButtonTwo(
         text: text,
         onPressed: () {},
-        fromWidth: 300,
+        fromWidth: 350,
         fromHeight: 125,
-        fontSize: 50.sp,
+        fontSize: 27,
       ),
     );
   }
@@ -142,12 +143,18 @@ class _LevelThreeBordersPuzzleState extends State<LevelThreeBordersPuzzle> {
                 onPressed: () {},
                 fromWidth: 300,
                 fromHeight: 125,
-                fontSize: 50.sp,
+                fontSize: 27,
               )
-            : Image.asset(
-                'assets/images/button_game.png',
-                width: 300.w,
+            : Container(
+                width: 350.w,
                 height: 125.h,
+
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    fit: BoxFit.fill,
+                    image: AssetImage(AppImages.buttongame),
+                  ),
+                ),
               );
       },
     );
