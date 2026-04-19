@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:myhabits/Levels/LevelOne/LevelOne.dart';
-import 'package:myhabits/Screens/AvatarScreen.dart';
-import 'package:myhabits/Screens/AwardScreen.dart';
-import 'package:myhabits/Screens/DevelopersScreen.dart';
-import 'package:myhabits/Screens/HomeScreen.dart';
-import 'package:myhabits/Screens/Instructions.dart';
-import 'package:myhabits/Screens/Setting.dart';
-import 'package:myhabits/Screens/escScreen.dart';
-import 'package:myhabits/Screens/feedackScreen.dart';
-import 'package:myhabits/Screens/hintScreen.dart';
-import 'package:myhabits/Screens/splashscreen.dart';
-import 'package:myhabits/Screens/levelMapScreen.dart';
+import 'package:mystoria/Levels/LevelOne/LevelOne.dart';
+import 'package:mystoria/Screens/AvatarScreen.dart';
+import 'package:mystoria/Screens/AwardScreen.dart';
+import 'package:mystoria/Screens/DevelopersScreen.dart';
+import 'package:mystoria/Screens/HomeScreen.dart';
+import 'package:mystoria/Screens/Instructions.dart';
+import 'package:mystoria/Screens/Setting.dart';
+import 'package:mystoria/Screens/escScreen.dart';
+import 'package:mystoria/Screens/feedackScreen.dart';
+import 'package:mystoria/Screens/hintScreen.dart';
+import 'package:mystoria/Screens/splashscreen.dart';
+import 'package:mystoria/Screens/levelMapScreen.dart';
 
 class Routes {
   static const String splashRoute = "/splashRoute";

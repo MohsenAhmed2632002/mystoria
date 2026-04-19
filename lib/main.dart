@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:myhabits/Core/Routes.dart';
-import 'package:myhabits/Core/SharedPre.dart';
-import 'package:myhabits/Models/QuestionModel.dart';
-import 'package:myhabits/cubit/Gamecubit/game_cubit.dart';
-import 'package:myhabits/cubit/Gamecubit/game_state.dart';
-import 'package:myhabits/cubit/Playercubit/Playercubit.dart';
+import 'package:mystoria/Core/Routes.dart';
+import 'package:mystoria/Core/SharedPre.dart';
+import 'package:mystoria/Models/QuestionModel.dart';
+import 'package:mystoria/cubit/Gamecubit/game_cubit.dart';
+import 'package:mystoria/cubit/Gamecubit/game_state.dart';
+import 'package:mystoria/cubit/Playercubit/Playercubit.dart';
 
 bool userisLoggedin = false;
 void main() async {

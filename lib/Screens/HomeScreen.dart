@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:myhabits/Core/Routes.dart';
-import 'package:myhabits/Core/constants.dart';
-import 'package:myhabits/Core/Images&colors.dart';
+import 'package:mystoria/Core/Routes.dart';
+import 'package:mystoria/Core/constants.dart';
+import 'package:mystoria/Core/Images&colors.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});

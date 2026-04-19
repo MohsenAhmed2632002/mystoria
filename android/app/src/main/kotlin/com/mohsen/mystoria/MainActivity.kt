@@ -1,4 +1,5 @@
-package com.example.myhabits
+package com.mohsen.Mystoria
+
 
 import io.flutter.embedding.android.FlutterActivity
 

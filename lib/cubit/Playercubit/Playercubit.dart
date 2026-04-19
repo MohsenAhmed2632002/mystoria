@@ -1,6 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:myhabits/Core/SharedPre.dart';
-import 'package:myhabits/Models/PlayerModel.dart';
+import 'package:mystoria/Core/SharedPre.dart';
+import 'package:mystoria/Models/PlayerModel.dart';
 
 class PlayerCubit extends Cubit<PlayerModel?> {
   PlayerCubit() : super(null);

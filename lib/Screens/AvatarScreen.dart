@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:myhabits/Core/Font.dart';
-import 'package:myhabits/Core/Images&colors.dart';
-import 'package:myhabits/Core/Routes.dart';
-import 'package:myhabits/Models/PlayerModel.dart';
-import 'package:myhabits/cubit/Gamecubit/game_cubit.dart';
-import 'package:myhabits/cubit/Gamecubit/game_state.dart';
-import 'package:myhabits/cubit/Playercubit/Playercubit.dart';
+import 'package:mystoria/Core/Font.dart';
+import 'package:mystoria/Core/Images&colors.dart';
+import 'package:mystoria/Core/Routes.dart';
+import 'package:mystoria/Models/PlayerModel.dart';
+import 'package:mystoria/cubit/Gamecubit/game_cubit.dart';
+import 'package:mystoria/cubit/Gamecubit/game_state.dart';
+import 'package:mystoria/cubit/Playercubit/Playercubit.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 
 class AvatarScreen extends StatelessWidget {

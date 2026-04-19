@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:myhabits/Models/gameModel.dart';
+import 'package:mystoria/Models/gameModel.dart';
 
 abstract class GameState extends Equatable {
   const GameState();
@@ -9,7 +9,6 @@ abstract class GameState extends Equatable {
 }
 
 class GameInitial extends GameState {}
-
 
 class GamePlaying extends GameInitial {
   final GameModel theGame;
@@ -33,4 +32,4 @@ class GamePlaying extends GameInitial {
 //   operator >=(int other) {}
 // }
 
-// // 
+// //

@@ -1,18 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:myhabits/Core/Font.dart';
-import 'package:myhabits/Core/Routes.dart';
-import 'package:myhabits/Core/Images&colors.dart';
-import 'package:myhabits/Core/animation_restart_mixin.dart';
-import 'package:myhabits/Models/PlayerModel.dart';
-import 'package:myhabits/Screens/HomeScreen.dart';
-import 'package:myhabits/Screens/Instructions.dart';
-import 'package:myhabits/Screens/LoginScreen.dart';
-import 'package:myhabits/cubit/Gamecubit/game_cubit.dart';
-import 'package:myhabits/cubit/Gamecubit/game_state.dart';
-import 'package:myhabits/cubit/Playercubit/Playercubit.dart';
-import 'package:myhabits/main.dart';
+import 'package:mystoria/Core/Font.dart';
+import 'package:mystoria/Core/Images&colors.dart';
+import 'package:mystoria/Core/Routes.dart';
+import 'package:mystoria/Core/animation_restart_mixin.dart';
+import 'package:mystoria/Models/PlayerModel.dart';
+import 'package:mystoria/Screens/HomeScreen.dart';
+import 'package:mystoria/Screens/Instructions.dart';
+import 'package:mystoria/Screens/LoginScreen.dart';
+import 'package:mystoria/cubit/Gamecubit/game_cubit.dart';
+import 'package:mystoria/cubit/Gamecubit/game_state.dart';
+import 'package:mystoria/cubit/Playercubit/Playercubit.dart';
+import 'package:mystoria/main.dart';
+
+
 
 class GameScreen extends StatelessWidget {
   final String background;

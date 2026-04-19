@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:myhabits/Core/Font.dart';
-import 'package:myhabits/Core/Images&colors.dart';
-import 'package:myhabits/Core/Routes.dart';
-import 'package:myhabits/Core/constants.dart';
-import 'package:myhabits/Core/soundManger.dart';
+import 'package:mystoria/Core/Font.dart';
+import 'package:mystoria/Core/Images&colors.dart';
+import 'package:mystoria/Core/Routes.dart';
+import 'package:mystoria/Core/constants.dart';
+import 'package:mystoria/Core/soundManger.dart';
 
 class SettingScreen extends StatelessWidget {
   const SettingScreen({super.key});

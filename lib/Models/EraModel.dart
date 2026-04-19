@@ -1,5 +1,5 @@
 // // تعريف بسيط للعصر ومحتوياته
-// import 'package:myhabits/Core/Images&colors.dart';
+// import 'package:mystoria/Core/Images&colors.dart';
 
 // class EraModel {
 //   final String name;

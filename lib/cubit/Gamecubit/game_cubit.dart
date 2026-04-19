@@ -1,12 +1,12 @@
 import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:myhabits/Core/Routes.dart';
-import 'package:myhabits/Core/SharedPre.dart';
-import 'package:myhabits/Core/soundManger.dart';
-import 'package:myhabits/Models/QuestionModel.dart';
-import 'package:myhabits/Models/gameModel.dart';
-import 'package:myhabits/cubit/Gamecubit/game_state.dart';
+import 'package:mystoria/Core/Routes.dart';
+import 'package:mystoria/Core/SharedPre.dart';
+import 'package:mystoria/Core/soundManger.dart';
+import 'package:mystoria/Models/QuestionModel.dart';
+import 'package:mystoria/Models/gameModel.dart';
+import 'package:mystoria/cubit/Gamecubit/game_state.dart';
 
 class GameCubit extends Cubit<GamePlaying> {
   GameCubit({required this.levels}) : super(GamePlaying(GameModel.initial())) {

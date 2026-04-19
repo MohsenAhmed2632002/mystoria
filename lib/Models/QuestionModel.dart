@@ -1,6 +1,6 @@
 import 'dart:ui';
 
-import 'package:myhabits/Core/Images&colors.dart';
+import 'package:mystoria/Core/Images&colors.dart';
 
 enum QuestionType {
   order,

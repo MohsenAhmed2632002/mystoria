@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:myhabits/Core/constants.dart';
-import 'package:myhabits/Core/Images&colors.dart';
+import 'package:mystoria/Core/constants.dart';
+import 'package:mystoria/Core/Images&colors.dart';
 
 class Instructions extends StatelessWidget {
   const Instructions({super.key});
@@ -17,7 +17,6 @@ class Instructions extends StatelessWidget {
           ),
 
           DownLeftButton(),
-          
         ],
       ),
     );

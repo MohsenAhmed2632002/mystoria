@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:myhabits/Core/Font.dart';
-import 'package:myhabits/Core/constants.dart';
-import 'package:myhabits/Core/Images&colors.dart';
+import 'package:mystoria/Core/Font.dart';
+import 'package:mystoria/Core/constants.dart';
+import 'package:mystoria/Core/Images&colors.dart';
 
 class DevelopersScreen extends StatelessWidget {
   const DevelopersScreen({super.key});

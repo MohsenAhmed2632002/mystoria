@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:myhabits/Core/Font.dart';
-import 'package:myhabits/Core/Routes.dart';
-import 'package:myhabits/Core/animation_restart_mixin.dart';
-import 'package:myhabits/Core/soundManger.dart';
-import 'package:myhabits/main.dart';
+import 'package:mystoria/Core/Font.dart';
+import 'package:mystoria/Core/Routes.dart';
+import 'package:mystoria/Core/animation_restart_mixin.dart';
+import 'package:mystoria/Core/soundManger.dart';
+import 'package:mystoria/main.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
-import 'package:myhabits/Core/Images&colors.dart';
+import 'package:mystoria/Core/Images&colors.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -46,7 +46,7 @@ class _SplashScreenState extends State<SplashScreen>
     _controller.forward(from: 0);
 
     // ⏱️ الانتقال بعد الأنيميشن
-    Future.delayed(const Duration(milliseconds:10000), () {
+    Future.delayed(const Duration(milliseconds: 10000), () {
       Navigator.pushReplacementNamed(
         context,
         // userisLoggedin ? Routes.levelMapScreen : Routes.homeScreen,

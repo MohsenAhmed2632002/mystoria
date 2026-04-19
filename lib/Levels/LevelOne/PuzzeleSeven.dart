@@ -1,19 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:myhabits/Core/Font.dart';
-import 'package:myhabits/Core/Images&colors.dart';
-import 'package:myhabits/Core/constants.dart';
-import 'package:myhabits/Core/soundManger.dart';
-import 'package:myhabits/Models/QuestionModel.dart';
-import 'package:myhabits/Models/TripleModel.Dart';
-import 'package:myhabits/Screens/feedackScreen.dart';
-import 'package:myhabits/cubit/Gamecubit/game_cubit.dart';
+import 'package:mystoria/Core/Font.dart';
+import 'package:mystoria/Core/Images&colors.dart';
+import 'package:mystoria/Core/constants.dart';
+import 'package:mystoria/Core/soundManger.dart';
+import 'package:mystoria/Models/QuestionModel.dart';
+import 'package:mystoria/Models/TripleModel.Dart';
+import 'package:mystoria/Screens/feedackScreen.dart';
+import 'package:mystoria/cubit/Gamecubit/game_cubit.dart';
 
 class NetworkQ extends StatefulWidget {
-  const NetworkQ({super.key,required this.question});
-   final QuestionModel question;
-
+  const NetworkQ({super.key, required this.question});
+  final QuestionModel question;
 
   @override
   State<NetworkQ> createState() => _NetworkQState();
@@ -111,7 +110,9 @@ class _NetworkQState extends State<NetworkQ> {
           builder: (_) => FeedackScreen(
             isCorrect: true,
             stars: BlocProvider.of<GameCubit>(context).calculateStars(),
-            attempts: BlocProvider.of<GameCubit>(context).state.theGame.attempts,
+            attempts: BlocProvider.of<GameCubit>(
+              context,
+            ).state.theGame.attempts,
             timeLeft: BlocProvider.of<GameCubit>(
               context,
             ).state.theGame.timeLeft,

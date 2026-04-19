@@ -2,10 +2,10 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:myhabits/Core/Images&colors.dart';
-import 'package:myhabits/Levels/LevelOne/LevelOne.dart';
-import 'package:myhabits/Levels/LevelThree/LevelThree.dart';
-import 'package:myhabits/Levels/LevelTwo/LevelTwo.dart';
+import 'package:mystoria/Core/Images&colors.dart';
+import 'package:mystoria/Levels/LevelOne/LevelOne.dart';
+import 'package:mystoria/Levels/LevelThree/LevelThree.dart';
+import 'package:mystoria/Levels/LevelTwo/LevelTwo.dart';
 
 final List<StageModel> levelStages = [
   StageModel(

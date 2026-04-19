@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:myhabits/Core/Images&colors.dart';
-import 'package:myhabits/Core/animation_restart_mixin.dart';
-import 'package:myhabits/Core/constants.dart';
-import 'package:myhabits/Core/soundManger.dart';
-import 'package:myhabits/Models/QuestionModel.dart';
-import 'package:myhabits/Screens/feedackScreen.dart';
-import 'package:myhabits/cubit/Gamecubit/game_cubit.dart';
+import 'package:mystoria/Core/Images&colors.dart';
+import 'package:mystoria/Core/animation_restart_mixin.dart';
+import 'package:mystoria/Core/constants.dart';
+import 'package:mystoria/Core/soundManger.dart';
+import 'package:mystoria/Models/QuestionModel.dart';
+import 'package:mystoria/Screens/feedackScreen.dart';
+import 'package:mystoria/cubit/Gamecubit/game_cubit.dart';
 
 class LevelThreePuzzeleSix extends StatefulWidget {
   LevelThreePuzzeleSix({super.key, required this.question});
@@ -17,8 +17,8 @@ class LevelThreePuzzeleSix extends StatefulWidget {
   State<LevelThreePuzzeleSix> createState() => _LevelThreePuzzeleSixViewState();
 }
 
-class _LevelThreePuzzeleSixViewState extends State<LevelThreePuzzeleSix>{
-    // with TickerProviderStateMixin, RestartableAnimations {
+class _LevelThreePuzzeleSixViewState extends State<LevelThreePuzzeleSix> {
+  // with TickerProviderStateMixin, RestartableAnimations {
   final List<String> userOrder = [];
   final List<String> emptines = [
     AppImages.emptiness3,
@@ -89,18 +89,18 @@ class _LevelThreePuzzeleSixViewState extends State<LevelThreePuzzeleSix>{
               children: [
                 // نص رمسيس الثاني
                 // FadeTransition(
-                  // opacity: _textFadeAnimation,
-                  // child: 
-                  Text(
-                    "رمسيس الثاني",
-                    style: TextStyle(
-                      fontSize: 45.sp,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.amber,
-                      shadows: [
-                        const Shadow(blurRadius: 15, color: Colors.black),
-                      ],
-                    ),
+                // opacity: _textFadeAnimation,
+                // child:
+                Text(
+                  "رمسيس الثاني",
+                  style: TextStyle(
+                    fontSize: 45.sp,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.amber,
+                    shadows: [
+                      const Shadow(blurRadius: 15, color: Colors.black),
+                    ],
+                  ),
                   // ),
                 ),
                 // SizedBox(height: 30.h),
@@ -174,14 +174,14 @@ class _LevelThreePuzzeleSixViewState extends State<LevelThreePuzzeleSix>{
 
             // صخور الحائط التي تسقط عند الخطأ
             // SlideTransition(
-              // position: _rockAnimation,
-              // child: 
-              Image.asset(
-                AppImages.stones2, // تأكد أن هذا المسار صحيح في الـ Assets
-                // width: 1000.w, // ملء عرض الشاشة
-                height: 500.h, // ملء ارتفاع الشاشة
-                // fit: BoxFit.contain,
-              ),
+            // position: _rockAnimation,
+            // child:
+            Image.asset(
+              AppImages.stones2, // تأكد أن هذا المسار صحيح في الـ Assets
+              // width: 1000.w, // ملء عرض الشاشة
+              height: 500.h, // ملء ارتفاع الشاشة
+              // fit: BoxFit.contain,
+            ),
             // ),
           ],
         ),

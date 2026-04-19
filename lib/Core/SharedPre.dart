@@ -1,4 +1,4 @@
-import 'package:myhabits/Models/PlayerModel.dart';
+import 'package:mystoria/Models/PlayerModel.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class PlayerStorage {
