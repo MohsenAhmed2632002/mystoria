@@ -120,7 +120,7 @@ class _LevelThreeLibraryPuzzleState extends State<LevelThreeLibraryPuzzle> {
         onPressed: () {},
         fromWidth: 350,
         fromHeight: 125,
-        fontSize: 27,
+        fontSize: 60.sp,
       ),
     );
   }
@@ -129,6 +129,7 @@ class _LevelThreeLibraryPuzzleState extends State<LevelThreeLibraryPuzzle> {
   Widget _placeOfAnswers(int index) {
     return DragTarget<String>(
       onAccept: (data) {
+        SoundManager.instance.playDrag();
         setState(() {
           userOrder[index] = data;
         });
@@ -139,9 +140,9 @@ class _LevelThreeLibraryPuzzleState extends State<LevelThreeLibraryPuzzle> {
             ? GameButtonTwo(
                 text: userOrder[index]!,
                 onPressed: () {},
-                fromWidth: 300,
+                fromWidth: 350,
                 fromHeight: 125,
-                fontSize: 50.sp,
+                fontSize: 60.sp,
               )
             : Container(
                 width: 350.w,

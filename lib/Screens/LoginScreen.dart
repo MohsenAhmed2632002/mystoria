@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mystoria/Core/Font.dart';
 import 'package:mystoria/Core/Routes.dart';
 import 'package:mystoria/Core/constants.dart';
+import 'package:mystoria/Core/soundManger.dart';
 import 'package:mystoria/Models/PlayerModel.dart';
 import 'package:mystoria/cubit/Playercubit/Playercubit.dart';
 import 'package:mystoria/Core/Images&colors.dart';
@@ -114,9 +115,10 @@ class _GestState extends State<LoginScreen> {
                   // SizedBox(height: 20.h),
                   GameButton(
                     text: 'تسجيل الدخول',
-                    onPressed: () {
+                    onPressed: () async {
                       if (_nameController.text.isEmpty) return;
-                      context.read<PlayerCubit>().setPlayer(
+
+                      await context.read<PlayerCubit>().setPlayer(
                         PlayerModel(
                           name: _nameController.text,
                           avatar: selectedAvatar.isEmpty
@@ -124,13 +126,7 @@ class _GestState extends State<LoginScreen> {
                               : selectedAvatar,
                         ),
                       );
-                      // PlayerStorage.setPlayer(
-                      //   PlayerModel(
-                      //     name: _nameController.text,
-                      //     avatar: selectedAvatar,
-                      //   ),
-                      // );
-
+                      SoundManager.instance.click();
                       Navigator.pushReplacementNamed(
                         context,
                         Routes.homeScreen,

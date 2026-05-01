@@ -46,13 +46,13 @@ class _LibraryPuzzleState extends State<LibraryPuzzle> {
       hint: widget.question.hint,
       background: widget.question.background,
       mediaQueryRight: 0,
-      mediaQueryTop: MediaQuery.sizeOf(context).height * 0.1,
+      mediaQueryTop: MediaQuery.sizeOf(context).height * 0.11,
       child: Container(
         // color: AppColors.mainColor,
         height: MediaQuery.sizeOf(context).height * 0.9,
         width: MediaQuery.sizeOf(context).width,
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             /// المكتبات
             Row(
@@ -97,25 +97,18 @@ class _LibraryPuzzleState extends State<LibraryPuzzle> {
   Widget _buildLibrary(int index, String imagePath) {
     return Draggable<String>(
       data: imagePath,
-      feedback: Image.asset(imagePath, width: 350.w, height: 350.h),
-      // child: Container(
-      // width: 450.w,
-      // height: 350.h,
-      // decoration: BoxDecoration(
-      // color: Colors.black45,
-      // image: DecorationImage(image: AssetImage(imagePath)),
-      // ),
-      child: Image.asset(items[index], width: 350.w, height: 350.h),
-      // ),
+      feedback: Image.asset(imagePath, width: 300.w, height: 300.h),
+
+      child: Image.asset(items[index], width: 300.w, height: 300.h),
     );
   }
 
   Widget _buildDraggable(String item) {
     return Container(
       // color: Colors.white38,
-      width: 500.w,
-      height: 300.h,
-      child: Image.asset(item, width: 500.w, height: 300.h),
+      width: 550.w,
+      height: 250.h,
+      child: Image.asset(item, width: 500.w, height: 250.h),
     );
   }
 
@@ -125,6 +118,8 @@ class _LibraryPuzzleState extends State<LibraryPuzzle> {
         setState(() {
           userOrder[index] = data;
         });
+        SoundManager.instance.playDrag();
+
         _checkResult();
       },
       builder: (context, candidateData, rejectedData) {
@@ -134,7 +129,7 @@ class _LibraryPuzzleState extends State<LibraryPuzzle> {
               // آخر عنصر تم إضافته
               : AppImages.apartmentTiles, // الصورة الافتراضيةwidth: 300.w,
           height: 300.h,
-          width: 250.w,
+          width: 300.w,
         );
       },
     );
@@ -156,7 +151,7 @@ class _LibraryPuzzleState extends State<LibraryPuzzle> {
 
     if (isCorrect) {
       SoundManager.instance.correct();
-
+      userOrder.clear();
       Navigator.push(
         context,
         MaterialPageRoute(
@@ -174,7 +169,7 @@ class _LibraryPuzzleState extends State<LibraryPuzzle> {
       );
     } else {
       SoundManager.instance.wrong();
-
+      userOrder.clear();
       Navigator.push(
         context,
         MaterialPageRoute(

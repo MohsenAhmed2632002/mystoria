@@ -27,7 +27,7 @@ class _TheDoorQuestionState extends State<TheDoorQuestion> {
       color: widget.question.color,
       background: widget.question.background,
       mediaQueryRight: 0,
-      mediaQueryTop: MediaQuery.sizeOf(context).height * 0.09,
+      mediaQueryTop: MediaQuery.sizeOf(context).height * 0.1,
       hint: widget.question.hint,
       child: Container(
         // color: Colors.cyan,
@@ -36,17 +36,7 @@ class _TheDoorQuestionState extends State<TheDoorQuestion> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            answered
-                ? Image.asset(
-                    AppImages.bigDoorOpen,
-                    width: 800.w,
-                    height: 800.h,
-                  )
-                : Image.asset(
-                    AppImages.bigDoorClose,
-                    width: 800.w,
-                    height: 800.h,
-                  ),
+            Image.asset(AppImages.bigDoorClose, width: 800.w, height: 750.h),
 
             /// 🔹 Targets (الأبواب)
             Row(
@@ -66,13 +56,14 @@ class _TheDoorQuestionState extends State<TheDoorQuestion> {
     return GameButtonTwo(
       text: familyText,
       onPressed: () => _checkAnswer(familyText),
-      fontSize: 40,
+      fontSize: 100.sp,
       fromWidth: 350,
       fromHeight: 125,
     );
   }
 
   void _checkAnswer(String theAnwser) async {
+    
     if (theAnwser == widget.question.correctAnswer) {
       SoundManager.instance.correct();
 

@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mystoria/Core/Font.dart';
 import 'package:mystoria/Core/Images&colors.dart';
 import 'package:mystoria/Core/Routes.dart';
+import 'package:mystoria/Core/soundManger.dart';
 import 'package:mystoria/cubit/Gamecubit/game_cubit.dart';
 
 class HintScreen extends StatefulWidget {
@@ -55,7 +56,7 @@ class _HintScreenState extends State<HintScreen> {
                         ),
                       ),
                       Text(
-                        textAlign: TextAlign.right,
+                        textAlign: TextAlign.center,
                         widget.hint,
                         style: getRegulerTextStyle(
                           context: context,
@@ -69,7 +70,7 @@ class _HintScreenState extends State<HintScreen> {
                           GestureDetector(
                             onTap: () {
                               // sound.click();
-
+                              SoundManager.instance.click();
                               BlocProvider.of<GameCubit>(context).stopTimer();
                               Navigator.pushReplacementNamed(
                                 context,
@@ -84,6 +85,7 @@ class _HintScreenState extends State<HintScreen> {
                           ),
                           GestureDetector(
                             onTap: () {
+                              SoundManager.instance.click();
                               BlocProvider.of<GameCubit>(
                                 context,
                               ).startTimer(context);

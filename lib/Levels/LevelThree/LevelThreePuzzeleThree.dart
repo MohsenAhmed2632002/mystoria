@@ -119,7 +119,7 @@ class _LevelThreePuzzeleThreeState extends State<LevelThreePuzzeleThree>
       child: GameButtonTwo(
         text: text,
         onPressed: () {},
-        fromWidth: 300,
+        fromWidth: 350,
         fromHeight: 125,
         fontSize: 100.sp,
       ),
@@ -131,6 +131,8 @@ class _LevelThreePuzzeleThreeState extends State<LevelThreePuzzeleThree>
     return DragTarget<String>(
       onAccept: (data) {
         setState(() {
+          SoundManager.instance.playDrag();
+
           userOrder[index] = data;
         });
         _checkResult();
@@ -140,13 +142,14 @@ class _LevelThreePuzzeleThreeState extends State<LevelThreePuzzeleThree>
             ? GameButtonTwo(
                 text: userOrder[index]!,
                 onPressed: () {},
-                fromWidth: 300,
+                fromWidth: 350,
                 fromHeight: 125,
-                fontSize: 90.sp,
+                fontSize: 100.sp,
               )
             : Image.asset(
+                fit: BoxFit.fill,
                 'assets/images/button_game.png',
-                width: 300.w,
+                width: 350.w,
                 height: 125.h,
               );
       },

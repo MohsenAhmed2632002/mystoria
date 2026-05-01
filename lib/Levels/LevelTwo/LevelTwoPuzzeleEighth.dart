@@ -120,6 +120,8 @@ class _LevelTwoPuzzeleElevenState extends State<LevelTwoPuzzeleEleven>
   Widget _placeOfAnswers(int index) {
     return DragTarget<String>(
       onAccept: (data) {
+        SoundManager.instance.playDrag();
+
         setState(() {
           userOrder[index] = data;
         });
@@ -161,6 +163,8 @@ class _LevelTwoPuzzeleElevenState extends State<LevelTwoPuzzeleEleven>
     });
 
     if (isCorrect) {
+      userOrder.clear();
+
       SoundManager.instance.correct();
       Navigator.push(
         context,
@@ -178,6 +182,8 @@ class _LevelTwoPuzzeleElevenState extends State<LevelTwoPuzzeleEleven>
         ),
       );
     } else {
+      userOrder.clear();
+
       SoundManager.instance.wrong();
 
       userOrder.clear();

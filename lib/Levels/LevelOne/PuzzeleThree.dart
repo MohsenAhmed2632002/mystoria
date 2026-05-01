@@ -169,6 +169,8 @@ class _ChooseHWidgettWidgetState extends State<ChooseHWidget> {
   Widget _placeOfAnswers(int index) {
     return DragTarget<String>(
       onAccept: (data) {
+        SoundManager.instance.playDrag();
+
         setState(() {
           userOrder[index] = data;
         });
@@ -179,9 +181,9 @@ class _ChooseHWidgettWidgetState extends State<ChooseHWidget> {
             ? GameButtonTwo(
                 text: userOrder[index]!,
                 onPressed: () {},
-                fromWidth: 300,
+                fromWidth: 350,
                 fromHeight: 125,
-                fontSize: 25,
+                fontSize: 70.sp,
               )
             : Container(
                 width: 350.w,
@@ -240,6 +242,7 @@ class _ChooseHWidgettWidgetState extends State<ChooseHWidget> {
     });
 
     if (isCorrect) {
+      userOrder.clear();
       SoundManager.instance.correct();
       Navigator.push(
         context,
@@ -257,6 +260,7 @@ class _ChooseHWidgettWidgetState extends State<ChooseHWidget> {
         ),
       );
     } else {
+      userOrder.clear();
       SoundManager.instance.wrong();
 
       Navigator.push(

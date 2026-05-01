@@ -107,6 +107,8 @@ class _PuzzleCrownState extends State<PuzzleCrown> {
   Widget _placeOfAnswers(int index) {
     return DragTarget<String>(
       onAccept: (data) {
+        SoundManager.instance.playDrag();
+
         setState(() {
           userOrder[index] = data;
         });
@@ -152,7 +154,7 @@ class _PuzzleCrownState extends State<PuzzleCrown> {
 
     if (isCorrect) {
       SoundManager.instance.correct();
-
+      userOrder.clear();
       Navigator.push(
         context,
         MaterialPageRoute(
@@ -170,7 +172,7 @@ class _PuzzleCrownState extends State<PuzzleCrown> {
       );
     } else {
       SoundManager.instance.wrong();
-
+      userOrder.clear();
       Navigator.push(
         context,
         MaterialPageRoute(

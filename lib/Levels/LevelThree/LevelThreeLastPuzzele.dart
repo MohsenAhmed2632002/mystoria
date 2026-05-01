@@ -31,10 +31,10 @@ class _LevelThreeBordersPuzzleState extends State<LevelThreeBordersPuzzle> {
 
       background: widget.question.background,
       mediaQueryRight: MediaQuery.sizeOf(context).width * 0,
-      mediaQueryTop: MediaQuery.sizeOf(context).height * 0.2,
+      mediaQueryTop: MediaQuery.sizeOf(context).height * 0.1,
       child: Container(
         // color: Colors.white38,
-        height: MediaQuery.sizeOf(context).height * 0.8,
+        height: MediaQuery.sizeOf(context).height * 0.9,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
@@ -122,7 +122,7 @@ class _LevelThreeBordersPuzzleState extends State<LevelThreeBordersPuzzle> {
         onPressed: () {},
         fromWidth: 350,
         fromHeight: 125,
-        fontSize: 27,
+        fontSize: 60.sp,
       ),
     );
   }
@@ -131,6 +131,7 @@ class _LevelThreeBordersPuzzleState extends State<LevelThreeBordersPuzzle> {
   Widget _placeOfAnswers(int index) {
     return DragTarget<String>(
       onAccept: (data) {
+        SoundManager.instance.playDrag();
         setState(() {
           userOrder[index] = data;
         });
@@ -141,9 +142,9 @@ class _LevelThreeBordersPuzzleState extends State<LevelThreeBordersPuzzle> {
             ? GameButtonTwo(
                 text: userOrder[index]!,
                 onPressed: () {},
-                fromWidth: 300,
+                fromWidth: 350,
                 fromHeight: 125,
-                fontSize: 27,
+                fontSize: 60.sp,
               )
             : Container(
                 width: 350.w,

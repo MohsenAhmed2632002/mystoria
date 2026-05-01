@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mystoria/Core/Font.dart';
 import 'package:mystoria/Core/Images&colors.dart';
+import 'package:mystoria/Core/constants.dart';
+import 'package:mystoria/Core/soundManger.dart';
 import 'package:mystoria/cubit/Gamecubit/game_cubit.dart';
 
 class EscScreen extends StatelessWidget {
@@ -27,89 +30,48 @@ class EscScreen extends StatelessWidget {
               height: 800.h,
               // color: AppColors.blueColor,
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    'الجوائز',
+                    'تأكيد الخروج',
                     style: getBoldTextStyle(
                       context: context,
-                      fontSize: 50.sp,
+                      fontSize: 70.sp,
                       color: AppColors.mainColor,
                     ),
                   ),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    // crossAxisAlignment: CrossAxisAlignment.s,
+                  Text(
+                    'هل تريد الخروج من اللعبة؟',
+                    style: getBoldTextStyle(
+                      context: context,
+                      fontSize: 50.sp,
+                      color: Colors.black,
+                    ),
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          Image.asset(
-                            stars >= 90
-                                ? AppImages.level_3
-                                : AppImages.darklevel_3,
-
-                            width: 200.w,
-                            height: 425.h,
-                          ),
-
-                          Image.asset(
-                            stars >= 60
-                                ? AppImages.level_2
-                                : AppImages.darklevel_2,
-
-                            width: 200.w,
-                            height: 425.h,
-                          ),
-
-                          Image.asset(
-                            stars >= 30
-                                ? AppImages.level_1
-                                : AppImages.darklevel_1,
-
-                            width: 200.w,
-                            height: 425.h,
-                          ),
-                        ],
+                      GameButton(
+                        text: "لا",
+                        onPressed: () {
+                          SoundManager.instance.click();
+                          Navigator.pop(context);
+                        },
+                        fromWidth: 500,
+                        fromHeight: 150,
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-
-                        children: [
-                          Image.asset(
-                            AppImages.stands30,
-                            width: 250.w,
-                            height: 250.h,
-                          ),
-                          Image.asset(
-                            AppImages.stands60,
-                            width: 250.w,
-                            height: 250.h,
-                          ),
-                          Image.asset(
-                            AppImages.stands90,
-                            width: 250.w,
-                            height: 250.h,
-                          ),
-                        ],
+                      GameButton(
+                        text: "نعم",
+                        onPressed: () {
+                          SoundManager.instance.click();
+                          SystemNavigator.pop();
+                        },
+                        fromWidth: 500,
+                        fromHeight: 150,
                       ),
                     ],
                   ),
                 ],
-              ),
-            ),
-          ),
-          Positioned(
-            top: 900.h,
-            right: 900.w,
-            child: GestureDetector(
-              onTap: () {
-                Navigator.pop(context);
-              },
-              child: Image.asset(
-                AppImages.previous,
-                width: 175.w,
-                height: 175.h,
               ),
             ),
           ),

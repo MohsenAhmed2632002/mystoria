@@ -38,7 +38,7 @@ class _LevelThreePuzzeleElevenState extends State<LevelThreePuzzeleEleven> {
           children: [
             // 🔹 البطاقات
             Container(
-              color: Colors.red,
+              // color: Colors.red,
               width: MediaQuery.sizeOf(context).width,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -129,6 +129,7 @@ class _LevelThreePuzzeleElevenState extends State<LevelThreePuzzeleEleven> {
   Widget _placeOfAnswers(int index) {
     return DragTarget<String>(
       onAccept: (data) {
+        SoundManager.instance.playDrag();
         setState(() {
           userOrder[index] = data;
         });
@@ -139,7 +140,7 @@ class _LevelThreePuzzeleElevenState extends State<LevelThreePuzzeleEleven> {
             ? GameButtonTwo(
                 text: userOrder[index]!,
                 onPressed: () {},
-                fromWidth: 300,
+                fromWidth: 350,
                 fromHeight: 125,
                 fontSize: 90.sp,
               )

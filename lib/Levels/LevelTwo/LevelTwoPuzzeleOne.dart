@@ -45,6 +45,8 @@ class _LevelTwoPuzzeleOneViewState extends State<LevelTwoPuzzeleOne> {
                     // final cubit = context.read<GameCubit>();
 
                     if (option == widget.question.correctAnswer) {
+                            userOrder.clear();
+
                       SoundManager.instance.correct();
                       Navigator.push(
                         context,
@@ -65,6 +67,7 @@ class _LevelTwoPuzzeleOneViewState extends State<LevelTwoPuzzeleOne> {
                       );
                     } else {
                       SoundManager.instance.wrong();
+      userOrder.clear();
 
                       Navigator.push(
                         context,

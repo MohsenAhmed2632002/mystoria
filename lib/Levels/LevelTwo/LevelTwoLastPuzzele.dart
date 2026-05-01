@@ -121,6 +121,8 @@ class _LevelTwoBordersPuzzleState extends State<LevelTwoBordersPuzzle>
     return DragTarget<String>(
       onAccept: (data) {
         setState(() {
+          SoundManager.instance.playDrag();
+
           userOrder[index] = data;
         });
         _checkResult();
@@ -162,6 +164,8 @@ class _LevelTwoBordersPuzzleState extends State<LevelTwoBordersPuzzle>
 
     if (isCorrect) {
       SoundManager.instance.correct();
+      userOrder.clear();
+
       Navigator.push(
         context,
         MaterialPageRoute(

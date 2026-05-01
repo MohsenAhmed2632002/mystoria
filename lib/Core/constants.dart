@@ -5,6 +5,7 @@ import 'package:mystoria/Core/Font.dart';
 import 'package:mystoria/Core/Images&colors.dart';
 import 'package:mystoria/Core/Routes.dart';
 import 'package:mystoria/Core/animation_restart_mixin.dart';
+import 'package:mystoria/Core/soundManger.dart';
 import 'package:mystoria/Models/PlayerModel.dart';
 import 'package:mystoria/Screens/HomeScreen.dart';
 import 'package:mystoria/Screens/Instructions.dart';
@@ -14,9 +15,7 @@ import 'package:mystoria/cubit/Gamecubit/game_state.dart';
 import 'package:mystoria/cubit/Playercubit/Playercubit.dart';
 import 'package:mystoria/main.dart';
 
-
-
-class GameScreen extends StatelessWidget {
+class GameScreen extends StatefulWidget {
   final String background;
   final Widget child;
   final double mediaQueryRight;
@@ -24,6 +23,7 @@ class GameScreen extends StatelessWidget {
   final double? characterFromBottom;
   final String hint;
   final Color color;
+
   const GameScreen({
     super.key,
     this.characterFromBottom,
@@ -36,27 +36,68 @@ class GameScreen extends StatelessWidget {
   });
 
   @override
+  State<GameScreen> createState() => _GameScreenState();
+}
+
+class _GameScreenState extends State<GameScreen> with WidgetsBindingObserver {
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addObserver(this);
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.paused) {
+      // 📴 المستخدم خرج من اللعبة
+      SoundManager.instance.stopBgm(); // أو stopBgm()
+    }
+
+    if (state == AppLifecycleState.resumed) {
+      // ▶️ رجع تاني
+      SoundManager.instance.resumeBgm(); // أو playBgm
+    }
+  }
+
   Widget build(BuildContext context) {
-    return Scaffold(
-      extendBodyBehindAppBar: true,
-      body: Stack(
-        children: [
-          // 🎨 الخلفية
-          SizedBox.expand(child: Image.asset(background, fit: BoxFit.fill)),
-          // 🎨 الجسم
-          Positioned(right: mediaQueryRight, top: mediaQueryTop, child: child),
-          // 🎨 الأيقونات العلوية
-          CharacterAndClueContainer(hint: hint),
+    return WillPopScope(
+      onWillPop: ()async {
+        SoundManager.instance.stopBgm(); // 🔇
+        return true;
+      },
+      child: Scaffold(
+        extendBodyBehindAppBar: true,
+        body: Stack(
+          children: [
+            // 🎨 الخلفية
+            SizedBox.expand(
+              child: Image.asset(widget.background, fit: BoxFit.fill),
+            ),
+            // 🎨 الجسم
+            Positioned(
+              right: widget.mediaQueryRight,
+              top: widget.mediaQueryTop,
+              child: widget.child,
+            ),
+            // 🎨 الأيقونات العلوية
+            CharacterAndClueContainer(hint: widget.hint),
 
-          // CharacterContainer(
-          //   frombottom: characterFromBottom,
-          // ), // 🎨 الأيقونات العلوية
-          QustionContainer(color: color),
-          // 🎨 الأيقونات العلوية
-          TryAndTimeContainer(),
+            // CharacterContainer(
+            //   frombottom: characterFromBottom,
+            // ), // 🎨 الأيقونات العلوية
+            QustionContainer(color: widget.color),
+            // 🎨 الأيقونات العلوية
+            TryAndTimeContainer(),
 
-          // ),
-        ],
+            // ),
+          ],
+        ),
       ),
     );
   }
@@ -82,7 +123,10 @@ class GameButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: onPressed,
+      onTap: () {
+        onPressed();
+        SoundManager.instance.click();
+      },
       child: Container(
         child: Stack(
           alignment: Alignment.center,
@@ -130,7 +174,10 @@ class GameButtonLight extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: onPressed,
+      onTap: () {
+        onPressed();
+        SoundManager.instance.click();
+      },
       child: Container(
         child: Stack(
           alignment: Alignment.center,
@@ -175,7 +222,10 @@ class GameButtonTwo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: onPressed,
+      onTap: () {
+        onPressed();
+        SoundManager.instance.click();
+      },
       child: Container(
         width: fromWidth.w,
         height: fromHeight.h,
@@ -221,7 +271,10 @@ class GameButtonThree extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: onPressed,
+      onTap: () {
+        onPressed();
+        SoundManager.instance.click();
+      },
       child: Container(
         width: fromWidth.w,
         height: fromHeight.h,
@@ -507,11 +560,13 @@ class DownLeftButton extends StatelessWidget {
         children: [
           GestureDetector(
             onTap: () {
+              final player = context.read<PlayerCubit>().state;
+              SoundManager.instance.click();
               Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
                   builder: (_) =>
-                      userisLoggedin ? const HomeScreen() : LoginScreen(),
+                      player != null ? const HomeScreen() : LoginScreen(),
                 ),
               );
             },
@@ -550,6 +605,7 @@ class LeftButtonTwo extends StatelessWidget {
       bottom: 10,
       child: GestureDetector(
         onTap: () {
+          SoundManager.instance.click();
           Navigator.pop(context);
         },
         child: Image.asset(
@@ -592,6 +648,7 @@ class DevAndSettingIcon extends StatelessWidget {
         children: [
           GestureDetector(
             onTap: () {
+              SoundManager.instance.click();
               Navigator.pushNamed(context, Routes.settingScreen);
             },
             child: Image.asset(
@@ -599,16 +656,17 @@ class DevAndSettingIcon extends StatelessWidget {
               width: MediaQuery.sizeOf(context).height * 0.13,
             ),
           ),
-
-          // GestureDetector(
-          //   onTap: () {
-          //     Navigator.pushNamed(context, Routes.developersScreen);
-          //   },
-          //   child: Image.asset(
-          //     'assets/images/developers.png',
-          //     width: MediaQuery.sizeOf(context).height * 0.13,
-          //   ),
-          // ),
+          GestureDetector(
+            onTap: () {
+              SoundManager.instance.click();
+              Navigator.pushNamed(context, Routes.developersScreen);
+            },
+            child: Image.asset(
+              AppImages.development,
+              height: 150.h,
+              width: 150.w,
+            ),
+          ),
         ],
       ),
     );

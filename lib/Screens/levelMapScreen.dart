@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mystoria/Core/Images&colors.dart';
+import 'package:mystoria/Core/soundManger.dart';
 import 'package:mystoria/Models/LevelsModel.dart';
 import 'package:mystoria/cubit/Gamecubit/game_cubit.dart';
 
@@ -65,13 +66,14 @@ class StageButton extends StatelessWidget {
         onTap: isUnlocked
             ? () {
                 context.read<GameCubit>().startLevel(stage.id - 1, context);
-
+                SoundManager.instance.click();
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (_) => stage.levelScreen),
                 );
               }
             : () {
+                SoundManager.instance.click();
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
                     content: Text(

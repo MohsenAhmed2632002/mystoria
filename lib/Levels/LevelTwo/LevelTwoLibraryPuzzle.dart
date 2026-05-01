@@ -109,9 +109,9 @@ class _LevelTwoLibraryPuzzleState extends State<LevelTwoLibraryPuzzle>
       child: GameButtonTwo(
         text: text,
         onPressed: () {},
-        fromWidth: 300,
+        fromWidth: 350,
         fromHeight: 125,
-        fontSize: 25,
+        fontSize: 70.sp,
       ),
     );
   }
@@ -121,6 +121,8 @@ class _LevelTwoLibraryPuzzleState extends State<LevelTwoLibraryPuzzle>
     return DragTarget<String>(
       onAccept: (data) {
         setState(() {
+          SoundManager.instance.playDrag();
+
           userOrder[index] = data;
         });
         _checkResult();
@@ -130,9 +132,9 @@ class _LevelTwoLibraryPuzzleState extends State<LevelTwoLibraryPuzzle>
             ? GameButtonTwo(
                 text: userOrder[index]!,
                 onPressed: () {},
-                fromWidth: 300,
+                fromWidth: 350,
                 fromHeight: 125,
-                fontSize: 25,
+                fontSize: 70.sp,
               )
             : Container(
                 width: 350.w,
@@ -161,6 +163,8 @@ class _LevelTwoLibraryPuzzleState extends State<LevelTwoLibraryPuzzle>
     });
 
     if (isCorrect) {
+      userOrder.clear();
+
       SoundManager.instance.correct();
       Navigator.push(
         context,
@@ -179,6 +183,7 @@ class _LevelTwoLibraryPuzzleState extends State<LevelTwoLibraryPuzzle>
       );
     } else {
       SoundManager.instance.wrong();
+      userOrder.clear();
 
       userOrder.clear();
       setState(() {});

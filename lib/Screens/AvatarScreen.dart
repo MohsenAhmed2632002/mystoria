@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mystoria/Core/Font.dart';
 import 'package:mystoria/Core/Images&colors.dart';
 import 'package:mystoria/Core/Routes.dart';
+import 'package:mystoria/Core/soundManger.dart';
 import 'package:mystoria/Models/PlayerModel.dart';
 import 'package:mystoria/cubit/Gamecubit/game_cubit.dart';
 import 'package:mystoria/cubit/Gamecubit/game_state.dart';
@@ -30,6 +31,7 @@ class AvatarScreen extends StatelessWidget {
               children: [
                 GestureDetector(
                   onTap: () {
+                    SoundManager.instance.click();
                     Navigator.pushNamed(context, Routes.settingScreen);
                   },
                   child: Image.asset(
@@ -40,16 +42,7 @@ class AvatarScreen extends StatelessWidget {
                 ),
                 GestureDetector(
                   onTap: () {
-                    Navigator.pushNamed(context, Routes.developersScreen);
-                  },
-                  child: Image.asset(
-                    AppImages.development,
-                    height: 150.h,
-                    width: 150.w,
-                  ),
-                ),
-                GestureDetector(
-                  onTap: () {
+                    SoundManager.instance.click();
                     Navigator.pushNamed(context, Routes.awardScreen);
                   },
                   child: Image.asset(
@@ -249,7 +242,7 @@ class UserDate extends StatelessWidget {
                   LinearPercentIndicator(
                     // fillColor: Colors.black,
                     progressBorderColor: Colors.black,
-                    backgroundColor: Colors.transparent,
+                    backgroundColor: Colors.black26,
                     progressColor: const Color(0xFF7C4E00),
                     animation: true,
                     percent: progress.clamp(0.0, 1.0),
@@ -272,7 +265,8 @@ class UserDate extends StatelessWidget {
               children: [
                 Image.asset(AppImages.levels, width: 300.w, height: 300.h),
                 Text(
-                  " مرحلة :${BlocProvider.of<GameCubit>(context).state.theGame.currentLevel + 1}",
+                  textAlign: TextAlign.center,
+                  " :مرحلة \n${BlocProvider.of<GameCubit>(context).state.theGame.currentLevel + 1}",
                   style: getRegulerTextStyle(context: context, fontSize: 45.sp),
                 ),
               ],

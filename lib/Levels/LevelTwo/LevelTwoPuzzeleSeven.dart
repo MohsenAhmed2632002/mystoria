@@ -40,6 +40,8 @@ class _LevelTwoPuzzeleBoatState extends State<LevelTwoPuzzeleBoat>
     // final cubit = context.read<GameCubit>();
 
     if (isCorrect) {
+      userOrder.clear();
+
       SoundManager.instance.correct();
 
       Navigator.push(
@@ -80,6 +82,8 @@ class _LevelTwoPuzzeleBoatState extends State<LevelTwoPuzzeleBoat>
   Widget _placeOfAnswers(int index) {
     return DragTarget<String>(
       onAccept: (data) {
+        SoundManager.instance.playDrag();
+
         setState(() {
           userOrder[index] = data;
         });

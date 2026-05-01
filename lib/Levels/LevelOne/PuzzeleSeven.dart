@@ -52,7 +52,7 @@ class _NetworkQState extends State<NetworkQ> {
 
       background: widget.question.background,
       mediaQueryRight: 0,
-      mediaQueryTop: MediaQuery.sizeOf(context).height * 0.05,
+      mediaQueryTop: MediaQuery.sizeOf(context).height * 0.1,
       child: Container(
         width: MediaQuery.sizeOf(context).width,
         height: MediaQuery.sizeOf(context).height,

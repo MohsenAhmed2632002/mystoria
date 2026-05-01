@@ -85,6 +85,8 @@ class _PuzzeleCemeteriesState extends State<PuzzeleCemeteries> {
   Widget _placeOfAnswers(int index) {
     return DragTarget<String>(
       onAccept: (data) {
+        SoundManager.instance.playDrag();
+
         setState(() {
           userOrder[index] = data;
         });

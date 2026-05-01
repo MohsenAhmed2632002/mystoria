@@ -19,7 +19,7 @@ class SettingScreen extends StatelessWidget {
           SizedBox.expand(
             child: Image.asset(
               'assets/images/setting_screen.png',
-              fit: BoxFit.fill,
+              fit: BoxFit.cover,
             ),
           ),
           Column(
@@ -28,41 +28,11 @@ class SettingScreen extends StatelessWidget {
               Text(
                 'الإعدادات',
                 style: getRegulerTextStyle(
-                  fontSize: 50.sp,
+                  fontSize: 60.sp,
                   context: context,
                   color: AppColors.mainColor,
                 ),
               ),
-
-              // /// 🎚️ Slider الصوت
-              // ValueListenableBuilder<double>(
-              //   valueListenable: sound.volume,
-              //   builder: (context, volume, _) {
-              //     return Row(
-              //       mainAxisAlignment: MainAxisAlignment.center,
-              //       children: [
-              //         SizedBox(
-              //           width: 900.w,
-              //           child: Slider(
-              //             value: volume,
-              //             min: 0,
-              //             max: 1,
-              //             divisions: 10,
-              //             onChanged: (value) {
-              //               sound.volume.value = value;
-              //               // sound.click(); // 🔊 تكه خفيفة
-              //             },
-              //           ),
-              //         ),
-              //         Image.asset(
-              //           'assets/images/sound.png',
-              //           width: 130.w,
-              //           height: 130.h,
-              //         ),
-              //       ],
-              //     );
-              //   },
-              // ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
 
@@ -86,14 +56,17 @@ class SettingScreen extends StatelessWidget {
                       min: 0,
                       max: 1,
                       divisions: 10,
-                      onChanged: (v) {
+                      onChanged: (v) async {
                         sound.bgmVolume.value = v;
+
+                        SoundManager.instance.bgmVolume.value = v;
+
+                        sound.click(); // تجربة فورية
                       },
                     ),
                   );
                 },
               ),
-
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
 
@@ -106,9 +79,6 @@ class SettingScreen extends StatelessWidget {
                   ),
                 ],
               ),
-              // SizedBox(height: 40),
-
-              //               /// 🔊 المؤثرات الصوتية
               ValueListenableBuilder<double>(
                 valueListenable: sound.sfxVolume,
                 builder: (context, value, _) {
@@ -122,19 +92,22 @@ class SettingScreen extends StatelessWidget {
                       divisions: 10,
                       onChanged: (v) {
                         sound.sfxVolume.value = v;
-                        // sound.click(); // تجربة فورية
+
+                        SoundManager.instance.sfxVolume.value = v;
+
+                        sound.click(); // تجربة فورية
                       },
                     ),
                   );
                 },
               ),
-
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   GestureDetector(
                     onTap: () {
                       // sound.click();
+                      SoundManager.instance.click();
                       Navigator.pushReplacementNamed(
                         context,
                         Routes.homeScreen,
@@ -149,7 +122,7 @@ class SettingScreen extends StatelessWidget {
                   GameButton(
                     text: 'رجوع',
                     onPressed: () {
-                      // sound.click();
+                      SoundManager.instance.click();
                       Navigator.pop(context);
                     },
                     fromWidth: 500,

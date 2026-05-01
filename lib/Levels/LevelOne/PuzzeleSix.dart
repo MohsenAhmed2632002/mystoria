@@ -27,7 +27,7 @@ class _FindMistakeWidgetState extends State<FindMistakeWidget> {
 
       background: widget.question.background,
       mediaQueryRight: 0,
-      mediaQueryTop: MediaQuery.sizeOf(context).height * 0.1,
+      mediaQueryTop: MediaQuery.sizeOf(context).height * 0.07,
       child: Container(
         width: MediaQuery.sizeOf(context).width,
         height: MediaQuery.sizeOf(context).height * 0.9,
@@ -90,7 +90,7 @@ class _FindMistakeWidgetState extends State<FindMistakeWidget> {
                     },
                     fromWidth: 350,
                     fromHeight: 150,
-                    fontSize: 50,
+                    fontSize: 100.sp,
                   );
                 }).toList(),
               ),

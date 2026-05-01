@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mystoria/Core/Routes.dart';
 import 'package:mystoria/Core/SharedPre.dart';
+import 'package:mystoria/Core/soundManger.dart';
 import 'package:mystoria/Models/QuestionModel.dart';
 import 'package:mystoria/cubit/Gamecubit/game_cubit.dart';
 import 'package:mystoria/cubit/Gamecubit/game_state.dart';
@@ -21,6 +22,9 @@ void main() async {
   // ✅ إنشاء الـ Cubit مرة واحدة
   final gameCubit = GameCubit(levels: gameLevels);
 
+  // final lifecycleHandler = AppLifecycleHandler();
+  // WidgetsBinding.instance.addObserver(lifecycleHandler);
+
   // ✅ تحديث النجوم المحفوظة
   gameCubit.emit(
     GamePlaying(gameCubit.state.theGame.copyWith(stars: savedStars)),
@@ -30,6 +34,7 @@ void main() async {
 
   await SystemChrome.setPreferredOrientations([
     DeviceOrientation.landscapeLeft,
+
     DeviceOrientation.landscapeRight,
   ]);
 
@@ -47,10 +52,54 @@ void main() async {
   );
 }
 
-class MyApp extends StatelessWidget {
+// class AppLifecycleHandler extends WidgetsBindingObserver {
+//   @override
+//   void didChangeAppLifecycleState(AppLifecycleState state) {
+//     final sound = SoundManager.instance;
+
+//     if (state == AppLifecycleState.paused) {
+//       // 📴 المستخدم خرج من التطبيق
+//       SoundManager.instance.stopBgm();
+//     } else if (state == AppLifecycleState.resumed) {
+//       // ▶️ رجع تاني
+//       sound.resumeBgm();
+//     }
+//   }
+// }
+
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
 
   @override
+  State<MyApp> createState() => _MyAppState();
+}
+class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addObserver(this);
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    final sound = SoundManager.instance;
+
+    if (state == AppLifecycleState.paused ||
+        state == AppLifecycleState.inactive) {
+      sound.pauseBgm();
+    }
+
+    if (state == AppLifecycleState.resumed) {
+      sound.resumeBgm();
+    }
+  }
   Widget build(BuildContext context) {
     return ScreenUtilInit(
       designSize: const Size(1920, 1080),

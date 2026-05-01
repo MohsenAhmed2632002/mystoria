@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:mystoria/Core/Routes.dart';
 import 'package:mystoria/Core/constants.dart';
 import 'package:mystoria/Core/Images&colors.dart';
+import 'package:mystoria/Core/soundManger.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -38,6 +39,7 @@ class ThereButtons extends StatelessWidget {
           GameButton(
             text: 'ابدأ اللعبة',
             onPressed: () {
+              SoundManager.instance.click();
               Navigator.pushNamed(context, Routes.levelMapScreen);
             },
             fromWidth: 500,
@@ -48,6 +50,7 @@ class ThereButtons extends StatelessWidget {
             fromHeight: 200,
             text: 'التعليمات',
             onPressed: () {
+              SoundManager.instance.click();
               Navigator.pushNamed(context, Routes.instructions);
             },
           ),
@@ -56,25 +59,27 @@ class ThereButtons extends StatelessWidget {
             fromHeight: 200,
             text: 'خروج',
             onPressed: () {
-              showDialog(
-                context: context,
-                builder: (_) => AlertDialog(
-                  title: const Text('تأكيد الخروج'),
-                  content: const Text('هل تريد الخروج من اللعبة؟'),
-                  actions: [
-                    TextButton(
-                      onPressed: () => Navigator.pop(context),
-                      child: const Text('لا'),
-                    ),
-                    TextButton(
-                      onPressed: () {
-                        SystemNavigator.pop();
-                      },
-                      child: const Text('نعم'),
-                    ),
-                  ],
-                ),
-              );
+              SoundManager.instance.click();
+              Navigator.pushNamed(context, Routes.escScreen);
+              // showDialog(
+              //   context: context,
+              //   builder: (_) => AlertDialog(
+              //     title: const Text('تأكيد الخروج'),
+              //     content: const Text('هل تريد الخروج من اللعبة؟'),
+              //     actions: [
+              //       TextButton(
+              //         onPressed: () => Navigator.pop(context),
+              //         child: const Text('لا'),
+              //       ),
+              //       TextButton(
+              //         onPressed: () {
+              //           SystemNavigator.pop();
+              //         },
+              //         child: const Text('نعم'),
+              //       ),
+              //     ],
+              //   ),
+              // );
             },
           ),
         ],

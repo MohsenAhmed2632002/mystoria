@@ -38,6 +38,7 @@ class _LevelTwoPuzzeleSixViewState extends State<LevelTwoPuzzeleSix> {
 
     if (isCorrect) {
       SoundManager.instance.correct();
+      userOrder.clear();
 
       Navigator.push(
         context,
@@ -77,6 +78,8 @@ class _LevelTwoPuzzeleSixViewState extends State<LevelTwoPuzzeleSix> {
   Widget _placeOfAnswers(int index) {
     return DragTarget<String>(
       onAccept: (data) {
+        SoundManager.instance.playDrag();
+
         setState(() {
           userOrder[index] = data;
         });
@@ -87,13 +90,14 @@ class _LevelTwoPuzzeleSixViewState extends State<LevelTwoPuzzeleSix> {
             ? GameButtonTwo(
                 text: userOrder[index]!,
                 onPressed: () {},
-                fromWidth: 300,
+                fromWidth: 350,
                 fromHeight: 125,
-                fontSize: 25,
+                fontSize: 100.sp,
               )
             : Image.asset(
+                fit: BoxFit.fill,
                 'assets/images/button_game.png',
-                width: 300.w,
+                width: 350.w,
                 height: 125.h,
               );
       },
@@ -193,7 +197,7 @@ class _LevelTwoPuzzeleSixViewState extends State<LevelTwoPuzzeleSix> {
     return GameButtonTwo(
       text: myNum,
       onPressed: () {},
-      fromWidth: 300,
+      fromWidth: 350,
       fromHeight: 125,
       fontSize: 100.sp,
     );

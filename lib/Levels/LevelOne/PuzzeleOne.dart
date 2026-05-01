@@ -119,6 +119,8 @@ class _PuzzleOrderViewState extends State<PuzzleOrder> {
   Widget _placeOfAnswers(int index) {
     return DragTarget<String>(
       onAccept: (data) {
+        SoundManager.instance.playDrag();
+
         setState(() {
           userOrder[index] = data;
         });
@@ -175,6 +177,7 @@ class _PuzzleOrderViewState extends State<PuzzleOrder> {
     });
 
     if (isCorrect) {
+      userOrder.clear();
       SoundManager.instance.correct();
       Navigator.push(
         context,

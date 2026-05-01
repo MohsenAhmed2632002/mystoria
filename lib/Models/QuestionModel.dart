@@ -246,7 +246,7 @@ final List<QuestionModel> levelTwoQuestionsList = [
       AppImages.elmadi,
     ],
     correctAnswer: AppImages.ya_bone,
-    background: AppImages.quiz,
+    background: AppImages.quiz2_L4,
   ),
 
   //5

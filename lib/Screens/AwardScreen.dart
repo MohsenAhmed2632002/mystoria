@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mystoria/Core/Font.dart';
 import 'package:mystoria/Core/Images&colors.dart';
+import 'package:mystoria/Core/soundManger.dart';
 import 'package:mystoria/cubit/Gamecubit/game_cubit.dart';
 
 class AwardScreen extends StatelessWidget {
@@ -73,6 +74,7 @@ class AwardScreen extends StatelessWidget {
             right: 900.w,
             child: GestureDetector(
               onTap: () {
+                SoundManager.instance.click();
                 Navigator.pop(context);
               },
               child: Image.asset(

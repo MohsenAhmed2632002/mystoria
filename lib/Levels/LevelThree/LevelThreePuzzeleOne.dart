@@ -48,6 +48,11 @@ class _LevelThreePuzzeleOneViewState extends State<LevelThreePuzzeleOne> {
   //   ).animate(CurvedAnimation(parent: stonesController, curve: Curves.easeIn));
   //   super.initState();
   // }
+  @override
+  void initState() {
+    super.initState();
+    BlocProvider.of<GameCubit>(context).initState(context);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -115,6 +120,7 @@ class _LevelThreePuzzeleOneViewState extends State<LevelThreePuzzeleOne> {
   void _checkResult(String selectedImage) async {
     if (selectedImage == widget.question.correctAnswer) {
       SoundManager.instance.correct();
+      userOrder.clear();
       Navigator.push(
         context,
         MaterialPageRoute(
@@ -134,7 +140,7 @@ class _LevelThreePuzzeleOneViewState extends State<LevelThreePuzzeleOne> {
     } else {
       // restartAllAnimations();
       SoundManager.instance.wrong();
-
+      userOrder.clear();
       // userOrder.clear();
       setState(() {});
       Navigator.push(

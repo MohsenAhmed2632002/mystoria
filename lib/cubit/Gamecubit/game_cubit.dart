@@ -39,7 +39,7 @@ class GameCubit extends Cubit<GamePlaying> {
     // await SoundManager.instance.stopBgm();
     startTimer(context);
 
-    await SoundManager.instance.playSfx('sound/music_game.mp3');
+    await SoundManager.instance.playBgm('sound/music_game.mp3');
   }
 
   void startLevel(int levelIndex, BuildContext context) {
@@ -96,6 +96,8 @@ class GameCubit extends Cubit<GamePlaying> {
 
   /// -----------------------------
   /// CORRECT ANSWER
+  /// -----------------------------/// -----------------------------
+  /// CORRECT ANSWER (المعدل)
   /// -----------------------------
   void correctAnswer(BuildContext context) async {
     _timer?.cancel();
@@ -104,14 +106,24 @@ class GameCubit extends Cubit<GamePlaying> {
 
     int newCounter = game.correctAnswerCounter + 1;
     int newAttempts = game.attempts;
-    int newhints = game.hints;
+    int newHints = game.hints;
+
     if (newCounter == 4) {
       newAttempts += 1;
-      newhints += 1;
+      newHints += 1;
       newCounter = 0;
     }
 
-    final newStars = game.stars + calculateStars();
+    final gainedStars = calculateStars();
+
+    // ✅ 1. احسب الإجمالي الجديد
+    int tempTotalStars = game.stars + gainedStars;
+
+    // ✅ 2. احصل على الحد الأقصى للمستوى الحالي
+    int maxStars = _getMaxStarsForLevel(game.currentLevel);
+
+    // ✅ 3. لا تسمح بتجاوز الحد الأقصى
+    int newStars = tempTotalStars > maxStars ? maxStars : tempTotalStars;
 
     emit(
       GamePlaying(
@@ -123,23 +135,40 @@ class GameCubit extends Cubit<GamePlaying> {
               ? game.currentPuzzle
               : game.currentPuzzle + 1,
           timeLeft: 30,
-          hints: newhints,
+          hints: newHints,
         ),
       ),
     );
 
-    // ✅ حفظ النجوم بعد كل إجابة صحيحة
-    await PlayerStorage.saveStars(newStars);
-    // Navigator.pop(context);
-
+    /// حفظ النجوم في آخر سؤال
     if (isLastQuestion) {
-      Navigator.pushReplacementNamed(context, Routes.levelMapScreen);
+      // ✅ 4. النجوم محسوبة بالفعل بشكل صحيح ولا تتجاوز الحد
+      await PlayerStorage.saveStars(newStars);
+
+      // ✅ 5. تحديث النجوم المخزنة للقادم
+      emit(GamePlaying(game.copyWith(stars: newStars)));
+
+      if (context.mounted) {
+        Navigator.pushReplacementNamed(context, Routes.levelMapScreen);
+      }
       stopTimer();
       return;
     }
-    // Navigator.pop(context); // هنا نقفل الـ Dialog
 
     startTimer(context);
+  }
+
+  int _getMaxStarsForLevel(int level) {
+    switch (level) {
+      case 0:
+        return 30;
+      case 1:
+        return 60;
+      case 2:
+        return 90;
+      default:
+        return 999;
+    }
   }
 
   /// -----------------------------
@@ -204,12 +233,8 @@ class GameCubit extends Cubit<GamePlaying> {
     Navigator.pushReplacementNamed(context, Routes.homeScreen);
   }
 
-  void _loadInitialStars() {
-    // تحميل النجوم من التخزين وتحديث الحالة
-    Future<void> _loadInitialStars() async {
-      final savedStars =
-          await PlayerStorage.loadStars(); // تحتاج تنفذ دالة getStars
-      emit(GamePlaying(state.theGame.copyWith(stars: savedStars)));
-    }
+  Future<void> _loadInitialStars() async {
+    final savedStars = await PlayerStorage.loadStars();
+    emit(GamePlaying(state.theGame.copyWith(stars: savedStars)));
   }
 }

@@ -18,8 +18,6 @@ class LevelThreePuzzeleFive extends StatefulWidget {
 }
 
 class _LevelThreePuzzeleFiveState extends State<LevelThreePuzzeleFive> {
-  String? openedDoor;
-  bool showArrows = false;
   String userOrder = "";
 
   @override
@@ -44,13 +42,12 @@ class _LevelThreePuzzeleFiveState extends State<LevelThreePuzzeleFive> {
                   onTap: () async {
                     setState(() {
                       userOrder = e;
-                      openedDoor = e; // الباب اللي اتضغط عليه يفتح
                     });
 
                     await _checkResult();
                   },
                   child: Image.asset(
-                    openedDoor == e ? e : _getClosedDoor(e),
+                    _getClosedDoor(e),
                     width: 600.w,
                     height: 900.h,
                   ),
@@ -76,7 +73,7 @@ class _LevelThreePuzzeleFiveState extends State<LevelThreePuzzeleFive> {
 
   Future<void> _checkResult() async {
     if (userOrder == widget.question.correctAnswer) {
-      // userOrder.clear();
+      userOrder == "";
       // SoundManager.instance.effectOpenDoor();
       SoundManager.instance.correct();
       Navigator.push(
@@ -96,7 +93,7 @@ class _LevelThreePuzzeleFiveState extends State<LevelThreePuzzeleFive> {
       );
     } else {
       SoundManager.instance.wrong();
-
+      userOrder == "";
       // userOrder.clear();
       setState(() {});
       Navigator.push(

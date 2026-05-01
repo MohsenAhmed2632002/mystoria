@@ -109,6 +109,8 @@ class _LevelThreePuzzeleSixViewState extends State<LevelThreePuzzeleSix> {
                 DragTarget<String>(
                   onAccept: (data) {
                     if (userOrder.length < 3) {
+                      SoundManager.instance.playDrag();
+
                       setState(() => userOrder.add(data));
                       if (userOrder.length == 3) _checkResult();
                     }
@@ -215,6 +217,7 @@ class _LevelThreePuzzeleSixViewState extends State<LevelThreePuzzeleSix> {
     if (isCorrect) {
       // _textController.forward();
       SoundManager.instance.correct();
+      userOrder.clear();
       Navigator.push(
         context,
         MaterialPageRoute(
@@ -231,15 +234,8 @@ class _LevelThreePuzzeleSixViewState extends State<LevelThreePuzzeleSix> {
         ),
       );
     } else {
-      // _rockController.reverse();
       setState(() => userOrder.clear());
-      // تشغيل أنيميشن السقوط
-      // await _rockController.forward();
-      // انتظر قليلاً والصخور مغطية الشاشة
-      await Future.delayed(const Duration(milliseconds: 600));
       SoundManager.instance.wrong();
-
-      // userOrder.clear();
       setState(() {});
       Navigator.push(
         context,
