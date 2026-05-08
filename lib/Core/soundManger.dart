@@ -205,7 +205,7 @@ class SoundManager {
   bool _isPaused = false;
   String? _currentBgm;
 
-  bool _dragPlaying = false; // 🔥 يمنع التكرار
+  // bool _dragPlaying = false; // 🔥 يمنع التكرار
 
   void _applyVolume() {
     _bgmPlayer.setVolume(bgmVolume.value);
@@ -301,33 +301,3 @@ class SoundManager {
   void correct() => playSfx('sound/true.aac');
   void wrong() => playSfx('sound/false.mp3');
 }
-// bool _isDragLooping = false;
-
-// Future<void> startDrag() async {
-//   if (_isDragLooping) return;
-
-//   _isDragLooping = true;
-
-//   try {
-//     await _dragPlayer.stop();
-
-//     await _dragPlayer.setReleaseMode(ReleaseMode.loop); // 🔥 looping
-//     await _dragPlayer.setVolume(sfxVolume.value);
-
-//     await _dragPlayer.play(AssetSource('sound/drag.mp3'));
-//   } catch (e) {
-//     debugPrint("DRAG START ERROR: $e");
-//   }
-// }
-
-// Future<void> stopDrag() async {
-//   if (!_isDragLooping) return;
-
-//   try {
-//     await _dragPlayer.stop();
-//   } catch (e) {
-//     debugPrint("DRAG STOP ERROR: $e");
-//   }
-
-//   _isDragLooping = false;
-// }

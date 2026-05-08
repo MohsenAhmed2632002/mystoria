@@ -122,7 +122,7 @@ class _LevelTwoLibraryPuzzleState extends State<LevelTwoLibraryPuzzle>
       onAccept: (data) {
         setState(() {
           SoundManager.instance.playDrag();
-
+          SoundManager.instance.click();
           userOrder[index] = data;
         });
         _checkResult();
@@ -164,6 +164,7 @@ class _LevelTwoLibraryPuzzleState extends State<LevelTwoLibraryPuzzle>
 
     if (isCorrect) {
       userOrder.clear();
+        SoundManager.instance.click();
 
       SoundManager.instance.correct();
       Navigator.push(
@@ -184,8 +185,7 @@ class _LevelTwoLibraryPuzzleState extends State<LevelTwoLibraryPuzzle>
     } else {
       SoundManager.instance.wrong();
       userOrder.clear();
-
-      userOrder.clear();
+        SoundManager.instance.click();
       setState(() {});
       Navigator.push(
         context,

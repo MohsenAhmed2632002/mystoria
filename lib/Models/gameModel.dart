@@ -29,7 +29,6 @@ class GameModel {
     );
   }
 
-
   GameModel copyWith({
     int? stars,
     int? hints,

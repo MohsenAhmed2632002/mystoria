@@ -10,9 +10,8 @@ import 'package:mystoria/cubit/Gamecubit/game_state.dart';
 
 class GameCubit extends Cubit<GamePlaying> {
   GameCubit({required this.levels}) : super(GamePlaying(GameModel.initial())) {
-    _loadInitialStars();
+    _loadInitialData();
   }
-
   final List<LevelModel> levels;
   Timer? _timer;
 
@@ -43,13 +42,11 @@ class GameCubit extends Cubit<GamePlaying> {
   }
 
   void startLevel(int levelIndex, BuildContext context) {
-    emit(
-      GamePlaying(
-        GameModel.initial().copyWith(
-          currentLevel: levelIndex,
-          stars: game.stars,
-        ),
-      ),
+    GameModel.initial().copyWith(
+      currentLevel: levelIndex,
+      stars: game.stars,
+      attempts: game.attempts,
+      hints: game.hints,
     );
 
     startTimer(context);
@@ -144,6 +141,8 @@ class GameCubit extends Cubit<GamePlaying> {
     if (isLastQuestion) {
       // ✅ 4. النجوم محسوبة بالفعل بشكل صحيح ولا تتجاوز الحد
       await PlayerStorage.saveStars(newStars);
+      await PlayerStorage.saveAttempts(newAttempts);
+      await PlayerStorage.saveHints(newHints);
 
       // ✅ 5. تحديث النجوم المخزنة للقادم
       emit(GamePlaying(game.copyWith(stars: newStars)));
@@ -233,8 +232,19 @@ class GameCubit extends Cubit<GamePlaying> {
     Navigator.pushReplacementNamed(context, Routes.homeScreen);
   }
 
-  Future<void> _loadInitialStars() async {
+  Future<void> _loadInitialData() async {
     final savedStars = await PlayerStorage.loadStars();
-    emit(GamePlaying(state.theGame.copyWith(stars: savedStars)));
+    final savedAttempts = await PlayerStorage.loadAttempts();
+    final savedHints = await PlayerStorage.loadHints();
+
+    emit(
+      GamePlaying(
+        state.theGame.copyWith(
+          stars: savedStars,
+          attempts: savedAttempts,
+          hints: savedHints,
+        ),
+      ),
+    );
   }
 }

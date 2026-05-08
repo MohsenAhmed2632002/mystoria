@@ -120,6 +120,7 @@ class _LevelTwoPuzzeleFourState extends State<LevelTwoPuzzeleFour> {
   void _checkResult(String selectedImage) async {
     if (selectedImage == widget.question.correctAnswer) {
       SoundManager.instance.correct();
+      SoundManager.instance.click();
 
       Navigator.push(
         context,
@@ -137,6 +138,8 @@ class _LevelTwoPuzzeleFourState extends State<LevelTwoPuzzeleFour> {
         ),
       );
     } else {
+      SoundManager.instance.click();
+
       SoundManager.instance.wrong();
       Navigator.push(
         context,

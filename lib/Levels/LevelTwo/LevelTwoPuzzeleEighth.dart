@@ -164,6 +164,7 @@ class _LevelTwoPuzzeleElevenState extends State<LevelTwoPuzzeleEleven>
 
     if (isCorrect) {
       userOrder.clear();
+        SoundManager.instance.click();
 
       SoundManager.instance.correct();
       Navigator.push(
@@ -183,7 +184,7 @@ class _LevelTwoPuzzeleElevenState extends State<LevelTwoPuzzeleEleven>
       );
     } else {
       userOrder.clear();
-
+        SoundManager.instance.click();
       SoundManager.instance.wrong();
 
       userOrder.clear();

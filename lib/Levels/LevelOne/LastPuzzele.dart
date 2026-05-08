@@ -66,6 +66,7 @@ class _TheDoorQuestionState extends State<TheDoorQuestion> {
     
     if (theAnwser == widget.question.correctAnswer) {
       SoundManager.instance.correct();
+        SoundManager.instance.click();
 
       Navigator.push(
         context,
@@ -84,6 +85,7 @@ class _TheDoorQuestionState extends State<TheDoorQuestion> {
       );
     } else {
       SoundManager.instance.wrong();
+        SoundManager.instance.click();
 
       Navigator.push(
         context,

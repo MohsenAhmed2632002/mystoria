@@ -67,7 +67,7 @@ class _GameScreenState extends State<GameScreen> with WidgetsBindingObserver {
 
   Widget build(BuildContext context) {
     return WillPopScope(
-      onWillPop: ()async {
+      onWillPop: () async {
         SoundManager.instance.stopBgm(); // 🔇
         return true;
       },
@@ -503,13 +503,27 @@ class CharacterAndClueContainer extends StatelessWidget {
             borderRadius: BorderRadius.circular(30),
           ),
           child: Center(
-            child: Text(
-              "للاسف لا يوجد ملاحظات لديك",
-              style: getRegulerTextStyle(
-                context: context,
-                color: Colors.black,
-                fontSize: 40.sp,
-              ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  "للاسف لا يوجد ملاحظات لديك",
+                  style: getRegulerTextStyle(
+                    context: context,
+                    color: Colors.black,
+                    fontSize: 40.sp,
+                  ),
+                ),
+                GameButtonTwo(
+                  text: "رجوع",
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  fromHeight: 100,
+                  fromWidth: 300,
+                  fontSize: 30,
+                ),
+              ],
             ),
           ),
         ),
@@ -892,7 +906,8 @@ class AnswerResultDialog extends StatelessWidget {
                   ),
                   SizedBox(width: 25.w),
                   GestureDetector(
-                    onTap: () {},
+                    onTap: () {        SoundManager.instance.click();
+},
                     child: Image.asset(
                       AppImages.next1,
                       width: 200.w,

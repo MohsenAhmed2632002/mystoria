@@ -83,6 +83,7 @@ class _LevelTwoPuzzeleBoatState extends State<LevelTwoPuzzeleBoat>
     return DragTarget<String>(
       onAccept: (data) {
         SoundManager.instance.playDrag();
+        SoundManager.instance.click();
 
         setState(() {
           userOrder[index] = data;

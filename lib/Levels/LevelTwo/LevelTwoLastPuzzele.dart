@@ -165,6 +165,7 @@ class _LevelTwoBordersPuzzleState extends State<LevelTwoBordersPuzzle>
     if (isCorrect) {
       SoundManager.instance.correct();
       userOrder.clear();
+        SoundManager.instance.click();
 
       Navigator.push(
         context,
@@ -183,6 +184,7 @@ class _LevelTwoBordersPuzzleState extends State<LevelTwoBordersPuzzle>
       );
     } else {
       SoundManager.instance.wrong();
+      SoundManager.instance.click();
 
       userOrder.clear();
       setState(() {});

@@ -72,6 +72,8 @@ class _LevelTwoPuzzeleFiveState extends State<LevelTwoPuzzeleFive> {
                 // ✅ الإجابة الصحيحة
                 if (option == widget.question.correctAnswer) {
                   SoundManager.instance.correct();
+                          SoundManager.instance.click();
+
                   Navigator.push(
                     context,
                     MaterialPageRoute(
@@ -90,6 +92,8 @@ class _LevelTwoPuzzeleFiveState extends State<LevelTwoPuzzeleFive> {
                     ),
                   );
                 } else {
+                          SoundManager.instance.click();
+
                   SoundManager.instance.wrong();
                   Navigator.push(
                     context,
